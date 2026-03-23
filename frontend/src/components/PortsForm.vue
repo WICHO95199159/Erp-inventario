@@ -33,7 +33,7 @@
 
         <div class="field">
           <label>DISPOSITIVO</label>
-          <input class="forminput" v-model="form.dispositivo" />
+          <input class="forminput" v-model="form.device" />
         </div>
         
         <div class="field">
@@ -53,7 +53,7 @@
 
         <div class="field">
           <label>UBICACIÓN NODO</label>
-          <input class="forminput" v-model="form.description" />
+          <input class="forminput" v-model="form.location_node" />
         </div>
 
       </div>
