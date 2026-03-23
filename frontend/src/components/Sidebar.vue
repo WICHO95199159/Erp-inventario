@@ -3,8 +3,35 @@
     <h2 class="logo">📊 Inventario</h2>
 
     <nav>
-      <router-link to="/" class="link">🏠 Dashboard</router-link>
-      <router-link to="/nodos" class="link">🔌 Nodos</router-link>
+      <router-link to="/" class="link">
+        <span class="icon">🏠</span>
+        <span>Dashboard</span>
+      </router-link>
+
+      <router-link to="/nodos" class="link">
+        <span class="icon">🔌</span>
+        <span>Nodos</span>
+      </router-link>
+
+      <router-link to="/computo" class="link">
+        <span class="icon">💻</span>
+        <span>Cómputo</span>
+      </router-link>
+
+      <router-link to="/video" class="link">
+        <span class="icon">📺</span>
+        <span>Video</span>
+      </router-link>
+
+      <router-link to="/audio" class="link">
+        <span class="icon">🔊</span>
+        <span>Audio</span>
+      </router-link>
+
+      <router-link to="/herramienta" class="link">
+        <span class="icon">🧰</span>
+        <span>Herramienta</span>
+      </router-link>
     </nav>
   </div>
 </template>
