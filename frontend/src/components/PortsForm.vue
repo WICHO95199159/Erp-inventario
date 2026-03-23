@@ -52,7 +52,7 @@
         </div>
 
         <div class="field">
-          <label>DESCRIPCIÓN</label>
+          <label>UBICACIÓN NODO</label>
           <input class="forminput" v-model="form.description" />
         </div>
 
@@ -123,7 +123,7 @@ export default {
 .form-container {
   width: 100%;
   max-width: 1100px; /* 👈 evita que se expanda demasiado */
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 /* 🔥 GRID DE INPUTS */

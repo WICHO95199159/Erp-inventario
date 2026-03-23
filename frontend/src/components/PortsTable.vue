@@ -110,6 +110,11 @@ export default {
 </script>
 
 <style>
+body {
+  background: #020617; /* más oscuro que antes */
+  color: #e2e8f0;
+}
+
 .container {
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -146,7 +151,7 @@ thead {
 th {
   padding: 10px;
   cursor: pointer;
-  text-align: center;
+  text-align: left;
 }
 
 td {
@@ -155,7 +160,7 @@ td {
 }
 
 tr:hover {
-  background-color: #34495e;
+  background-color: #4279af;
 }
 
 button {
@@ -164,10 +169,12 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 button:hover {
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 button:first-child {

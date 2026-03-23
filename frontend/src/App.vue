@@ -1,29 +1,27 @@
 <template>
-  <PortsForm :editData="selected" @saved="reload" />
-  <PortsTable @edit="editRow" ref="table" />
+  <div class="layout">
+    <Sidebar />
+    <div class="content">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
-import PortsTable from "./components/PortsTable.vue";
-import PortsForm from "./components/PortsForm.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 export default {
-  components: { PortsTable, PortsForm },
-
-  data() {
-    return {
-      selected: null
-    };
-  },
-
-  methods: {
-    editRow(row) {
-      this.selected = row;
-    },
-
-    reload() {
-      this.$refs.table.load();
-    }
-  }
+  components: { Sidebar }
 };
 </script>
+
+<style>
+.layout {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+</style>
