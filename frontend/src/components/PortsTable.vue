@@ -11,6 +11,7 @@
       <table>
         <thead>
           <tr>
+            <th @click="sort('id')">ID</th>
             <th @click="sort('location')">UBICACIÓN</th>
             <th @click="sort('rack')">RACK</th>
             <th @click="sort('dispositivo')">DISPOSITIVO</th>
@@ -24,6 +25,7 @@
 
         <tbody>
           <tr v-for="row in filteredData" :key="row.id">
+            <td>{{ row.id }}</td>
             <td>{{ row.location }}</td>
             <td>{{ row.rack }}</td>
             <td>{{ row.dispositivo }}</td>

@@ -16,39 +16,44 @@
       <!-- 🔥 GRID DE INPUTS -->
       <div class="form-grid">
 
+        <!-- <div class="field">
+          <label>ID</label>
+          <input class="id" v-model="form.id" disabled />
+        </div> -->
+
         <div class="field">
           <label>UBICACIÓN</label>
-          <input v-model="form.location" />
+          <input class="forminput" v-model="form.location" />
         </div>
 
         <div class="field">
           <label>RACK</label>
-          <input v-model="form.rack" />
+          <input class="forminput" v-model="form.rack" />
         </div>
 
         <div class="field">
           <label>DISPOSITIVO</label>
-          <input v-model="form.dispositivo" />
+          <input class="forminput" v-model="form.dispositivo" />
         </div>
-
+        
         <div class="field">
           <label>PUERTO</label>
-          <input v-model="form.port_number" />
+          <input class="forminput" v-model="form.port_number" />
         </div>
 
         <div class="field">
           <label>PATCH PANEL</label>
-          <input v-model="form.patchpanel" />
+          <input class="forminput" v-model="form.patchpanel" />
         </div>
 
         <div class="field">
           <label>PUERTO PP</label>
-          <input v-model="form.port_number_pp" />
+          <input class="forminput" v-model="form.port_number_pp" />
         </div>
 
         <div class="field">
           <label>DESCRIPCIÓN</label>
-          <input v-model="form.description" />
+          <input class="forminput" v-model="form.description" />
         </div>
 
       </div>
@@ -130,10 +135,11 @@ export default {
 }
 
 /* Inputs */
-.form-grid input {
+.forminput {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #555;
+  width: 135px;
 }
 
 /* 🔥 BOTONES */
