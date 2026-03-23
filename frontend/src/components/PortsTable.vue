@@ -14,11 +14,11 @@
             <th @click="sort('id')">ID</th>
             <th @click="sort('location')">UBICACIÓN</th>
             <th @click="sort('rack')">RACK</th>
-            <th @click="sort('dispositivo')">DISPOSITIVO</th>
+            <th @click="sort('device')">DISPOSITIVO</th>
             <th @click="sort('port_number')">PUERTO</th>
             <th @click="sort('patchpanel')">PATCH PANEL</th>
             <th @click="sort('port_number_pp')">PUERTO PP</th>
-            <th @click="sort('description')">UBICACIÓN NODO</th>
+            <th @click="sort('location_node')">UBICACIÓN NODO</th>
             <th>ACCIONES</th>
           </tr>
         </thead>
@@ -28,11 +28,11 @@
             <td>{{ row.id }}</td>
             <td>{{ row.location }}</td>
             <td>{{ row.rack }}</td>
-            <td>{{ row.dispositivo }}</td>
+            <td>{{ row.device }}</td>
             <td>{{ row.port_number }}</td>
             <td>{{ row.patchpanel }}</td>
             <td>{{ row.port_number_pp }}</td>
-            <td>{{ row.description }}</td>
+            <td>{{ row.location_node }}</td>
             <td>
               <button @click="$emit('edit', row)">Editar</button>
               <button @click="deleteRow(row.id)">Eliminar</button>
