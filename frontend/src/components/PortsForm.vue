@@ -6,7 +6,7 @@
       <!-- 🔥 TÍTULO DINÁMICO -->
       <div class="form-title">
         <span v-if="form.id">
-          ✏️ Editando: {{ form.location }} - {{ form.dispositivo }} - Puerto {{ form.port_number }}
+          ✏️ Editando registro ... 
         </span>
         <span v-else>
           ➕ Nuevo registro
