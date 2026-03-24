@@ -49,9 +49,10 @@ import api from "../services/api";
 export default {
   data() {
     return {
-      ports: [],
       search: "",
-      sortKey: ""
+      ports: [],
+      sortKey: "",
+      sortAsc: true // 🔥 NUEVO
     };
   },
 
@@ -64,13 +65,15 @@ export default {
           )
         )
         .sort((a, b) => {
-        if (!this.sortKey) return 0;
+          if (!this.sortKey) return 0;
 
-        return String(a[this.sortKey] ?? "")
+          const result = String(a[this.sortKey] ?? "")
             .localeCompare(String(b[this.sortKey] ?? ""), undefined, {
-            numeric: true,
-            sensitivity: "base"
+              numeric: true,
+              sensitivity: "base"
             });
+
+          return this.sortAsc ? result : -result;
         });
     }
   },
@@ -82,7 +85,12 @@ export default {
     },
 
     sort(key) {
-      this.sortKey = key;
+      if (this.sortKey === key) {
+        this.sortAsc = !this.sortAsc; // 🔥 invierte
+      } else {
+        this.sortKey = key;
+        this.sortAsc = true; // 🔥 reset a asc
+      }
     },
 
     async deleteRow(id) {
