@@ -3,7 +3,7 @@
 
     <h3 v-if="form.id">✏️ Editando impresora ...</h3>
     <h3 v-else>➕ Nueva impresora</h3>
-
+    <hr>
     <div class="form-grid">
 
       <div class="field">

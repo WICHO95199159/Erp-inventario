@@ -1,60 +1,64 @@
 <template>
+  <div>
 
-  <div class="table-container">
-     <!-- 🔍 BUSCADOR -->
+    <!-- 🔍 BUSCADOR FUERA -->
     <input
       v-model="search"
       placeholder="Buscar..."
       class="search"
     />
 
-    <table>
-      <thead>
-        <tr>
-          <th>ACCIONES</th>
+    <!-- 📊 CONTENEDOR SOLO PARA TABLA -->
+    <div class="table-container">
 
-          <th @click="sort('nodo')">NODO</th>
-          <th @click="sort('nombre')">NOMBRE</th>
-          <th @click="sort('marca')">MARCA</th>
-          <th @click="sort('modelo')">MODELO</th>
-          <th @click="sort('no_serie')">NO. DE SERIE</th>
-          <th @click="sort('mac')">MAC</th>
-          <th @click="sort('procesador')">PROCESADOR</th>
-          <th @click="sort('tipo_almacenamiento')">ALMACENAMIENTO</th>
-          <th @click="sort('almacenamiento')">ALMACENAMIENTO (GB)</th>
-          <th @click="sort('ram')">RAM</th>
-          <th @click="sort('sistema_operativo')">SISTEMA OPERATIVO</th>
-        </tr>
-      </thead>
+      <table>
+        <thead>
+          <tr>
+            <th>ACCIONES</th>
 
-      <tbody>
-        <tr v-for="row in filteredData" :key="row.id">
+            <th @click="sort('nodo')">NODO</th>
+            <th @click="sort('nombre')">NOMBRE</th>
+            <th @click="sort('marca')">MARCA</th>
+            <th @click="sort('modelo')">MODELO</th>
+            <th @click="sort('no_serie')">NO. DE SERIE</th>
+            <th @click="sort('mac')">MAC</th>
+            <th @click="sort('procesador')">PROCESADOR</th>
+            <th @click="sort('tipo_almacenamiento')">ALMACENAMIENTO</th>
+            <th @click="sort('almacenamiento')">ALMACENAMIENTO (GB)</th>
+            <th @click="sort('ram')">RAM</th>
+            <th @click="sort('sistema_operativo')">SISTEMA OPERATIVO</th>
+          </tr>
+        </thead>
 
-          <td>
-            <button @click="$emit('edit', row)" class="btn-edit">
-              Editar
-            </button>
-            <button @click="$emit('delete', row.id)" class="btn-delete">
-              Eliminar
-            </button>
-          </td>
+        <tbody>
+          <tr v-for="row in filteredData" :key="row.id">
 
-          <td>{{ row.nodo }}</td>
-          <td>{{ row.nombre }}</td>
-          <td>{{ row.marca }}</td>
-          <td>{{ row.modelo }}</td>
-          <td>{{ row.no_serie }}</td>
-          <td>{{ row.mac }}</td>
-          <td>{{ row.procesador }}</td>
-          <td>{{ row.tipo_almacenamiento }}</td>
-          <td>{{ row.almacenamiento }}</td>
-          <td>{{ row.ram }}</td>
-          <td>{{ row.sistema_operativo }}</td>
+            <td>
+              <button @click="$emit('edit', row)" class="btn-edit">
+                Editar
+              </button>
+              <button @click="$emit('delete', row.id)" class="btn-delete">
+                Eliminar
+              </button>
+            </td>
 
-        </tr>
-      </tbody>
-    </table>
+            <td>{{ row.nodo }}</td>
+            <td>{{ row.nombre }}</td>
+            <td>{{ row.marca }}</td>
+            <td>{{ row.modelo }}</td>
+            <td>{{ row.no_serie }}</td>
+            <td>{{ row.mac }}</td>
+            <td>{{ row.procesador }}</td>
+            <td>{{ row.tipo_almacenamiento }}</td>
+            <td>{{ row.almacenamiento }}</td>
+            <td>{{ row.ram }}</td>
+            <td>{{ row.sistema_operativo }}</td>
 
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </div>
 </template>
 
@@ -80,6 +84,7 @@ export default {
       }
     }
   },
+  
 
   computed: {
     filteredData() {
