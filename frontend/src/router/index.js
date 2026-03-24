@@ -46,12 +46,12 @@ const routes = [
   },
   {
     path: "/impresora",
-    name: "Herramienta",
+    name: "Impresora",
     component: Impresora
   },
   {
     path: "/access",
-    name: "accessPoint",
+    name: "AccessPoint",
     component: AccessPoint
   },
   {
