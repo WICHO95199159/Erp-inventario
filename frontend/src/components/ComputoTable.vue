@@ -1,13 +1,12 @@
 <template>
 
-  <!-- 🔍 BUSCADOR -->
+  <div class="table-container">
+     <!-- 🔍 BUSCADOR -->
     <input
       v-model="search"
       placeholder="Buscar..."
       class="search"
     />
-
-  <div class="table-container">
 
     <table>
       <thead>

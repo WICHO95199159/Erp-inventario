@@ -111,7 +111,7 @@ export default {
 
   beforeUnmount() {
     clearInterval(this.interval);
-  }
+  },
 };
 </script>
 

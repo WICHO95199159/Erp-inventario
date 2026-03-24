@@ -79,6 +79,10 @@ export default {
     }
   },
 
+  beforeUnmount() {
+    clearInterval(this.interval);
+  },
+
   computed: {
     filteredData() {
       let result = this.data || [];
