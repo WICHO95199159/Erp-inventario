@@ -6,6 +6,12 @@
       ✏️ Editando equipo de cómputo ...
     </div>
 
+    <div v-else class="new-title">
+      ➕ Nuevo registro
+    </div>
+
+    <hr>
+
     <!-- 🔥 GRID -->
     <div class="form-grid">
 

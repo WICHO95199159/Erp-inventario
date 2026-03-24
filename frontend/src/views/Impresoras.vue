@@ -1,3 +1,24 @@
+
+<template>
+  <div>
+
+    <!-- 🔥 FORM -->
+    <ImpresorasForm
+      :key="selected ? selected.id : 'new'"
+      :editData="selected"
+      @saved="save"
+    />
+
+    <!-- 🔥 TABLE -->
+    <ImpresorasTable
+      :data="impresoras"
+      @edit="edit"
+      @delete="deleteRow"
+    />
+
+  </div>
+</template>
+
 <script>
 import ImpresorasForm from "../components/ImpresorasForm.vue";
 import ImpresorasTable from "../components/ImpresorasTable.vue";
@@ -56,27 +77,15 @@ export default {
 
   mounted() {
     this.load();
+
+    this.interval = setInterval(() => {
+      this.load();
+    }, 5000);
+  },
+
+  beforeUnmount() {
+    clearInterval(this.interval);
   }
 };
 </script>
 
-
-<template>
-  <div>
-
-    <!-- 🔥 FORM -->
-    <ImpresorasForm
-      :key="selected ? selected.id : 'new'"
-      :editData="selected"
-      @saved="save"
-    />
-
-    <!-- 🔥 TABLE -->
-    <ImpresorasTable
-      :data="impresoras"
-      @edit="edit"
-      @delete="deleteRow"
-    />
-
-  </div>
-</template>

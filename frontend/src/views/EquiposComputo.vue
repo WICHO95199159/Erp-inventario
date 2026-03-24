@@ -72,6 +72,14 @@ export default {
 
   mounted() {
     this.load();
+
+    this.interval = setInterval(() => {
+      this.load();
+    }, 5000);
+  },
+
+  beforeUnmount() {
+    clearInterval(this.interval);
   }
 };
 </script>
