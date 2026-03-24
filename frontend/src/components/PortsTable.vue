@@ -11,7 +11,6 @@
       <table>
         <thead>
           <tr>
-            <th @click="sort('id')">ID</th>
             <th @click="sort('location')">UBICACIÓN</th>
             <th @click="sort('rack')">RACK</th>
             <th @click="sort('device')">DISPOSITIVO</th>
@@ -25,7 +24,6 @@
 
         <tbody>
           <tr v-for="row in filteredData" :key="row.id">
-            <td>{{ row.id }}</td>
             <td>{{ row.location }}</td>
             <td>{{ row.rack }}</td>
             <td>{{ row.device }}</td>
@@ -116,7 +114,7 @@ body {
 }
 
 .container {
-  padding: 20px;
+  padding: 0px;
   font-family: Arial, sans-serif;
 }
 
@@ -129,7 +127,7 @@ body {
 }
 
 .table-container {
-  max-height: 700px;
+  max-height: 400px;
   overflow-y: auto;
   border: 1px solid #ddd;
   border-radius: 8px;

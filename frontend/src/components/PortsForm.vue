@@ -116,7 +116,6 @@ export default {
 .form-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
 }
 
 /* 🔥 CAJA DEL FORM */
