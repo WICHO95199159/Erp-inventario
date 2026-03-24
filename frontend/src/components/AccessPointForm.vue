@@ -6,7 +6,7 @@
       <span v-if="form.id">✏️ Editando access point...</span>
       <span v-else>➕ Nuevo access point</span>
     </div>
-
+    <hr>
     <!-- 📦 GRID -->
     <div class="form-grid">
 
@@ -129,7 +129,7 @@ export default {
 
 <style scoped>
 .form-container {
-  padding: 10px 0;
+  padding: 0px 0;
 }
 
 /* 🧠 TÍTULO */
