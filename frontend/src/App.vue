@@ -16,6 +16,12 @@ export default {
 </script>
 
 <style>
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .layout {
   display: flex;
 }
@@ -23,5 +29,6 @@ export default {
 .content {
   flex: 1;
   padding: 20px;
+  max-height: 500px;
 }
 </style>
