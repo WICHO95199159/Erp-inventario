@@ -19,7 +19,7 @@
       </router-link>
 
       <router-link to="/impresora" class="link">
-        <span class="icon">💻</span>
+        <span class="icon">🖨️</span>
         <span>Impresoras</span>
       </router-link>
 

@@ -1,22 +1,14 @@
 <template>
   <div class="form-container">
 
-    <!-- 🔥 TÍTULO DINÁMICO -->
-    <div v-if="form.id" class="edit-title">
-      ✏️ Editando equipo de cómputo ...
-    </div>
+    <h3 v-if="form.id">✏️ Editando impresora ...</h3>
+    <h3 v-else>➕ Nueva impresora</h3>
 
-    <!-- 🔥 GRID -->
     <div class="form-grid">
 
       <div class="field">
-        <label>NODO</label>
-        <input v-model="form.nodo" />
-      </div>
-
-      <div class="field">
-        <label>NOMBRE</label>
-        <input v-model="form.nombre" />
+        <label>UBICACIÓN</label>
+        <input v-model="form.ubicacion" />
       </div>
 
       <div class="field">
@@ -35,45 +27,40 @@
       </div>
 
       <div class="field">
-        <label>MAC</label>
-        <input v-model="form.mac" />
+        <label>CONEXIÓN</label>
+        <input v-model="form.conexion" />
       </div>
 
       <div class="field">
-        <label>PROCESADOR</label>
-        <input v-model="form.procesador" />
+        <label>TIPO</label>
+        <input v-model="form.tipo" />
       </div>
 
       <div class="field">
-        <label>ALMACENAMIENTO</label>
-        <input v-model="form.tipo_almacenamiento" />
+        <label>CONSUMIBLE</label>
+        <input v-model="form.consumible" />
       </div>
 
       <div class="field">
-        <label>ALMACENAMIENTO (GB)</label>
-        <input v-model="form.almacenamiento" />
+        <label>IP / NOMBRE</label>
+        <input v-model="form.ip_nombre" />
       </div>
 
       <div class="field">
-        <label>RAM</label>
-        <input v-model="form.ram" />
-      </div>
-
-      <div class="field">
-        <label>SISTEMA OPERATIVO</label>
-        <input v-model="form.sistema_operativo" />
+        <label>FECHA</label>
+        <input v-model="form.fecha" type="date" />
       </div>
 
     </div>
 
-    <!-- 🔥 BOTONES -->
-    <div class="actions">
+    <div class="buttons">
       <button class="btn-save" @click="save">Guardar</button>
       <button class="btn-cancel" @click="cancel">Cancelar</button>
     </div>
 
   </div>
 </template>
+
 
 <script>
 export default {
@@ -90,7 +77,10 @@ export default {
       immediate: true,
       handler(val) {
         if (val) {
-          this.form = { ...val };
+          this.form = {
+            ...val,
+            fecha: val.fecha ? val.fecha.split("T")[0] : ""
+          };
         } else {
           this.form = this.getEmptyForm();
         }
@@ -101,17 +91,15 @@ export default {
   methods: {
     getEmptyForm() {
       return {
-        nodo: "",
-        nombre: "",
+        ubicacion: "",
         marca: "",
         modelo: "",
         no_serie: "",
-        mac: "",
-        procesador: "",
-        tipo_almacenamiento: "",
-        almacenamiento: "",
-        ram: "",
-        sistema_operativo: ""
+        conexion: "",
+        tipo: "",
+        consumible: "",
+        ip_nombre: "",
+        fecha: ""
       };
     },
 
@@ -122,51 +110,52 @@ export default {
 
     cancel() {
       this.form = this.getEmptyForm();
-      this.$emit("saved", null); // 🔥 indica cancelar
+      this.$emit("saved", null);
     }
   }
 };
 </script>
+
 
 <style scoped>
 .form-container {
   margin-bottom: 20px;
 }
 
-.edit-title {
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #60a5fa;
-}
-
+/* 🔥 GRID RESPONSIVE */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
 }
 
+/* 🔥 CAMPO */
 .field {
   display: flex;
   flex-direction: column;
 }
 
-.field label {
+/* 🔥 LABEL */
+label {
   font-size: 12px;
   margin-bottom: 4px;
-  color: #cbd5e1;
+  color: #cbd5f5; /* tono claro tipo tu UI */
+  font-weight: 600;
 }
 
-.field input {
+/* 🔥 INPUT */
+input {
   padding: 8px;
   border-radius: 6px;
-  border: none;
+  border: 1px solid #ccc;
 }
 
-.actions {
+/* 🔥 BOTONES */
+.buttons {
   margin-top: 15px;
   display: flex;
-  gap: 10px;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 .btn-save {
@@ -174,6 +163,7 @@ export default {
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
+  border: none;
 }
 
 .btn-cancel {
@@ -181,5 +171,6 @@ export default {
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
+  border: none;
 }
 </style>
