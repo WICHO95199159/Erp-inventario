@@ -18,6 +18,16 @@
         <span>Cómputo</span>
       </router-link>
 
+      <router-link to="/impresora" class="link">
+        <span class="icon">💻</span>
+        <span>Impresoras</span>
+      </router-link>
+
+      <router-link to="/access" class="link">
+        <span class="icon">💻</span>
+        <span>Access point</span>
+      </router-link>
+
       <router-link to="/video" class="link">
         <span class="icon">📺</span>
         <span>Video</span>

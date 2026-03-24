@@ -9,6 +9,8 @@ import EquiposComputo from "../views/EquiposComputo.vue";
 import EquiposVideo from "../views/EquiposVideo.vue";
 import EquiposAudio from "../views/EquiposAudio.vue";
 import Herramienta from "../views/Herramienta.vue";
+import Impresora from "../views/Impresoras.vue";
+import AccessPoint from "../views/AccessPoint.vue";
 
 // 🚀 Definición de rutas
 const routes = [
@@ -41,6 +43,16 @@ const routes = [
     path: "/herramienta",
     name: "Herramienta",
     component: Herramienta
+  },
+  {
+    path: "/impresora",
+    name: "Herramienta",
+    component: Impresora
+  },
+  {
+    path: "/access",
+    name: "accessPoint",
+    component: AccessPoint
   },
   {
     path: "/:pathMatch(.*)*",
