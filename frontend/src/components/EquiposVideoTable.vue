@@ -5,6 +5,7 @@
         <tr>
           <th>ACCIONES</th>
           <th @click="sort('ubicacion')">UBICACIÓN</th>
+          <th @click="sort('tipo')">TIPO</th>
           <th @click="sort('marca')">MARCA</th>
           <th @click="sort('modelo')">MODELO</th>
           <th @click="sort('no_serie')">NO. DE SERIE</th>
@@ -20,6 +21,7 @@
           </td>
 
           <td>{{ row.ubicacion }}</td>
+          <td>{{ row.tipo }}</td>
           <td>{{ row.marca }}</td>
           <td>{{ row.modelo }}</td>
           <td>{{ row.no_serie }}</td>
