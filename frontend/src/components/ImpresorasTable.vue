@@ -12,6 +12,7 @@
       <table>
         <thead>
           <tr>
+            <th>ACCIONES</th>
             <th @click="sort('ubicacion')">UBICACIÓN</th>
             <th @click="sort('marca')">MARCA</th>
             <th @click="sort('modelo')">MODELO</th>
@@ -21,22 +22,11 @@
             <th @click="sort('consumible')">CONSUMIBLE</th>
             <th @click="sort('ip_nombre')">IP / NOMBRE</th>
             <th @click="sort('fecha')">FECHA</th>
-            <th>ACCIONES</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="row in filteredData" :key="row.id">
-
-            <td>{{ row.ubicacion }}</td>
-            <td>{{ row.marca }}</td>
-            <td>{{ row.modelo }}</td>
-            <td>{{ row.no_serie }}</td>
-            <td>{{ row.conexion }}</td>
-            <td>{{ row.tipo }}</td>
-            <td>{{ row.consumible }}</td>
-            <td>{{ row.ip_nombre }}</td>
-            <td>{{ row.fecha ? row.fecha.split('T')[0] : '' }}</td>
 
             <td>
               <button class="btn-edit" @click="$emit('edit', row)">
@@ -46,6 +36,16 @@
                 Eliminar
               </button>
             </td>
+            
+            <td>{{ row.ubicacion }}</td>
+            <td>{{ row.marca }}</td>
+            <td>{{ row.modelo }}</td>
+            <td>{{ row.no_serie }}</td>
+            <td>{{ row.conexion }}</td>
+            <td>{{ row.tipo }}</td>
+            <td>{{ row.consumible }}</td>
+            <td>{{ row.ip_nombre }}</td>
+            <td>{{ row.fecha ? row.fecha.split('T')[0] : '' }}</td>
 
           </tr>
         </tbody>
