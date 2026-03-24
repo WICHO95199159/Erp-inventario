@@ -11,6 +11,11 @@
       </div>
 
       <div class="field">
+        <label>TIPO</label>
+        <input v-model="form.tipo" />
+      </div>
+
+      <div class="field">
         <label>MARCA</label>
         <input v-model="form.marca" />
       </div>
@@ -48,6 +53,7 @@ export default {
     return {
       form: {
         ubicacion: "",
+        tipo: "",
         marca: "",
         modelo: "",
         no_serie: "",
@@ -90,6 +96,7 @@ export default {
     resetForm() {
       this.form = {
         ubicacion: "",
+        tipo: "",
         marca: "",
         modelo: "",
         no_serie: "",
