@@ -26,7 +26,9 @@
           <tr v-for="row in filteredData" :key="row.id">
             <td>
               <button @click="$emit('edit', row)">Editar</button>
-              <button @click="deleteRow(row.id)">Eliminar</button>
+              <button @click="confirmDelete(row)" class="btn-delete">
+                Eliminar
+              </button>
             </td>
             <td>{{ row.location }}</td>
             <td>{{ row.rack }}</td>
@@ -90,6 +92,16 @@ export default {
       } else {
         this.sortKey = key;
         this.sortAsc = true; // 🔥 reset a asc
+      }
+    },
+
+    confirmDelete(row) {
+      const nombre = row.dispositivo || row.ubicacion || "el nodo";
+
+      const ok = confirm(`¿Seguro que quieres eliminar ${nombre}?`);
+
+      if (ok) {
+        this.$emit("delete", row.id);
       }
     },
 

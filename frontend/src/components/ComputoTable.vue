@@ -37,7 +37,7 @@
               <button @click="$emit('edit', row)" class="btn-edit">
                 Editar
               </button>
-              <button @click="$emit('delete', row.id)" class="btn-delete">
+              <button @click="confirmDelete(row.id)" class="btn-delete">
                 Eliminar
               </button>
             </td>
@@ -77,15 +77,22 @@ export default {
   methods: {
     sort(key) {
       if (this.sortKey === key) {
-        this.sortAsc = !this.sortAsc; // 🔄 cambia orden
+        this.sortAsc = !this.sortAsc;
       } else {
         this.sortKey = key;
         this.sortAsc = true;
       }
+    },
+
+    confirmDelete(id) {
+      const ok = confirm("¿Seguro que quieres eliminar este equipo?");
+
+      if (ok) {
+        this.$emit("delete", id);
+      }
     }
   },
   
-
   computed: {
     filteredData() {
       let result = this.data;

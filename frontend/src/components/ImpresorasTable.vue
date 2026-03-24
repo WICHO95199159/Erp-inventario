@@ -32,7 +32,7 @@
               <button class="btn-edit" @click="$emit('edit', row)">
                 Editar
               </button>
-              <button class="btn-delete" @click="$emit('delete', row.id)">
+              <button @click="confirmDelete(row)" class="btn-delete">
                 Eliminar
               </button>
             </td>
@@ -75,6 +75,16 @@ export default {
       } else {
         this.sortKey = key;
         this.sortAsc = true;
+      }
+    },
+
+    confirmDelete(row) {
+      const nombre = row.marca || row.modelo || row.ubicacion || "la impresora";
+
+      const ok = confirm(`¿Seguro que quieres eliminar ${nombre}?`);
+
+      if (ok) {
+        this.$emit("delete", row.id);
       }
     }
   },
