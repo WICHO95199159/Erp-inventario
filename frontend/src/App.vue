@@ -19,7 +19,7 @@ export default {
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  overflow: auto; /* ✅ permite scroll */
 }
 
 .layout {
@@ -29,6 +29,7 @@ html, body {
 .content {
   flex: 1;
   padding: 20px;
-  max-height: 500px;
+  overflow: auto; /* ✅ scroll interno si crece */
 }
+
 </style>

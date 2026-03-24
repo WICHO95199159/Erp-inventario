@@ -115,7 +115,7 @@ export default {
 /* 🔥 CONTENEDOR GENERAL (centra todo) */
 .form-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: center;  
 }
 
 /* 🔥 CAJA DEL FORM */
