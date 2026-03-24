@@ -11,6 +11,7 @@
       <table>
         <thead>
           <tr>
+            <th>ACCIONES</th>
             <th @click="sort('location')">UBICACIÓN</th>
             <th @click="sort('rack')">RACK</th>
             <th @click="sort('device')">DISPOSITIVO</th>
@@ -18,12 +19,15 @@
             <th @click="sort('patchpanel')">PATCH PANEL</th>
             <th @click="sort('port_number_pp')">PUERTO PP</th>
             <th @click="sort('location_node')">UBICACIÓN NODO</th>
-            <th>ACCIONES</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="row in filteredData" :key="row.id">
+            <td>
+              <button @click="$emit('edit', row)">Editar</button>
+              <button @click="deleteRow(row.id)">Eliminar</button>
+            </td>
             <td>{{ row.location }}</td>
             <td>{{ row.rack }}</td>
             <td>{{ row.device }}</td>
@@ -31,10 +35,6 @@
             <td>{{ row.patchpanel }}</td>
             <td>{{ row.port_number_pp }}</td>
             <td>{{ row.location_node }}</td>
-            <td>
-              <button @click="$emit('edit', row)">Editar</button>
-              <button @click="deleteRow(row.id)">Eliminar</button>
-            </td>
           </tr>
         </tbody>
       </table>
