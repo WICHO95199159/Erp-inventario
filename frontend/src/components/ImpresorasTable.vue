@@ -161,7 +161,7 @@ th, td {
 }
 
 tr:hover {
-  background: #1e293b;
+  background: #4f7cac;;
 }
 
 .btn-edit {

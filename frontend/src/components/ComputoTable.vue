@@ -170,8 +170,8 @@ tbody tr {
 }
 
 /* 🔥 HOVER */
-tbody tr:hover {
-  background: #1e293b;
+tr:hover {
+  background: #4f7cac;;
 }
 
 /* 🔥 FILA SELECCIONADA (opcional si luego la usas) */

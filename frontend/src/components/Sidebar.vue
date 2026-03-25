@@ -24,7 +24,7 @@
       </router-link>
 
       <router-link to="/access" class="link">
-        <span class="icon">💻</span>
+        <span class="icon">📡</span>
         <span>Access point</span>
       </router-link>
 
