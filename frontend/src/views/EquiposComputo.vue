@@ -4,11 +4,12 @@
     <ComputoForm
       :editData="selected"
       @saved="save"
+      @cancel="selected = null"
     />
 
     <ComputoTable
       :data="equipos"
-      @edit="edit"
+      @edit="editRow"
       @delete="deleteRow"
     />
 
@@ -16,12 +17,15 @@
 </template>
 
 <script>
+import api from "../services/api";
 import ComputoForm from "../components/ComputoForm.vue";
 import ComputoTable from "../components/ComputoTable.vue";
-import api from "../services/api";
 
 export default {
-  components: { ComputoForm, ComputoTable },
+  components: {
+    ComputoForm,
+    ComputoTable
+  },
 
   data() {
     return {
@@ -31,55 +35,41 @@ export default {
   },
 
   methods: {
+    // 🔥 CARGAR DATOS
     async load() {
       const res = await api.get("/equipos");
       this.equipos = res.data;
     },
 
-    async save(form) {
-      // 🔥 CANCELAR
-      if (!form) {
-        this.selected = null;
-        return;
+    // ✏️ EDITAR
+    editRow(row) {
+      this.selected = row;
+    },
+
+    // 💾 GUARDAR (CREATE / UPDATE)
+    async save(data) {
+      if (data.id) {
+        const id = data.id;
+        delete data.id;
+
+        await api.put(`/equipos/${id}`, data);
+      } else {
+        await api.post("/equipos", data);
       }
 
-      // 🔥 EDITAR
-      if (form.id) {
-        await api.put(`/equipos/${form.id}`, form);
-      } 
-      // 🔥 CREAR
-      else {
-        await api.post("/equipos", form);
-      }
-
-      // 🔥 reset
       this.selected = null;
-
-      // 🔥 recargar tabla
-      await this.load();
+      this.load();
     },
 
-    edit(row) {
-      // 🔥 CLAVE: CLONAR
-      this.selected = { ...row };
-    },
-
+    // 🗑️ ELIMINAR
     async deleteRow(id) {
       await api.delete(`/equipos/${id}`);
-      await this.load();
+      this.load();
     }
   },
 
   mounted() {
     this.load();
-
-    this.interval = setInterval(() => {
-      this.load();
-    }, 5000);
-  },
-
-  beforeUnmount() {
-    clearInterval(this.interval);
   }
 };
 </script>
