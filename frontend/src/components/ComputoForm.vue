@@ -128,7 +128,7 @@ export default {
 
     cancel() {
       this.form = this.getEmptyForm();
-      this.$emit("saved", null); // 🔥 indica cancelar
+      this.$emit("cancel"); // ✅ evento separado
     }
   }
 };
