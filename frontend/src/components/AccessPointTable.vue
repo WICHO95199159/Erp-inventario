@@ -15,7 +15,7 @@
         <thead>
           <tr>
             <th>ACCIONES</th>
-
+            
             <th @click="sort('ubicacion')">UBICACIÓN</th>
             <th @click="sort('marca')">MARCA</th>
             <th @click="sort('modelo')">MODELO</th>
