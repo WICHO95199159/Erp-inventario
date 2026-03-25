@@ -7,6 +7,8 @@ import impresorasRoutes from "./routes/impresoras.routes.js";
 import accessPointRoutes from "./routes/accessPoint.routes.js";
 import equiposVideoRoutes from "./routes/equiposVideo.routes.js";
 import equiposAudioRoutes from "./routes/equiposAudio.routes.js";
+import herramientasRoutes from "./routes/herramientas.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 
 import { db } from "./config/db.js";
 
@@ -23,6 +25,8 @@ app.use("/api/impresoras", impresorasRoutes);
 app.use("/api/access-point", accessPointRoutes);
 app.use("/api/equipos-video", equiposVideoRoutes);
 app.use("/api/equipos-audio", equiposAudioRoutes);
+app.use("/api/herramientas", herramientasRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en puerto 3000");
