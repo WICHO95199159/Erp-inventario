@@ -21,7 +21,6 @@
             <th @click="sort('tipo')">TIPO</th>
             <th @click="sort('consumible')">CONSUMIBLE</th>
             <th @click="sort('ip_nombre')">IP / NOMBRE</th>
-            <th @click="sort('fecha')">FECHA</th>
           </tr>
         </thead>
 
@@ -45,8 +44,7 @@
             <td>{{ row.tipo }}</td>
             <td>{{ row.consumible }}</td>
             <td>{{ row.ip_nombre }}</td>
-            <td>{{ row.fecha ? row.fecha.split('T')[0] : '' }}</td>
-
+            
           </tr>
         </tbody>
       </table>

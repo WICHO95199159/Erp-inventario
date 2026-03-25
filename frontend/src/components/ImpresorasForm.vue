@@ -46,11 +46,6 @@
         <input v-model="form.ip_nombre" />
       </div>
 
-      <div class="field">
-        <label>FECHA</label>
-        <input v-model="form.fecha" type="date" />
-      </div>
-
     </div>
 
     <div class="buttons">
@@ -77,10 +72,7 @@ export default {
       immediate: true,
       handler(val) {
         if (val) {
-          this.form = {
-            ...val,
-            fecha: val.fecha ? val.fecha.split("T")[0] : ""
-          };
+          this.form = { ...val };
         } else {
           this.form = this.getEmptyForm();
         }
@@ -99,7 +91,6 @@ export default {
         tipo: "",
         consumible: "",
         ip_nombre: "",
-        fecha: ""
       };
     },
 
