@@ -6,6 +6,8 @@ import equiposRoutes from "./routes/equipos.routes.js";
 import impresorasRoutes from "./routes/impresoras.routes.js";
 import accessPointRoutes from "./routes/accessPoint.routes.js";
 import equiposVideoRoutes from "./routes/equiposVideo.routes.js";
+import equiposAudioRoutes from "./routes/equiposAudio.routes.js";
+
 import { db } from "./config/db.js";
 
 dotenv.config();
@@ -20,6 +22,7 @@ app.use("/api/equipos", equiposRoutes);
 app.use("/api/impresoras", impresorasRoutes);
 app.use("/api/access-point", accessPointRoutes);
 app.use("/api/equipos-video", equiposVideoRoutes);
+app.use("/api/equipos-audio", equiposAudioRoutes);
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en puerto 3000");
