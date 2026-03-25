@@ -33,51 +33,68 @@ export default {
   data() {
     return {
       impresoras: [],
-      selected: null
+      selected: null,
+      interval: null
     };
   },
 
   methods: {
-    // 🔹 cargar datos
+    // 🔄 CARGAR DATOS
     async load() {
-      const res = await api.get("/impresoras");
-      this.impresoras = res.data;
+      try {
+        const res = await api.get("/impresoras");
+        this.impresoras = res.data;
+      } catch (err) {
+        console.error("Error cargando impresoras:", err);
+      }
     },
 
-    // 🔹 guardar (crear o editar)
+    // 💾 GUARDAR (CREATE / UPDATE)
     async save(form) {
-      if (!form) {
+      if (!form) return; // 🔥 evita error al cancelar
+
+      try {
+        if (form.id) {
+          const id = form.id;
+          delete form.id;
+
+          await api.put(`/impresoras/${id}`, form);
+        } else {
+          await api.post("/impresoras", form);
+        }
+
         this.selected = null;
-        return;
+        await this.load();
+      } catch (err) {
+        console.error("Error guardando:", err);
       }
-
-      if (form.id) {
-        // 🔥 editar
-        await api.put(`/impresoras/${form.id}`, form);
-      } else {
-        // 🔥 crear
-        await api.post("/impresoras", form);
-      }
-
-      this.selected = null;
-      await this.load();
     },
 
-    // 🔹 editar
+    // ✏️ EDITAR
     edit(row) {
-      this.selected = { ...row }; // 🔥 importante clonar
+      this.selected = { ...row }; // 🔥 clon
     },
 
-    // 🔹 eliminar
+    // 🗑️ ELIMINAR
     async deleteRow(id) {
-      await api.delete(`/impresoras/${id}`);
-      await this.load();
+      try {
+        await api.delete(`/impresoras/${id}`);
+        await this.load();
+      } catch (err) {
+        console.error("Error eliminando:", err);
+      }
+    },
+
+    // ❌ CANCELAR (NUEVO)
+    cancelEdit() {
+      this.selected = null;
     }
   },
 
   mounted() {
     this.load();
 
+    // 🔄 auto refresh cada 5s
     this.interval = setInterval(() => {
       this.load();
     }, 5000);
