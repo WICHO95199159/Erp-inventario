@@ -14,7 +14,10 @@ export const create = (req, res) => {
   delete data.updated_at;
 
   Herramienta.createHerramienta(data, (err, result) => {
-    if (err) return res.status(500).json(err);
+    if (err) {
+      console.log("ERROR REAL:", err);
+      return res.status(500).json(err);
+    }
     res.json({ id: result.insertId });
   });
 };
@@ -27,7 +30,10 @@ export const update = (req, res) => {
   delete data.updated_at;
 
   Herramienta.updateHerramienta(req.params.id, data, (err) => {
-    if (err) return res.status(500).json(err);
+    if (err) {
+      console.log("ERROR REAL:", err);
+      return res.status(500).json(err);
+    }
     res.json({ message: "Actualizado" });
   });
 };

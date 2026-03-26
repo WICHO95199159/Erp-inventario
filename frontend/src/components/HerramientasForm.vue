@@ -19,6 +19,11 @@
         <label>TIPO</label>
         <input v-model="form.tipo" />
       </div>
+      
+      <div class="field">
+        <label>NOMBRE</label>
+        <input v-model="form.nombre" />
+      </div>
 
       <div class="field">
         <label>DESCRIPCIÓN</label>
@@ -50,6 +55,7 @@ export default {
         ubicacion1: "",
         ubicacion2: "",
         tipo: "",
+        nombre: "",
         descripcion: "",
         nota: ""
       }
@@ -92,6 +98,7 @@ export default {
         ubicacion1: "",
         ubicacion2: "",
         tipo: "",
+        nombre: "",
         descripcion: "",
         nota: ""
       };

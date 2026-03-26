@@ -40,7 +40,7 @@
 
       <router-link to="/herramienta" class="link">
         <span class="icon">🧰</span>
-        <span>Herramienta</span>
+        <span>Herramienta y materiales</span>
       </router-link>
     </nav>
   </div>

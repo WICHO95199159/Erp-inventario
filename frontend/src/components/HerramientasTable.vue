@@ -7,6 +7,7 @@
           <th @click="sort('ubicacion1')">UBICACIÓN 1</th>
           <th @click="sort('ubicacion2')">UBICACIÓN 2</th>
           <th @click="sort('tipo')">TIPO</th>
+          <th @click="sort('tipo')">NOMBRE</th>
           <th @click="sort('descripcion')">DESCRIPCIÓN</th>
           <th @click="sort('nota')">NOTA</th>
         </tr>
@@ -22,6 +23,7 @@
           <td>{{ row.ubicacion1 }}</td>
           <td>{{ row.ubicacion2 }}</td>
           <td>{{ row.tipo }}</td>
+          <td>{{ row.nombre }}</td>
           <td>{{ row.descripcion }}</td>
           <td>{{ row.nota }}</td>
         </tr>
