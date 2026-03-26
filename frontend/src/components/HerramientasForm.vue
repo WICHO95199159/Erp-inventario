@@ -35,9 +35,9 @@
         <textarea v-model="form.nota"></textarea>
       </div>
 
-      <div class="field">
+      <div class="field" v-if="!editData">
         <label>CANTIDAD</label>
-        <input type="number" v-model="form.nombre" min="1" value="1"/>
+        <input type="number" v-model="form.cantidad" min="1" value="1"/>
       </div>
 
     </div>
