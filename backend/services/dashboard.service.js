@@ -72,20 +72,6 @@ export const getAccessPoint = async () => {
 };
 
 // ===================== VIDEO =====================
-export const getVideoByEdificio = async () => {
-  const [data] = await db.promise().query(`
-    SELECT 
-      edificio,
-      tipo,
-      COUNT(*) AS total
-    FROM equipos_video
-    GROUP BY edificio, tipo
-    ORDER BY edificio, tipo
-  `);
-
-  return data;
-};
-
 export const getVideo = async () => {
 
   const [tipo] = await db.promise().query(
@@ -118,7 +104,11 @@ export const getHerramientas = async () => {
     "SELECT tipo AS label, COUNT(*) AS total FROM herramientas GROUP BY tipo"
   );
 
-  return { tipo };
+  const [nombre] = await db.promise().query(
+    "SELECT nombre AS label, COUNT(*) AS total FROM herramientas GROUP BY nombre"
+  );
+
+  return { tipo, nombre };
 };
 
 // ===================== NODOS =====================

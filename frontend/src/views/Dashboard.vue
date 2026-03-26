@@ -191,7 +191,7 @@ export default {
         access_point: "Access Point",
         video: "Video",
         audio: "Audio",
-        herramientas: "Herramientas"
+        herramientas: "Herramienta y materiales"
       };
       return titles[key] || key;
     },
