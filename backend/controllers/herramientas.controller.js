@@ -10,16 +10,31 @@ export const getAll = (req, res) => {
 export const create = (req, res) => {
   const data = { ...req.body };
 
+  const cantidad = parseInt(data.cantidad) || 1;
+  delete data.cantidad;
+
   delete data.created_at;
   delete data.updated_at;
 
-  Herramienta.createHerramienta(data, (err, result) => {
-    if (err) {
+  const queries = [];
+
+  for (let i = 0; i < cantidad; i++) {
+    queries.push(
+      new Promise((resolve, reject) => {
+        Herramienta.createHerramienta(data, (err, result) => {
+          if (err) return reject(err);
+          resolve(result);
+        });
+      })
+    );
+  }
+
+  Promise.all(queries)
+    .then(() => res.json({ message: "Registros creados correctamente" }))
+    .catch(err => {
       console.log("ERROR REAL:", err);
-      return res.status(500).json(err);
-    }
-    res.json({ id: result.insertId });
-  });
+      res.status(500).json(err);
+    });
 };
 
 export const update = (req, res) => {
