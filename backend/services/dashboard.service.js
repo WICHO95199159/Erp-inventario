@@ -72,6 +72,10 @@ export const getAccessPoint = async () => {
 
 // ===================== VIDEO =====================
 export const getVideo = async () => {
+  const [edificio] = await db.promise().query(
+    "SELECT edificio AS label, COUNT(*) AS total FROM equipos_video GROUP BY edificio"
+  );
+
   const [tipo] = await db.promise().query(
     "SELECT tipo AS label, COUNT(*) AS total FROM equipos_video GROUP BY tipo"
   );
@@ -80,7 +84,7 @@ export const getVideo = async () => {
     "SELECT marca AS label, COUNT(*) AS total FROM equipos_video GROUP BY marca"
   );
 
-  return { tipo, marca };
+  return { edificio, tipo, marca };
 };
 
 // ===================== AUDIO =====================
