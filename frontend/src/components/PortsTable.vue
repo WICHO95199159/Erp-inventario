@@ -19,7 +19,7 @@
             <th @click="sort('port_number')">PUERTO</th>
             <th @click="sort('patchpanel')">PATCH PANEL</th>
             <th @click="sort('port_number_pp')">PUERTO PP</th>
-            <th @click="sort('location_node')">UBICACIÓN NODO</th>
+            <th @click="sort('location_node')">NODO FINAL</th>
           </tr>
         </thead>
 

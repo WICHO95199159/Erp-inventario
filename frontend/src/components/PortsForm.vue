@@ -52,7 +52,7 @@
         </div>
 
         <div class="field">
-          <label>UBICACIÓN NODO</label>
+          <label>NODO FINAL</label>
           <input class="forminput" v-model="form.location_node" />
         </div>
 
