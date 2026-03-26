@@ -16,8 +16,13 @@
     <div class="form-grid">
 
       <div class="field">
-        <label>NODO</label>
-        <input v-model="form.nodo" />
+        <label>EDIFICIO</label>
+        <input v-model="form.edificio" />
+      </div>
+
+      <div class="field">
+        <label>SALÓN</label>
+        <input v-model="form.salon" />
       </div>
 
       <div class="field">
@@ -107,7 +112,8 @@ export default {
   methods: {
     getEmptyForm() {
       return {
-        nodo: "",
+        edificio: "",
+        salon: "",
         nombre: "",
         marca: "",
         modelo: "",

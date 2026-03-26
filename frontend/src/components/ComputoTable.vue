@@ -15,8 +15,8 @@
         <thead>
           <tr>
             <th>ACCIONES</th>
-
-            <th @click="sort('nodo')">NODO</th>
+            <th @click="sort('edificio')">EDIFICIO</th>
+            <th @click="sort('salon')">SALÓN</th>
             <th @click="sort('nombre')">NOMBRE</th>
             <th @click="sort('marca')">MARCA</th>
             <th @click="sort('modelo')">MODELO</th>
@@ -41,8 +41,8 @@
                 Eliminar
               </button>
             </td>
-
-            <td>{{ row.nodo }}</td>
+            <td>{{ row.edificio }}</td>
+            <td>{{ row.salon }}</td>
             <td>{{ row.nombre }}</td>
             <td>{{ row.marca }}</td>
             <td>{{ row.modelo }}</td>

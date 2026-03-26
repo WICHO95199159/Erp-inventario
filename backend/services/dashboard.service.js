@@ -17,6 +17,10 @@ export const getCounts = async () => {
 
 // ===================== COMPUTO =====================
 export const getComputo = async () => {
+  const [edificio] = await db.promise().query(
+    "SELECT edificio AS label, COUNT(*) AS total FROM equipos_computo GROUP BY edificio"
+  );
+
   const [marca] = await db.promise().query(
     "SELECT marca AS label, COUNT(*) AS total FROM equipos_computo GROUP BY marca"
   );
@@ -33,7 +37,7 @@ export const getComputo = async () => {
     "SELECT procesador AS label, COUNT(*) AS total FROM equipos_computo GROUP BY procesador"
   );
 
-  return { marca, almacenamiento, so, procesador };
+  return { edificio, marca, almacenamiento, so, procesador };
 };
 
 // ===================== IMPRESORAS =====================
