@@ -1,146 +1,166 @@
 <template>
   <div class="dashboard">
 
-    <h1>📊 Dashboard</h1>
+    <!-- HEADER -->
+    <h1 class="title">📊 Dashboard</h1>
 
+    <!-- CARDS -->
     <div class="cards">
-      <div 
-        class="card"
+      <div
         v-for="(value, key) in counts"
         :key="key"
-        @click="selectModule(key)"
+        class="card"
         :class="{ active: selectedModule === key }"
+        @click="selectModule(key)"
       >
-          <div class="icon">{{ getIcon(key) }}</div>
-          <div class="title">{{ formatTitle(key) }}</div>
-          <div class="value">{{ value }}</div>
+        <div class="icon">{{ getIcon(key) }}</div>
+        <div class="title-card">{{ formatTitle(key) }}</div>
+        <div class="value">{{ value }}</div>
       </div>
     </div>
 
-    <!-- 🔥 GRÁFICAS DINÁMICAS -->
-    <div class="charts" id="charts"></div>
+    <!-- MENSAJE -->
+    <div v-if="!selectedModule" class="empty">
+      👇 Selecciona un módulo para ver las gráficas
+    </div>
+
+    <!-- GRÁFICAS -->
+    <div v-else class="charts-container">
+      <h2 class="module-title">
+        {{ formatTitle(selectedModule) }}
+      </h2>
+
+      <div id="charts" class="charts"></div>
+    </div>
 
   </div>
 </template>
 
 <script>
 import api from "../services/api";
-import Chart from "chart.js/auto"; // 🔥 ESTE ES CLAVE
-import BarChart from "../components/BarChart.vue";
+import Chart from "chart.js/auto";
 
 export default {
-  components: { BarChart },
+  name: "Dashboard",
 
   data() {
     return {
       counts: {},
       selectedModule: null,
       chartsData: {},
-      interval: null
+      chartsInstances: [],
+      interval: null,
+
+      endpoints: {
+        nodos: "/dashboard/nodos",
+        computo: "/dashboard/computo",
+        impresoras: "/dashboard/impresoras",
+        access_point: "/dashboard/access-point",
+        video: "/dashboard/video",
+        audio: "/dashboard/audio",
+        herramientas: "/dashboard/herramientas"
+      }
     };
   },
 
   methods: {
-    async load() {
-      // 🔢 contadores
-      const res = await api.get("/dashboard/counts");
-      this.counts = res.data;
 
-      // 📊 impresoras por tipo
-      const imp = await api.get("/dashboard/impresoras-tipo");
-
-      this.impresorasLabels = imp.data.map(i => i.tipo || "Sin tipo");
-      this.impresorasData = imp.data.map(i => i.total);
+    // =============================
+    // CARGAR CONTADORES
+    // =============================
+    async loadCounts() {
+      try {
+        const res = await api.get("/dashboard/counts");
+        this.counts = res.data;
+      } catch (error) {
+        console.error("Error cargando contadores:", error);
+      }
     },
 
+    // =============================
+    // SELECCIONAR MÓDULO
+    // =============================
     async selectModule(module) {
       this.selectedModule = module;
 
-      // ✅ PRIMERO defines endpoints
-      const endpoints = {
-        nodos: [
-          "/dashboard/ports-location",
-        ],
-        computo: [
-          "/dashboard/computo-marca",
-          "/dashboard/computo-almacenamiento",
-          "/dashboard/computo-so",
-          "/dashboard/computo-procesador"
-        ],
-        impresoras: [
-          "/dashboard/impresoras-tipo",
-          "/dashboard/impresoras-marca",
-          "/dashboard/impresoras-conexion"
-        ],
-        access_point: [
-          "/dashboard/access_point-marca",
-          "/dashboard/access_point-ssid"
-        ],
-        video: [
-          "/dashboard/equipos_video-tipo",
-          "/dashboard/equipos_video-marca"
-        ],
-        audio: [
-          "/dashboard/equipos_audio-tipo",
-          "/dashboard/equipos_audio-marca"
-        ],
-        herramientas: [
-          "/dashboard/herramientas-tipo"
-        ],
-      };
-
       try {
-        // ✅ DESPUÉS lo usas
-        const urls = endpoints[module];
+        const endpoint = this.endpoints[module];
 
-        if (!urls || urls.length === 0) {
-          console.warn("No hay endpoints para:", module);
+        if (!endpoint) {
+          console.warn("No hay endpoint para:", module);
           return;
         }
 
-        const responses = await Promise.all(
-          urls.map(url => api.get(url))
-        );
+        const res = await api.get(endpoint);
 
-        this.chartsData = responses.map(r => r.data);
+        // 🔥 NORMALIZACIÓN (clave del éxito)
+        if (Array.isArray(res.data)) {
+          this.chartsData = {
+            [module]: res.data
+          };
+        } else {
+          this.chartsData = res.data;
+        }
 
         this.$nextTick(() => {
           this.renderCharts();
         });
 
       } catch (error) {
-        console.error("Error cargando gráficas:", error);
+        console.error("Error cargando módulo:", module, error);
       }
     },
 
+    // =============================
+    // LIMPIAR GRÁFICAS
+    // =============================
+    destroyCharts() {
+      this.chartsInstances.forEach(chart => chart.destroy());
+      this.chartsInstances = [];
+    },
+
+    // =============================
+    // RENDER GRÁFICAS
+    // =============================
     renderCharts() {
       const container = document.getElementById("charts");
-
       if (!container) return;
 
+      this.destroyCharts();
       container.innerHTML = "";
 
-      Object.keys(this.chartsData).forEach((key) => {
+      Object.keys(this.chartsData).forEach(key => {
+        const dataset = this.chartsData[key];
+
+        if (!Array.isArray(dataset) || dataset.length === 0) return;
+
+        // 🔥 CONTENEDOR
+        const wrapper = document.createElement("div");
+        wrapper.className = "chart-box";
 
         const canvas = document.createElement("canvas");
-        container.appendChild(canvas);
 
-        new Chart(canvas, {
+        wrapper.appendChild(canvas);
+        container.appendChild(wrapper);
+
+        const chart = new Chart(canvas, {
           type: "bar",
           data: {
-            labels: this.chartsData[key].map(e => Object.values(e)[0]),
-            datasets: [{
-              label: key,
-              data: this.chartsData[key].map(e => e.total)
-            }]
+            labels: dataset.map(e => e.label),
+            datasets: [
+              {
+                label: this.formatTitle(key),
+                data: dataset.map(e => e.total),
+                borderWidth: 1
+              }
+            ]
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: {
-                labels: {
-                  color: "white"
-                }
+                labels: { color: "white" }
               }
             },
             scales: {
@@ -154,11 +174,15 @@ export default {
           }
         });
 
+        this.chartsInstances.push(chart);
       });
     },
 
+    // =============================
+    // TITULOS
+    // =============================
     formatTitle(key) {
-      return {
+      const titles = {
         nodos: "Nodos",
         computo: "Cómputo",
         impresoras: "Impresoras",
@@ -166,114 +190,128 @@ export default {
         video: "Video",
         audio: "Audio",
         herramientas: "Herramientas"
-      }[key];
+      };
+      return titles[key] || key;
     },
 
+    // =============================
+    // ICONOS
+    // =============================
     getIcon(key) {
-      return {
-        nodos: "🔌",
+      const icons = {
+        nodos: "🖧",
         computo: "💻",
         impresoras: "🖨️",
         access_point: "📡",
         video: "📺",
         audio: "🔊",
-        herramientas: "🧰"
-      }[key];
+        herramientas: "🛠️"
+      };
+      return icons[key] || "📦";
     }
+
   },
 
+  // =============================
+  // CICLO DE VIDA
+  // =============================
   mounted() {
-    this.load();
+    this.loadCounts();
 
     this.interval = setInterval(() => {
-      this.load();
+      this.loadCounts();
     }, 5000);
   },
 
   beforeUnmount() {
     clearInterval(this.interval);
+    this.destroyCharts();
   }
 };
 </script>
 
-<style>
+<style scoped>
 
 .dashboard {
   padding: 20px;
-  max-width: 1200px;
-  margin: auto;
+  color: white;
 }
 
-/* 🔥 GRID DE CARDS */
+.title {
+  margin-bottom: 20px;
+}
+
+/* CARDS */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 15px;
-  margin-bottom: 25px;
 }
 
-/* 🔥 CARD */
 .card {
-  background: #111827;
-  border-radius: 12px;
-  padding: 20px;
+  background: #25253a;
+  padding: 15px;
+  border-radius: 10px;
   text-align: center;
-  border: 1px solid #374151;
-  transition: all 0.3s ease;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: #3b82f6;
-}
-
-.card.active {
-  border: 1px solid #3b82f6;
-  box-shadow: 0 0 15px rgba(59,130,246,0.6);
   transform: scale(1.05);
 }
 
-/* ICONO */
-.icon {
-  font-size: 28px;
-  margin-bottom: 8px;
+.card.active {
+  border: 2px solid #4ea8ff;
 }
 
-/* TITULO */
-.title {
-  font-size: 14px;
-  color: #9ca3af;
-  margin-bottom: 5px;
+.icon {
+  font-size: 22px;
+}
+
+.title-card {
+  margin-top: 5px;
 }
 
 .value {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: bold;
-  color: #3b82f6;
 }
 
-/* 🔥 CONTENEDOR DE GRÁFICAS */
+/* MENSAJE */
+.empty {
+  margin-top: 30px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* GRÁFICAS */
+.charts-container {
+  margin-top: 30px;
+}
+
+.module-title {
+  margin-bottom: 10px;
+}
+
+/* 🔥 GRID DE GRÁFICAS */
 .charts {
   display: grid;
-  gap: 20px;
-  max-width: 700px;
-  margin-top: 20px; /* 🔥 separación */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
 }
 
-/* 🔥 CARD DE GRÁFICA */
-.chart-card {
-  background: #111827;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #374151;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+/* 🔥 TARJETA DE GRÁFICA */
+.chart-box {
+  background: #1e1e2f;
+  padding: 10px;
+  border-radius: 10px;
+  height: 250px;
 }
 
-/* 🔥 CONTROL DEL TAMAÑO DEL CANVAS */
-canvas {
-  max-height: 250px;
+.chart-box canvas {
   width: 100% !important;
+  height: 100% !important;
 }
 
 </style>
