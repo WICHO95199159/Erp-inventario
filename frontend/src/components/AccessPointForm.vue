@@ -45,6 +45,16 @@
         <input v-model="form.contrasena" />
       </div>
 
+      <div class="field">
+        <label>USER ADMIN</label>
+        <input v-model="form.user_admin" />
+      </div>
+
+      <div class="field">
+        <label>PASSWORD ADMIN</label>
+        <input v-model="form.password_admin" />
+      </div>
+
     </div>
 
     <!-- 🔘 BOTONES -->
@@ -92,7 +102,9 @@ export default {
         no_serie: "",
         ip: "",
         ssid: "",
-        contrasena: ""
+        contrasena: "",
+        user_admin: "",
+        password_admin: ""
       };
     },
 

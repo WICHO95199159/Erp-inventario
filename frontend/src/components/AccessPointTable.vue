@@ -23,6 +23,8 @@
             <th @click="sort('ip')">IP</th>
             <th @click="sort('ssid')">SSID</th>
             <th @click="sort('contrasena')">CONTRASEÑA</th>
+            <th @click="sort('user_admin')">USER ADMIN</th>
+            <th @click="sort('password_admin')">PASSWORD ADMIN</th>
           </tr>
         </thead>
 
@@ -47,6 +49,8 @@
             <td>{{ row.ip }}</td>
             <td>{{ row.ssid }}</td>
             <td>{{ row.contrasena }}</td>
+            <td>{{ row.user_admin }}</td>
+            <td>{{ row.password_admin }}</td>
 
           </tr>
         </tbody>

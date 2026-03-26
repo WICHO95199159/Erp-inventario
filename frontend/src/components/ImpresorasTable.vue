@@ -17,6 +17,7 @@
             <th @click="sort('marca')">MARCA</th>
             <th @click="sort('modelo')">MODELO</th>
             <th @click="sort('no_serie')">NO. SERIE</th>
+            <th @click="sort('mac')">MAC</th>
             <th @click="sort('conexion')">CONEXIÓN</th>
             <th @click="sort('tipo')">TIPO</th>
             <th @click="sort('consumible')">CONSUMIBLE</th>
@@ -40,6 +41,7 @@
             <td>{{ row.marca }}</td>
             <td>{{ row.modelo }}</td>
             <td>{{ row.no_serie }}</td>
+            <td>{{ row.mac }}</td>
             <td>{{ row.conexion }}</td>
             <td>{{ row.tipo }}</td>
             <td>{{ row.consumible }}</td>

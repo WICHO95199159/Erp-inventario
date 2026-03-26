@@ -27,6 +27,11 @@
       </div>
 
       <div class="field">
+        <label>MAC</label>
+        <input v-model="form.mac" />
+      </div>
+
+      <div class="field">
         <label>CONEXIÓN</label>
         <input v-model="form.conexion" />
       </div>
@@ -87,6 +92,7 @@ export default {
         marca: "",
         modelo: "",
         no_serie: "",
+        mac: "",
         conexion: "",
         tipo: "",
         consumible: "",
