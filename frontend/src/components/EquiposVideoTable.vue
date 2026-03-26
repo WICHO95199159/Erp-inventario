@@ -4,7 +4,8 @@
       <thead>
         <tr>
           <th>ACCIONES</th>
-          <th @click="sort('ubicacion')">UBICACIÓN</th>
+          <th @click="sort('edificio')">EDIFICIO</th>
+          <th @click="sort('salon')">SALÓN</th>
           <th @click="sort('tipo')">TIPO</th>
           <th @click="sort('marca')">MARCA</th>
           <th @click="sort('modelo')">MODELO</th>
@@ -20,7 +21,8 @@
             <button @click="confirmDelete(row)" class="btn-delete">Eliminar</button>
           </td>
 
-          <td>{{ row.ubicacion }}</td>
+          <td>{{ row.edificio }}</td>
+          <td>{{ row.salon }}</td>
           <td>{{ row.tipo }}</td>
           <td>{{ row.marca }}</td>
           <td>{{ row.modelo }}</td>
