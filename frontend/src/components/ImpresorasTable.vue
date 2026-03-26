@@ -12,6 +12,7 @@
       <table>
         <thead>
           <tr>
+            <th>CANTIDAD</th>
             <th>ACCIONES</th>
             <th @click="sort('ubicacion')">UBICACIÓN</th>
             <th @click="sort('marca')">MARCA</th>
@@ -26,7 +27,10 @@
         </thead>
 
         <tbody>
-          <tr v-for="row in filteredData" :key="row.id">
+          <tr v-for="(row, index) in filteredData" :key="row.id">
+
+            <!-- 🔢 NUMERACIÓN -->
+            <td>{{ index + 1 }}</td>
 
             <td>
               <button class="btn-edit" @click="$emit('edit', row)">

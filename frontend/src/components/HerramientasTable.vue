@@ -3,6 +3,7 @@
     <table>
       <thead>
         <tr>
+          <th>Cantidad</th>
           <th>ACCIONES</th>
           <th @click="sort('ubicacion1')">UBICACIÓN 1</th>
           <th @click="sort('ubicacion2')">UBICACIÓN 2</th>
@@ -14,18 +15,25 @@
       </thead>
 
       <tbody>
-        <tr v-for="row in filteredData" :key="row.id">
+        <tr v-for="(row, index) in filteredData" :key="row.id">
+          
+          <!-- 🔢 NUMERACIÓN -->
+          <td>{{ index + 1 }}</td>
+
+          <!-- ACCIONES -->
           <td>
             <button @click="$emit('edit', row)" class="btn-edit">Editar</button>
             <button @click="confirmDelete(row)" class="btn-delete">Eliminar</button>
           </td>
 
+          <!-- DATOS -->
           <td>{{ row.ubicacion1 }}</td>
           <td>{{ row.ubicacion2 }}</td>
           <td>{{ row.tipo }}</td>
           <td>{{ row.nombre }}</td>
           <td>{{ row.descripcion }}</td>
           <td>{{ row.nota }}</td>
+
         </tr>
       </tbody>
     </table>
