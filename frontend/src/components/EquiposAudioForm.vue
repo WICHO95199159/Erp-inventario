@@ -6,8 +6,13 @@
     <hr>
     <div class="grid">
       <div class="field">
-        <label>UBICACIÓN</label>
-        <input v-model="form.ubicacion" />
+        <label>EDIFICIO</label>
+        <input v-model="form.edificio" />
+      </div>
+
+      <div class="field">
+        <label>SALÓN</label>
+        <input v-model="form.salon" />
       </div>
 
       <div class="field">
@@ -47,7 +52,8 @@ export default {
   data() {
     return {
       form: {
-        ubicacion: "",
+        edificio: "",
+        salon: "",
         tipo: "",
         marca: "",
         modelo: "",
