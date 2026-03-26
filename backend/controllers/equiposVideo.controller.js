@@ -12,13 +12,34 @@ export const getAll = (req, res) => {
 export const create = (req, res) => {
   const data = { ...req.body };
 
+  const cantidad = parseInt(data.cantidad) || 1;
+
+  // 🔥 importante: eliminar cantidad para no enviarla a la DB
+  delete data.cantidad;
   delete data.created_at;
   delete data.updated_at;
 
-  Video.createEquipoVideo(data, (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json({ id: result.insertId });
-  });
+  const queries = [];
+
+  for (let i = 0; i < cantidad; i++) {
+    queries.push(
+      new Promise((resolve, reject) => {
+        Video.createEquipoVideo(data, (err, result) => {
+          if (err) return reject(err);
+          resolve(result);
+        });
+      })
+    );
+  }
+
+  Promise.all(queries)
+    .then(() => {
+      res.json({ message: `${cantidad} registro(s) creados correctamente` });
+    })
+    .catch((err) => {
+      console.log("ERROR REAL:", err);
+      res.status(500).json(err);
+    });
 };
 
 // ✏️ UPDATE
