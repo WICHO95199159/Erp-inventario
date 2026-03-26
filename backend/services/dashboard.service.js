@@ -59,6 +59,7 @@ export const getImpresoras = async () => {
 
 // ===================== ACCESS POINT =====================
 export const getAccessPoint = async () => {
+  
   const [marca] = await db.promise().query(
     "SELECT marca AS label, COUNT(*) AS total FROM access_points GROUP BY marca"
   );
@@ -71,7 +72,22 @@ export const getAccessPoint = async () => {
 };
 
 // ===================== VIDEO =====================
+export const getVideoByEdificio = async () => {
+  const [data] = await db.promise().query(`
+    SELECT 
+      edificio,
+      tipo,
+      COUNT(*) AS total
+    FROM equipos_video
+    GROUP BY edificio, tipo
+    ORDER BY edificio, tipo
+  `);
+
+  return data;
+};
+
 export const getVideo = async () => {
+
   const [tipo] = await db.promise().query(
     "SELECT tipo AS label, COUNT(*) AS total FROM equipos_video GROUP BY tipo"
   );
