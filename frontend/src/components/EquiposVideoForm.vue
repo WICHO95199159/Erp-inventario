@@ -157,6 +157,7 @@ export default {
   margin-top: 12px;
   display: flex;
   gap: 10px;
+  justify-content: flex-end;
 }
 
 .btn-save {

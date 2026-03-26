@@ -117,6 +117,9 @@ export default {
   flex-direction: column;
 }
 .actions {
-  margin-top: 30px;
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 </style>
