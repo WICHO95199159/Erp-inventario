@@ -28,18 +28,13 @@ app.use("/api/access-point", accessPointRoutes);
 app.use("/api/equipos-video", equiposVideoRoutes);
 app.use("/api/equipos-audio", equiposAudioRoutes);
 app.use("/api/herramientas", herramientasRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en puerto 3000");
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Error de conexión:", err);
-  } else {
-    console.log("Conectado a Railway MySQL 🚀");
-  }
-});
+
 
 //Local
 
