@@ -34,6 +34,12 @@
         <label>NOTA</label>
         <textarea v-model="form.nota"></textarea>
       </div>
+
+      <div class="field">
+        <label>CANTIDAD</label>
+        <input type="number" v-model="form.nombre" min="1" value="1"/>
+      </div>
+
     </div>
 
     <div class="actions">
@@ -57,7 +63,8 @@ export default {
         tipo: "",
         nombre: "",
         descripcion: "",
-        nota: ""
+        nota: "",
+        cantidad: 1
       }
     };
   },
