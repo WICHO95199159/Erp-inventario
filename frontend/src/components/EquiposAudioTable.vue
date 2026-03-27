@@ -41,7 +41,7 @@
 import api from "../services/api";
 
 export default {
-  props: ["search"],
+  props: ["search1", "search2"],
 
   data() {
     return {
@@ -81,15 +81,30 @@ export default {
     filteredData() {
       let result = this.data;
 
-      if (this.search) {
+      // 🔍 FILTRO 1 → edificio
+      if (this.search1) {
+        const s1 = this.search1.toLowerCase();
+
+        result = result.filter(e =>
+          String(e.edificio || "")
+            .toLowerCase()
+            .includes(s1)
+        );
+      }
+
+      // 🔍 FILTRO 2 → general
+      if (this.search2) {
+        const s2 = this.search2.toLowerCase();
+
         result = result.filter(e =>
           Object.values(e)
             .join(" ")
             .toLowerCase()
-            .includes(this.search.toLowerCase())
+            .includes(s2)
         );
       }
 
+      // 🔃 ORDEN (tu código, NO lo cambies)
       if (this.sortKey) {
         result = [...result].sort((a, b) => {
           const valA = a[this.sortKey] ?? "";
