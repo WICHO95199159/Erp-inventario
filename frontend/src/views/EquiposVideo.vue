@@ -6,13 +6,16 @@
       @cancelEdit="cancelEdit"
     />
 
-    <input v-model="search" placeholder="Buscar..." class="search" />
+    <input v-model="search1" placeholder="Filtrar por edificio..." class="search" />
+    <input v-model="search2" placeholder="Filtrar general..." class="search" />
 
     <EquiposVideoTable
       ref="table"
-      :search="search"
+      :search1="search1"
+      :search2="search2"
       @edit="editRow"
     />
+
   </div>
 </template>
 
@@ -26,7 +29,8 @@ export default {
   data() {
     return {
       selected: null,
-      search: ""
+      search1: "",
+      search2: ""
     };
   },
 
@@ -48,6 +52,7 @@ export default {
 <style>
 .search {
   margin: 15px 0;
+  margin-left: 5px;
   padding: 6px;
   border-radius: 6px;
   border: none;
