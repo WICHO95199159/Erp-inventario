@@ -1,13 +1,5 @@
 <template>
   <div>
-
-    <!-- 🔍 BUSCADOR FUERA -->
-    <input
-      v-model="search"
-      placeholder="Buscar..."
-      class="search"
-    />
-
     <!-- 📊 CONTENEDOR SOLO PARA TABLA -->
     <div class="table-container">
 
@@ -41,7 +33,7 @@
               <button @click="$emit('edit', row)" class="btn-edit">
                 Editar
               </button>
-              <button @click="confirmDelete(row.id)" class="btn-delete">
+              <button @click="deleteRow(row.id)" class="btn-delete">
                 Eliminar
               </button>
             </td>
@@ -67,18 +59,25 @@
 </template>
 
 <script>
+import api from "../services/api";
+
 export default {
-  props: ["data"],
+  props: ["search1", "search2"],
 
   data() {
     return {
-      search: "",
-      sortKey: "",      // 🔥 columna actual
-      sortAsc: true     // 🔥 orden asc/desc
+      data: [],
+      sortKey: "",
+      sortAsc: true
     };
   },
 
   methods: {
+    async load() {
+      const res = await api.get("/equipos");
+      this.data = res.data;
+    },
+
     sort(key) {
       if (this.sortKey === key) {
         this.sortAsc = !this.sortAsc;
@@ -88,45 +87,60 @@ export default {
       }
     },
 
-    confirmDelete(id) {
-      const ok = confirm("¿Seguro que quieres eliminar este equipo?");
+    async deleteRow(id) {
+      const ok = confirm("¿Eliminar registro?");
+      if (!ok) return;
 
-      if (ok) {
-        this.$emit("delete", id);
-      }
+      await api.delete(`/equipos/${id}`);
+      this.load();
     }
   },
-  
+
   computed: {
     filteredData() {
       let result = this.data;
 
-      // 🔍 FILTRO
-      if (this.search) {
+      // 🔍 FILTRO 1 (ej: edificio)
+      if (this.search1) {
         result = result.filter(e =>
           Object.values(e)
             .join(" ")
             .toLowerCase()
-            .includes(this.search.toLowerCase())
+            .includes(this.search1.toLowerCase())
+        );
+      }
+
+      // 🔍 FILTRO 2 (ej: tipo / nombre)
+      if (this.search2) {
+        result = result.filter(e =>
+          Object.values(e)
+            .join(" ")
+            .toLowerCase()
+            .includes(this.search2.toLowerCase())
         );
       }
 
       // 🔃 ORDENAMIENTO
       if (this.sortKey) {
         result = [...result].sort((a, b) => {
-          const valA = a[this.sortKey] || "";
-          const valB = b[this.sortKey] || "";
+          const valA = a[this.sortKey] ?? "";
+          const valB = b[this.sortKey] ?? "";
 
-          if (this.sortAsc) {
-            return valA > valB ? 1 : -1;
-          } else {
-            return valA < valB ? 1 : -1;
-          }
+          const compare = String(valA).localeCompare(String(valB), undefined, {
+            numeric: true,
+            sensitivity: "base"
+          });
+
+          return this.sortAsc ? compare : -compare;
         });
       }
 
       return result;
     }
+  },
+
+  mounted() {
+    this.load();
   }
 };
 </script>
