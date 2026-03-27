@@ -7,10 +7,14 @@
       @cancel="selected = null"
     />
 
+    <input v-model="search1" placeholder="Buscar por edificio..." class="search" />
+    <input v-model="search2" placeholder="Buscar general..." class="search" />
+
     <ComputoTable
-      :data="equipos"
+      ref="table"
+      :search1="search1"
+      :search2="search2"
       @edit="editRow"
-      @delete="deleteRow"
     />
 
   </div>
@@ -30,7 +34,11 @@ export default {
   data() {
     return {
       equipos: [],
-      selected: null
+      selected: null,
+
+      // 🔍 FILTROS CRUZADOS
+      search1: "",
+      search2: ""
     };
   },
 
@@ -48,23 +56,34 @@ export default {
 
     // 💾 GUARDAR (CREATE / UPDATE)
     async save(data) {
-      if (data.id) {
-        const id = data.id;
-        delete data.id;
+      try {
+        if (data.id) {
+          const id = data.id;
+          delete data.id;
+          await api.put(`/equipos/${id}`, data);
+        } else {
+          await api.post("/equipos", data);
+        }
 
-        await api.put(`/equipos/${id}`, data);
-      } else {
-        await api.post("/equipos", data);
+        this.selected = null;
+
+        // 🔥 IMPORTANTE: refrescar tabla correctamente
+        this.$refs.table.load();
+
+      } catch (error) {
+        console.error("🔥 ERROR AL GUARDAR:", error);
       }
-
-      this.selected = null;
-      this.load();
     },
 
-    // 🗑️ ELIMINAR
+    // ❌ ELIMINAR
     async deleteRow(id) {
       await api.delete(`/equipos/${id}`);
-      this.load();
+      this.$refs.table.load();
+    },
+
+    // 🚫 CANCELAR EDICIÓN
+    cancelEdit() {
+      this.selected = null;
     }
   },
 

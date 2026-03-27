@@ -10,13 +10,32 @@ export const getAll = (req, res) => {
 
 // CREATE
 export const create = (req, res) => {
-  const data = { ...req.body };
+  const body = req.body;
 
-  delete data.created_at;
-  delete data.updated_at;
+  // 🧼 SOLO CAMPOS VÁLIDOS
+  const data = {
+    edificio: body.edificio,
+    salon: body.salon,
+    nombre: body.nombre,
+    marca: body.marca,
+    modelo: body.modelo,
+    no_serie: body.no_serie,
+    mac: body.mac,
+    procesador: body.procesador,
+    tipo_almacenamiento: body.tipo_almacenamiento,
+    almacenamiento: body.almacenamiento,
+    ram: body.ram,
+    sistema_operativo: body.sistema_operativo
+  };
+
+  console.log("📦 DATA LIMPIA:", data);
 
   Equipo.createEquipo(data, (err, result) => {
-    if (err) return res.status(500).json(err);
+    if (err) {
+      console.log("🔥 ERROR REAL:", err);
+      return res.status(500).json(err);
+    }
+
     res.json({ id: result.insertId });
   });
 };
