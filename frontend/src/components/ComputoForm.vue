@@ -21,8 +21,8 @@
       </div>
 
       <div class="field">
-        <label>SALÓN</label>
-        <input v-model="form.salon" />
+        <label>No. SALÓN</label>
+        <input type="number" v-model="form.salon" />
       </div>
 
       <div class="field">
@@ -56,18 +56,18 @@
       </div>
 
       <div class="field">
-        <label>ALMACENAMIENTO</label>
+        <label>TIPO DE ALMACENAMIENTO</label>
         <input v-model="form.tipo_almacenamiento" />
       </div>
 
       <div class="field">
         <label>ALMACENAMIENTO (GB)</label>
-        <input v-model="form.almacenamiento" />
+        <input type="number" v-model="form.almacenamiento" />
       </div>
 
       <div class="field">
         <label>RAM</label>
-        <input v-model="form.ram" />
+        <input type="number" v-model="form.ram" />
       </div>
 
       <div class="field">

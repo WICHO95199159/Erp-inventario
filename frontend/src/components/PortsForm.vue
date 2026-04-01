@@ -38,7 +38,7 @@
         
         <div class="field">
           <label>PUERTO</label>
-          <input class="forminput" v-model="form.port_number" />
+          <input type="number" class="forminput" v-model="form.port_number" />
         </div>
 
         <div class="field">
@@ -48,7 +48,7 @@
 
         <div class="field">
           <label>PUERTO PP</label>
-          <input class="forminput" v-model="form.port_number_pp" />
+          <input type="number" class="forminput" v-model="form.port_number_pp" />
         </div>
 
         <div class="field">
