@@ -11,8 +11,8 @@
       </div>
 
       <div class="field">
-        <label>SALÓN</label>
-        <input v-model="form.salon" />
+        <label>NO. SALÓN</label>
+        <input type="number" v-model="form.salon" />
       </div>
 
       <div class="field">
@@ -37,11 +37,11 @@
 
       <div class="field">
         <label>PULGADAS</label>
-        <input v-model="form.pulgadas" />
+        <input type="number" v-model="form.pulgadas" />
       </div>
 
       <div class="field" v-if="!editData">
-        <label>CANTIDAD</label>
+        <label>CANTIDAD DE REGISTROS</label>
         <input type="number" min="1" value="1"/>
       </div>
       

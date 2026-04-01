@@ -11,8 +11,8 @@
       </div>
 
       <div class="field">
-        <label>SALÓN</label>
-        <input v-model="form.salon" />
+        <label>NO. SALÓN</label>
+        <input type="number" v-model="form.salon" />
       </div>
 
       <div class="field">
