@@ -80,7 +80,14 @@ export default {
 
   methods: {
     async save() {
-      const data = { ...this.form };
+      let data = { ...this.form };
+
+      // 🔥 NORMALIZAR TODO A MAYÚSCULAS
+      Object.keys(data).forEach(key => {
+        if (typeof data[key] === "string") {
+          data[key] = data[key].toUpperCase().trim();
+        }
+      });
 
       if (data.id) {
         const id = data.id;
