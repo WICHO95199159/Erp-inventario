@@ -12,6 +12,7 @@
           <th @click="sort('modelo')">MODELO</th>
           <th @click="sort('no_serie')">NO. DE SERIE</th>
           <th @click="sort('pulgadas')">PULGADAS</th>
+          <th @click="sort('equipo_computo')">CPU</th>
         </tr>
       </thead>
 
@@ -33,6 +34,7 @@
           <td>{{ row.modelo }}</td>
           <td>{{ row.no_serie }}</td>
           <td>{{ row.pulgadas }}</td>
+          <td>{{ row.equipo_computo }}</td>
         </tr>
       </tbody>
     </table>

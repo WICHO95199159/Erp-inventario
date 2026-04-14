@@ -40,6 +40,11 @@
         <input type="number" v-model="form.pulgadas" />
       </div>
 
+      <div class="field">
+        <label>EQUIPO DE CÓMPUTO</label>
+        <input v-model="form.equipo_computo" />
+      </div>
+
       <div class="field" v-if="!editData">
         <label>CANTIDAD DE REGISTROS</label>
         <input type="number" min="1" value="1"/>
@@ -69,7 +74,8 @@ export default {
         marca: "",
         modelo: "",
         no_serie: "",
-        pulgadas: ""
+        pulgadas: "",
+        equipo_computo: "",
       }
     };
   },
@@ -120,7 +126,8 @@ export default {
         marca: "",
         modelo: "",
         no_serie: "",
-        pulgadas: ""
+        pulgadas: "",
+        equipo_computo: "",
       };
     }
   }
