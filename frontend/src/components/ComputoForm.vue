@@ -75,6 +75,10 @@
         <input v-model="form.sistema_operativo" />
       </div>
 
+      <div class="field" v-if="!editData">
+        <label>CANTIDAD DE REGISTROS</label>
+        <input type="number" min="1" value="1"/>
+      </div>
     </div>
 
     <!-- 🔥 BOTONES -->
