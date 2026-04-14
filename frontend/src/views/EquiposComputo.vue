@@ -15,6 +15,7 @@
       :search1="search1"
       :search2="search2"
       @edit="editRow"
+      @delete="deleteRow"
     />
 
   </div>
@@ -33,20 +34,17 @@ export default {
 
   data() {
     return {
-      equipos: [],
       selected: null,
-
-      // 🔍 FILTROS CRUZADOS
       search1: "",
       search2: ""
     };
   },
 
   methods: {
-    // 🔥 CARGAR DATOS
-    async load() {
-      const res = await api.get("/equipos");
-      this.equipos = res.data;
+    // 🔄 RECARGAR TABLA
+    reload() {
+      this.selected = null;
+      this.$refs.table.load();
     },
 
     // ✏️ EDITAR
@@ -57,38 +55,42 @@ export default {
     // 💾 GUARDAR (CREATE / UPDATE)
     async save(data) {
       try {
-        if (data.id) {
-          const id = data.id;
-          delete data.id;
-          await api.put(`/equipos/${id}`, data);
+        let cleanData = { ...data };
+
+        const cantidad = Math.max(1, parseInt(cleanData.cantidad) || 1);
+        delete cleanData.cantidad;
+
+        if (cleanData.id) {
+          const id = cleanData.id;
+          delete cleanData.id;
+
+          await api.put(`/equipos/${id}`, cleanData);
         } else {
-          await api.post("/equipos", data);
+          const requests = [];
+
+          for (let i = 0; i < cantidad; i++) {
+            requests.push(api.post("/equipos", { ...cleanData }));
+          }
+
+          await Promise.all(requests);
         }
 
-        this.selected = null;
-
-        // 🔥 IMPORTANTE: refrescar tabla correctamente
-        this.$refs.table.load();
+        this.reload();
 
       } catch (error) {
         console.error("🔥 ERROR AL GUARDAR:", error);
       }
     },
 
-    // ❌ ELIMINAR
+    // 🗑 ELIMINAR
     async deleteRow(id) {
       await api.delete(`/equipos/${id}`);
-      this.$refs.table.load();
-    },
-
-    // 🚫 CANCELAR EDICIÓN
-    cancelEdit() {
-      this.selected = null;
+      this.reload();
     }
   },
 
   mounted() {
-    this.load();
+    this.$refs?.table?.load();
   }
 };
 </script>

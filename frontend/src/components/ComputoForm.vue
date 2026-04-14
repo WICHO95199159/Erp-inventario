@@ -76,8 +76,8 @@
       </div>
 
       <div class="field" v-if="!editData">
-        <label>CANTIDAD DE REGISTROS</label>
-        <input type="number" min="1" value="1"/>
+        <label>CANTIDAD</label>
+        <input type="number" v-model="form.cantidad" min="1" />
       </div>
     </div>
 
@@ -116,6 +116,7 @@ export default {
   methods: {
     getEmptyForm() {
       return {
+        id: null,
         edificio: "",
         salon: "",
         nombre: "",
@@ -127,18 +128,31 @@ export default {
         tipo_almacenamiento: "",
         almacenamiento: "",
         ram: "",
-        sistema_operativo: ""
+        sistema_operativo: "",
+        cantidad: 1 // 🔥 SOLO FRONTEND
       };
     },
 
-    save() {
-      this.$emit("saved", this.form);
+    // 🔥 NORMALIZAR (MAYÚSCULAS)
+    normalizeData(data) {
+      Object.keys(data).forEach(key => {
+        if (typeof data[key] === "string") {
+          data[key] = data[key].toUpperCase().trim();
+        }
+      });
+      return data;
+    },
+
+    async save() {
+      const data = this.normalizeData({ ...this.form });
+
+      this.$emit("saved", data);
       this.form = this.getEmptyForm();
     },
 
     cancel() {
       this.form = this.getEmptyForm();
-      this.$emit("cancel"); // ✅ evento separado
+      this.$emit("cancel");
     }
   }
 };
