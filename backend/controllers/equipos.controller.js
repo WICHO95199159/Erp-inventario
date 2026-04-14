@@ -10,34 +10,36 @@ export const getAll = (req, res) => {
 
 // CREATE
 export const create = (req, res) => {
-  const body = req.body;
+  let data = { ...req.body };
 
-  // 🧼 SOLO CAMPOS VÁLIDOS
-  const data = {
-    edificio: body.edificio,
-    salon: body.salon,
-    nombre: body.nombre,
-    marca: body.marca,
-    modelo: body.modelo,
-    no_serie: body.no_serie,
-    mac: body.mac,
-    procesador: body.procesador,
-    tipo_almacenamiento: body.tipo_almacenamiento,
-    almacenamiento: body.almacenamiento,
-    ram: body.ram,
-    sistema_operativo: body.sistema_operativo
-  };
+  // 🔥 EXTRAER cantidad
+  const cantidad = parseInt(data.cantidad) || 1;
+
+  // ❌ ELIMINAR cantidad antes de insertar
+  delete data.cantidad;
+
+  delete data.created_at;
+  delete data.updated_at;
 
   console.log("📦 DATA LIMPIA:", data);
+  console.log("🔢 CANTIDAD:", cantidad);
 
-  Equipo.createEquipo(data, (err, result) => {
-    if (err) {
-      console.log("🔥 ERROR REAL:", err);
-      return res.status(500).json(err);
-    }
+  let inserted = 0;
 
-    res.json({ id: result.insertId });
-  });
+  for (let i = 0; i < cantidad; i++) {
+    Equipo.createEquipo(data, (err, result) => {
+      if (err) {
+        console.log("🔥 ERROR REAL:", err);
+        return res.status(500).json(err);
+      }
+
+      inserted++;
+
+      if (inserted === cantidad) {
+        res.json({ message: `${cantidad} registros creados` });
+      }
+    });
+  }
 };
 
 // UPDATE
