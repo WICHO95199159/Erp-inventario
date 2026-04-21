@@ -8,15 +8,51 @@ export const getAll = (req, res) => {
 };
 
 export const create = (req, res) => {
-  Port.createPort(req.body, (err, result) => {
-    if (err) return res.status(500).json(err);
+  const data = { ...req.body };
+
+  // 🔥 NORMALIZAR A MAYÚSCULAS
+  Object.keys(data).forEach(key => {
+    if (typeof data[key] === "string") {
+      data[key] = data[key].toUpperCase().trim();
+    }
+  });
+
+  // ❌ eliminar campos que no deben insertarse (por seguridad)
+  delete data.id;
+  delete data.created_at;
+  delete data.updated_at;
+
+  Port.createPort(data, (err, result) => {
+    if (err) {
+      console.log("🔥 ERROR REAL:", err);
+      return res.status(500).json(err);
+    }
+
     res.json({ id: result.insertId });
   });
 };
 
 export const update = (req, res) => {
-  Port.updatePort(req.params.id, req.body, (err) => {
-    if (err) return res.status(500).json(err);
+  const data = { ...req.body };
+
+  // 🔥 NORMALIZAR A MAYÚSCULAS
+  Object.keys(data).forEach(key => {
+    if (typeof data[key] === "string") {
+      data[key] = data[key].toUpperCase().trim();
+    }
+  });
+
+  // ❌ evitar problemas en UPDATE
+  delete data.id;
+  delete data.created_at;
+  delete data.updated_at;
+
+  Port.updatePort(req.params.id, data, (err) => {
+    if (err) {
+      console.log("🔥 ERROR SQL:", err);
+      return res.status(500).json(err);
+    }
+
     res.json({ message: "Actualizado" });
   });
 };
