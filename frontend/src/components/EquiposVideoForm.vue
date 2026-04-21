@@ -47,7 +47,7 @@
 
       <div class="field" v-if="!editData">
         <label>CANTIDAD DE REGISTROS</label>
-        <input type="number" min="1" value="1"/>
+        <input type="number" v-model="form.cantidad" min="1" value="1"/>
       </div>
       
     </div>
@@ -128,6 +128,7 @@ export default {
         no_serie: "",
         pulgadas: "",
         equipo_computo: "",
+        cantidad: 1 // 🔥 SOLO FRONTEND
       };
     }
   }
