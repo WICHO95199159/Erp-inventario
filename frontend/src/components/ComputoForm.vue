@@ -21,6 +21,11 @@
       </div>
 
       <div class="field">
+        <label>PLANTA</label>
+        <input v-model="form.planta" />
+      </div>
+
+      <div class="field">
         <label>No. SALÓN</label>
         <input type="number" v-model="form.salon" />
       </div>
@@ -118,6 +123,7 @@ export default {
       return {
         id: null,
         edificio: "",
+        planta: "",
         salon: "",
         nombre: "",
         marca: "",
