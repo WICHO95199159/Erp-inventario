@@ -80,6 +80,11 @@
         <input v-model="form.sistema_operativo" />
       </div>
 
+      <div class="field">
+        <label>IP</label>
+        <input v-model="form.ip" />
+      </div>
+
       <div class="field" v-if="!editData">
         <label>CANTIDAD</label>
         <input type="number" v-model="form.cantidad" min="1" />
@@ -135,6 +140,7 @@ export default {
         almacenamiento: "",
         ram: "",
         sistema_operativo: "",
+        ip: "",
         cantidad: 1 // 🔥 SOLO FRONTEND
       };
     },

@@ -21,6 +21,7 @@
             <th @click="sort('almacenamiento')">ALMACENAMIENTO (GB)</th>
             <th @click="sort('ram')">RAM</th>
             <th @click="sort('sistema_operativo')">SISTEMA OPERATIVO</th>
+            <th @click="sort('ip')">DIRECCIÓN IP</th>
           </tr>
         </thead>
 
@@ -51,6 +52,7 @@
             <td>{{ row.almacenamiento }}</td>
             <td>{{ row.ram }}</td>
             <td>{{ row.sistema_operativo }}</td>
+            <td>{{ row.ip }}</td>
 
           </tr>
         </tbody>
