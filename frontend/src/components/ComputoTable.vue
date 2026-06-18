@@ -22,6 +22,8 @@
             <th @click="sort('ram')">RAM</th>
             <th @click="sort('sistema_operativo')">SISTEMA OPERATIVO</th>
             <th @click="sort('ip')">DIRECCIÓN IP</th>
+            <th @click="sort('rust_id')">RUST ID</th>
+            <th @click="sort('fecha_mtto')">FECHA MTTO</th>
           </tr>
         </thead>
 
@@ -53,6 +55,8 @@
             <td>{{ row.ram }}</td>
             <td>{{ row.sistema_operativo }}</td>
             <td>{{ row.ip }}</td>
+            <td>{{ row.rust_id }}</td>
+            <td>{{ row.fecha_mtto }}</td>
 
           </tr>
         </tbody>

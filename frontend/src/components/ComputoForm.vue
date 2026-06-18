@@ -85,6 +85,16 @@
         <input v-model="form.ip" />
       </div>
 
+      <div class="field">
+        <label>Rust Id</label>
+        <input type="number" v-model="form.rust_id" min="0" max="999999999"/>
+      </div>
+
+      <div class="field">
+        <label>Mantenimiento</label>
+        <input type="number" v-model="form.fecha_mtto" min="0" max="3000" />
+      </div>
+
       <div class="field" v-if="!editData">
         <label>CANTIDAD</label>
         <input type="number" v-model="form.cantidad" min="1" />
@@ -141,6 +151,8 @@ export default {
         ram: "",
         sistema_operativo: "",
         ip: "",
+        rust_id: "",
+        fecha_mtto: "",
         cantidad: 1 // 🔥 SOLO FRONTEND
       };
     },
