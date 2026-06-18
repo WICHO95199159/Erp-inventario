@@ -86,12 +86,12 @@
       </div>
 
       <div class="field">
-        <label>Rust Id</label>
+        <label>RUST ID</label>
         <input type="number" v-model="form.rust_id" min="0" max="999999999"/>
       </div>
 
       <div class="field">
-        <label>Mantenimiento</label>
+        <label>MANTENIMIENTO</label>
         <input type="number" v-model="form.fecha_mtto" min="0" max="3000" />
       </div>
 
