@@ -31,6 +31,16 @@
       </div>
 
       <div class="field">
+        <label>TIPO</label>
+        <input v-model="form.tipo" />
+      </div>
+
+      <div class="field">
+        <label>ESTATUS</label>
+        <input v-model="form.estatus" />
+      </div>
+
+      <div class="field">
         <label>NOMBRE</label>
         <input v-model="form.nombre" />
       </div>
@@ -140,6 +150,8 @@ export default {
         edificio: "",
         planta: "",
         salon: "",
+        tipo: "",
+        estatus: "",
         nombre: "",
         marca: "",
         modelo: "",
