@@ -5,14 +5,16 @@
         <tr>
           <th>CANTIDAD</th>
           <th>ACCIONES</th>
+          <th @click="sort('verificado')">VERIFICADO</th>
           <th @click="sort('edificio')">EDIFICIO</th>
+          <th @click="sort('planta')">PLANTA</th>
           <th @click="sort('salon')">SALÓN</th>
           <th @click="sort('tipo')">TIPO</th>
           <th @click="sort('marca')">MARCA</th>
           <th @click="sort('modelo')">MODELO</th>
           <th @click="sort('no_serie')">NO. DE SERIE</th>
           <th @click="sort('pulgadas')">PULGADAS</th>
-          <th @click="sort('equipo_computo')">CPU</th>
+          <th @click="sort('equipo_computo')">EQUIPO DE CÓMPUTO</th>
         </tr>
       </thead>
 
@@ -26,8 +28,9 @@
             <button @click="$emit('edit', row)" class="btn-edit">Editar</button>
             <button @click="confirmDelete(row)" class="btn-delete">Eliminar</button>
           </td>
-
+          <td>{{ row.verificado }}</td>
           <td>{{ row.edificio }}</td>
+          <td>{{ row.planta }}</td>
           <td>{{ row.salon }}</td>
           <td>{{ row.tipo }}</td>
           <td>{{ row.marca }}</td>

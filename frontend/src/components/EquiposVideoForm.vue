@@ -5,9 +5,20 @@
     </div>
     <hr>
     <div class="grid">
+
+      <div class="field">
+        <label>VERIFICADO</label>
+        <input v-model="form.verificado" />
+      </div>
+
       <div class="field">
         <label>EDIFICIO</label>
         <input v-model="form.edificio" />
+      </div>
+
+      <div class="field">
+        <label>PLANTA</label>
+        <input v-model="form.planta" />
       </div>
 
       <div class="field">
@@ -68,7 +79,9 @@ export default {
   data() {
     return {
       form: {
+        verificado: "",
         edificio: "",
+        planta: "",
         salon: "",
         tipo: "",
         marca: "",
