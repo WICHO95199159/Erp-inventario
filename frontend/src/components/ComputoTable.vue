@@ -8,6 +8,7 @@
           <tr>
             <th>CANTIDAD</th>
             <th>ACCIONES</th>
+            <th @click="sort('verificado')">VERIFICADO</th>
             <th @click="sort('edificio')">EDIFICIO</th>
             <th @click="sort('planta')">PLANTA</th>
             <th @click="sort('salon')">SALÓN</th>
@@ -43,6 +44,7 @@
                 Eliminar
               </button>
             </td>
+            <td>{{ row.verificado }}</td>
             <td>{{ row.edificio }}</td>
             <td>{{ row.planta }}</td>
             <td>{{ row.salon }}</td>

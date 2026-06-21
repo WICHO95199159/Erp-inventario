@@ -16,6 +16,11 @@
     <div class="form-grid">
 
       <div class="field">
+        <label>VERIFICADO</label>
+        <input v-model="form.verificado" />
+      </div>
+
+      <div class="field">
         <label>EDIFICIO</label>
         <input v-model="form.edificio" />
       </div>
@@ -147,6 +152,7 @@ export default {
     getEmptyForm() {
       return {
         id: null,
+        verificado: "",
         edificio: "",
         planta: "",
         salon: "",
