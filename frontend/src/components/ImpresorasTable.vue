@@ -22,7 +22,10 @@
             <th @click="sort('conexion')">CONEXIÓN</th>
             <th @click="sort('tipo')">TIPO</th>
             <th @click="sort('consumible')">CONSUMIBLE</th>
+            <th @click="sort('modelo_consumible')">MODELO DE CONSUMIBLE</th>
             <th @click="sort('ip_nombre')">IP / NOMBRE</th>
+            <th @click="sort('usuario')">USUARIO</th>
+            <th @click="sort('pin')">PIN</th>
           </tr>
         </thead>
 
@@ -49,7 +52,10 @@
             <td>{{ row.conexion }}</td>
             <td>{{ row.tipo }}</td>
             <td>{{ row.consumible }}</td>
+            <td>{{ row.modelo_consumible }}</td>
             <td>{{ row.ip_nombre }}</td>
+            <td>{{ row.usuario }}</td>
+            <td>{{ row.pin }}</td>
             
           </tr>
         </tbody>
