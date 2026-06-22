@@ -47,8 +47,23 @@
       </div>
 
       <div class="field">
+        <label>MODELO DE CONSUMIBLE</label>
+        <input v-model="form.modelo_consumible" />
+      </div>
+
+      <div class="field">
         <label>IP / NOMBRE</label>
         <input v-model="form.ip_nombre" />
+      </div>
+
+      <div class="field">
+        <label>USUARIO</label>
+        <input v-model="form.usuario" />
+      </div>
+
+      <div class="field">
+        <label>PIN</label>
+        <input v-model="form.pin" />
       </div>
 
     </div>
@@ -96,7 +111,10 @@ export default {
         conexion: "",
         tipo: "",
         consumible: "",
+        modelo_consumible: "",
         ip_nombre: "",
+        usuario: "",
+        pin: "",
       };
     },
 
