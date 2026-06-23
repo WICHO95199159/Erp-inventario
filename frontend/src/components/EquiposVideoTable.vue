@@ -10,6 +10,7 @@
           <th @click="sort('planta')">PLANTA</th>
           <th @click="sort('salon')">SALÓN</th>
           <th @click="sort('tipo')">TIPO</th>
+          <th @click="sort('estatus')">ESTATUS</th>
           <th @click="sort('marca')">MARCA</th>
           <th @click="sort('modelo')">MODELO</th>
           <th @click="sort('no_serie')">NO. DE SERIE</th>
@@ -36,6 +37,7 @@
           <td>{{ row.planta }}</td>
           <td>{{ row.salon }}</td>
           <td>{{ row.tipo }}</td>
+          <td>{{ row.estatus }}</td>
           <td>{{ row.marca }}</td>
           <td>{{ row.modelo }}</td>
           <td>{{ row.no_serie }}</td>

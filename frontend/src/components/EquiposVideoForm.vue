@@ -32,6 +32,11 @@
       </div>
 
       <div class="field">
+        <label>ESTATUS</label>
+        <input v-model="form.estatus" />
+      </div>
+
+      <div class="field">
         <label>MARCA</label>
         <input v-model="form.marca" />
       </div>
@@ -99,6 +104,7 @@ export default {
         planta: "",
         salon: "",
         tipo: "",
+        estatus: "",
         marca: "",
         modelo: "",
         no_serie: "",
@@ -151,14 +157,20 @@ export default {
 
     resetForm() {
       this.form = {
+        verificado: "",
         edificio: "",
+        planta: "",
         salon: "",
         tipo: "",
+        estatus: "",
         marca: "",
         modelo: "",
         no_serie: "",
         pulgadas: "",
         equipo_computo: "",
+        control: "",
+        funcional: "",
+        notas: "",
         cantidad: 1 // 🔥 SOLO FRONTEND
       };
     }
