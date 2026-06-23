@@ -2,7 +2,11 @@
   <div class="form-container">
 
     <!-- 🔥 TÍTULO DINÁMICO -->
-    <div v-if="form.id" class="edit-title">
+    <div v-if="consultando" class="edit-title">
+      🔍 Consultando equipo de cómputo...
+    </div>
+    
+    <div v-else-if="form.id" class="edit-title">
       ✏️ Editando equipo de cómputo ...
     </div>
 
@@ -17,108 +21,128 @@
 
       <div class="field">
         <label>VERIFICADO</label>
-        <input v-model="form.verificado" />
+        <input v-model="form.verificado"
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>EDIFICIO</label>
-        <input v-model="form.edificio" />
+        <input v-model="form.edificio" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>PLANTA</label>
-        <input v-model="form.planta" />
+        <input v-model="form.planta" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>No. SALÓN</label>
-        <input type="number" v-model="form.salon" />
+        <input type="number" v-model="form.salon" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>TIPO</label>
-        <input v-model="form.tipo" />
+        <input v-model="form.tipo" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>ESTATUS</label>
-        <input v-model="form.estatus" />
+        <input v-model="form.estatus" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>NOMBRE</label>
-        <input v-model="form.nombre" />
+        <input v-model="form.nombre" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MARCA</label>
-        <input v-model="form.marca" />
+        <input v-model="form.marca" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MODELO</label>
-        <input v-model="form.modelo" />
+        <input v-model="form.modelo" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" />
+        <input v-model="form.no_serie" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MAC</label>
-        <input v-model="form.mac" />
+        <input v-model="form.mac" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>PROCESADOR</label>
-        <input v-model="form.procesador" />
+        <input v-model="form.procesador" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>TIPO DE ALMACENAMIENTO</label>
-        <input v-model="form.tipo_almacenamiento" />
+        <input v-model="form.tipo_almacenamiento" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>ALMACENAMIENTO (GB)</label>
-        <input type="number" v-model="form.almacenamiento" />
+        <input type="number" v-model="form.almacenamiento" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>RAM</label>
-        <input type="number" v-model="form.ram" />
+        <input type="number" v-model="form.ram" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>SISTEMA OPERATIVO</label>
-        <input v-model="form.sistema_operativo" />
+        <input v-model="form.sistema_operativo" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>IP</label>
-        <input v-model="form.ip" />
+        <input v-model="form.ip" 
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>RUST ID</label>
-        <input type="number" v-model="form.rust_id" min="0" max="999999999"/>
+        <input type="number" v-model="form.rust_id" min="0" max="999999999"
+        :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MANTENIMIENTO</label>
-        <input type="number" v-model="form.fecha_mtto" min="0" max="3000" />
+        <input type="number" v-model="form.fecha_mtto" min="0" max="3000" 
+        :disabled="consultando" />
       </div>
 
       <div class="field" v-if="!editData">
         <label>CANTIDAD</label>
-        <input type="number" v-model="form.cantidad" min="1" />
+        <input type="number" v-model="form.cantidad" min="1" 
+        :disabled="consultando" />
       </div>
     </div>
 
     <!-- 🔥 BOTONES -->
     <div class="actions">
-      <button class="btn-save" @click="save">Guardar</button>
+      <button v-if="!consultando" class="btn-save" @click="save"> Guardar </button>
       <button class="btn-cancel" @click="cancel">Cancelar</button>
     </div>
 
@@ -127,7 +151,10 @@
 
 <script>
 export default {
-  props: ["editData"],
+  props: [
+    "editData",
+    "consultando"
+  ],
 
   data() {
     return {
@@ -253,5 +280,14 @@ export default {
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
+}
+
+.field input:disabled {
+  background: #1e293b;
+  color: #93c5fd;
+  opacity: 1;
+  border: 1px solid #3b82f6;
+  font-weight: bold;
+  cursor: not-allowed;
 }
 </style>

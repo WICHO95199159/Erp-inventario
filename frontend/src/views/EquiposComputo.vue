@@ -3,8 +3,9 @@
 
     <ComputoForm
       :editData="selected"
+      :consultando="consultando"
       @saved="save"
-      @cancel="selected = null"
+      @cancel="cancelForm"
     />
 
     <input v-model="search1" placeholder="Buscar por edificio..." class="search" />
@@ -15,6 +16,7 @@
       :search1="search1"
       :search2="search2"
       @edit="editRow"
+      @consultar="consultarRow"
       @delete="deleteRow"
     />
 
@@ -35,6 +37,7 @@ export default {
   data() {
     return {
       selected: null,
+      consultando: false,
       search1: "",
       search2: ""
     };
@@ -44,12 +47,26 @@ export default {
     // 🔄 RECARGAR TABLA
     reload() {
       this.selected = null;
+      this.consultando = false;
       this.$refs.table.load();
     },
 
     // ✏️ EDITAR
     editRow(row) {
       this.selected = row;
+      this.consultando = false;
+    },
+
+    // CONSULTAR
+    consultarRow(row) {
+      this.selected = row;
+      this.consultando = true;
+    },
+
+    // CANCELAR
+    cancelForm() {
+      this.selected = null;
+      this.consultando = false;
     },
 
     // 💾 GUARDAR (CREATE / UPDATE)

@@ -37,6 +37,9 @@
             <td>{{ index + 1 }}</td>
 
             <td>
+              <button @click="$emit('consultar', row)" class="btn-edit">
+                Consultar
+              </button>
               <button @click="$emit('edit', row)" class="btn-edit">
                 Editar
               </button>
