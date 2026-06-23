@@ -56,6 +56,21 @@
         <input v-model="form.equipo_computo" />
       </div>
 
+      <div class="field">
+        <label>CONTROL</label>
+        <input v-model="form.control" />
+      </div>
+
+      <div class="field">
+        <label>FUNCIONAL</label>
+        <input v-model="form.funcional" />
+      </div>
+
+      <div class="field">
+        <label>NOTAS</label>
+        <textarea v-model="form.notas"></textarea>
+      </div>
+
       <div class="field" v-if="!editData">
         <label>CANTIDAD DE REGISTROS</label>
         <input type="number" v-model="form.cantidad" min="1" value="1"/>
@@ -89,6 +104,9 @@ export default {
         no_serie: "",
         pulgadas: "",
         equipo_computo: "",
+        control: "",
+        funcional: "",
+        notas: "",
       }
     };
   },
