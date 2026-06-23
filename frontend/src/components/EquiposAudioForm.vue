@@ -34,6 +34,26 @@
         <label>NO. DE SERIE</label>
         <input v-model="form.no_serie" />
       </div>
+
+      <div class="field">
+        <label>MAC</label>
+        <input v-model="form.mac" />
+      </div>
+
+      <div class="field">
+        <label>CONTROL</label>
+        <input v-model="form.control" />
+      </div>
+
+      <div class="field">
+        <label>FUNCIONAL</label>
+        <input v-model="form.funcional" />
+      </div>
+
+      <div class="field">
+        <label>NOTAS</label>
+        <textarea v-model="form.notas"></textarea>
+      </div>
     </div>
 
     <div class="actions">
@@ -57,7 +77,11 @@ export default {
         tipo: "",
         marca: "",
         modelo: "",
-        no_serie: ""
+        no_serie: "",
+        mac: "",
+        control: "",
+        funcional: "",
+        notas: "",
       }
     };
   },

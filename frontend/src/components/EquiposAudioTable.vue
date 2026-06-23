@@ -11,6 +11,10 @@
           <th @click="sort('marca')">MARCA</th>
           <th @click="sort('modelo')">MODELO</th>
           <th @click="sort('no_serie')">NO. DE SERIE</th>
+          <th @click="sort('mac')">MAC</th>
+          <th @click="sort('control')">CONTROL</th>
+          <th @click="sort('funcional')">FUNCIONAL</th>
+          <th @click="sort('notas')">NOTAS</th>
         </tr>
       </thead>
 
@@ -31,6 +35,10 @@
           <td>{{ row.marca }}</td>
           <td>{{ row.modelo }}</td>
           <td>{{ row.no_serie }}</td>
+          <td>{{ row.mac }}</td>
+          <td>{{ row.control }}</td>
+          <td>{{ row.funcional }}</td>
+          <td>{{ row.notas }}</td>
         </tr>
       </tbody>
     </table>
