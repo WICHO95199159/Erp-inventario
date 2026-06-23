@@ -15,6 +15,9 @@
           <th @click="sort('no_serie')">NO. DE SERIE</th>
           <th @click="sort('pulgadas')">PULGADAS</th>
           <th @click="sort('equipo_computo')">EQUIPO DE CÓMPUTO</th>
+          <th @click="sort('control')">CONTROL</th>
+          <th @click="sort('funcional')">FUNCIONAL</th>
+          <th @click="sort('notas')">NOTAS</th>
         </tr>
       </thead>
 
@@ -38,6 +41,9 @@
           <td>{{ row.no_serie }}</td>
           <td>{{ row.pulgadas }}</td>
           <td>{{ row.equipo_computo }}</td>
+          <td>{{ row.control }}</td>
+          <td>{{ row.funcional }}</td>
+          <td>{{ row.notas }}</td>
         </tr>
       </tbody>
     </table>
