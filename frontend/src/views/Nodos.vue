@@ -1,10 +1,17 @@
 <template>
   <div>
-    <PortsForm :editData="selected" @saved="reload" />
+    <PortsForm
+      :editData="selected"
+      :consultando="consultando"
+      @saved="reload"
+      @cancel="cancelForm"
+    />
+
     <PortsTable
-      @edit="editRow"
-      @delete="deleteRow"
       ref="table"
+      @edit="editRow"
+      @consultar="consultarRow"
+      @delete="deleteRow"
     />
   </div>
 </template>
@@ -22,16 +29,34 @@ export default {
 
   data() {
     return {
-      selected: null
+      selected: null,
+      consultando: false
     };
   },
 
   methods: {
     editRow(row) {
-      this.selected = row;
+        console.log("EDITAR");
+
+        this.selected = row;
+        this.consultando = false;
     },
+
+    consultarRow(row) {
+        console.log("CONSULTAR");
+
+        this.selected = row;
+        this.consultando = true;
+    },
+
+    cancelForm() {
+      this.selected = null;
+      this.consultando = false;
+    },
+
     reload() {
       this.selected = null;
+      this.consultando = false;
       this.$refs.table.load();
     },
     async deleteRow(id) {

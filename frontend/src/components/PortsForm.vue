@@ -4,13 +4,16 @@
     <div class="form-container">
 
       <!-- 🔥 TÍTULO DINÁMICO -->
-      <div class="form-title">
-        <span v-if="form.id">
-          ✏️ Editando registro ... 
-        </span>
-        <span v-else>
+      <div v-if="consultando" class="consult-title">
+          🔍 Consultando puerto...
+      </div>
+
+      <div v-else-if="form.id" class="form-title">
+          ✏️ Editando puerto...
+      </div>
+
+      <div v-else class="form-title">
           ➕ Nuevo registro
-        </span>
       </div>
       <hr>
       <!-- 🔥 GRID DE INPUTS -->
@@ -23,44 +26,44 @@
 
         <div class="field">
           <label>UBICACIÓN</label>
-          <input class="forminput" v-model="form.location" />
+          <input class="forminput" v-model="form.location" :disabled="consultando" />
         </div>
 
         <div class="field">
           <label>RACK</label>
-          <input class="forminput" v-model="form.rack" />
+          <input class="forminput" v-model="form.rack" :disabled="consultando" />
         </div>
 
         <div class="field">
           <label>DISPOSITIVO</label>
-          <input class="forminput" v-model="form.device" />
+          <input class="forminput" v-model="form.device" :disabled="consultando" />
         </div>
         
         <div class="field">
           <label>PUERTO</label>
-          <input type="number" class="forminput" v-model="form.port_number" />
+          <input type="number" class="forminput" v-model="form.port_number" :disabled="consultando" />
         </div>
 
         <div class="field">
           <label>PATCH PANEL</label>
-          <input class="forminput" v-model="form.patchpanel" />
+          <input class="forminput" v-model="form.patchpanel" :disabled="consultando" />
         </div>
 
         <div class="field">
           <label>PUERTO PP</label>
-          <input type="number" class="forminput" v-model="form.port_number_pp" />
+          <input type="number" class="forminput" v-model="form.port_number_pp" :disabled="consultando" />
         </div>
 
         <div class="field">
           <label>NODO FINAL</label>
-          <input class="forminput" v-model="form.location_node" />
+          <input class="forminput" v-model="form.location_node" :disabled="consultando" />
         </div>
 
       </div>
 
       <!-- 🔥 BOTONES -->
       <div class="buttons">
-        <button @click="save">Guardar</button>
+        <button v-if="!consultando" @click="save"> Guardar </button>
         <button @click="cancel" class="cancel">Cancelar</button>
       </div>
 
@@ -73,7 +76,10 @@
 import api from "../services/api";
 
 export default {
-  props: ["editData"],
+  props: [
+      "editData",
+      "consultando"
+  ],
 
   data() {
     return {
@@ -103,8 +109,11 @@ export default {
     },
 
     cancel() {
-      this.form = {};
-      this.$emit("saved"); // limpia selección en App.vue
+
+        this.form = {};
+
+        this.$emit("cancel");
+
     }
   }
 };
@@ -166,6 +175,27 @@ button:first-child {
 .cancel {
   background-color: #e74c3c;
   color: white;
+}
+
+.forminput:disabled{
+    background:#1e293b;
+    color:#93c5fd;
+    opacity:1;
+    border:1px solid #3b82f6;
+    font-weight:bold;
+    cursor:not-allowed;
+}
+
+.consult-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#60a5fa;
+}
+
+.form-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#f59e0b;
 }
 
 </style>
