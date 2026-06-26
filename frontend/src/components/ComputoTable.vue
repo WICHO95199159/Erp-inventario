@@ -20,10 +20,12 @@
             <th @click="sort('no_serie')">NO. DE SERIE</th>
             <th @click="sort('mac')">MAC</th>
             <th @click="sort('procesador')">PROCESADOR</th>
+            <th @click="sort('detalle_procesador')">DETALLE DEL PROCESADOR</th>
             <th @click="sort('tipo_almacenamiento')">ALMACENAMIENTO</th>
             <th @click="sort('almacenamiento')">ALMACENAMIENTO (GB)</th>
             <th @click="sort('ram')">RAM</th>
             <th @click="sort('sistema_operativo')">SISTEMA OPERATIVO</th>
+            <th @click="sort('detalle_so')">DETALLE DEL SO</th>
             <th @click="sort('ip')">DIRECCIÓN IP</th>
             <th @click="sort('rust_id')">RUST ID</th>
             <th @click="sort('fecha_mtto')">FECHA MTTO</th>
@@ -59,10 +61,12 @@
             <td>{{ row.no_serie }}</td>
             <td>{{ row.mac }}</td>
             <td>{{ row.procesador }}</td>
+            <td>{{ row.detalle_procesador }}</td>
             <td>{{ row.tipo_almacenamiento }}</td>
             <td>{{ row.almacenamiento }}</td>
             <td>{{ row.ram }}</td>
             <td>{{ row.sistema_operativo }}</td>
+            <td>{{ row.detalle_so }}</td>
             <td>{{ row.ip }}</td>
             <td>{{ row.rust_id }}</td>
             <td>{{ row.fecha_mtto }}</td>
