@@ -2,17 +2,19 @@
   <div>
     <!-- 🧩 FORM -->
     <AccessPointForm
-      :editData="selected"
-      @saved="reload"
-      @cancel="cancelEdit"
+        :editData="selected"
+        :consultando="consultando"
+        @saved="reload"
+        @cancel="cancelEdit"
     />
 
     <!-- 🔎 SEARCH + TABLA -->
     <AccessPointTable
-      :data="accessPoints"
-      @edit="editRow"
-      @delete="deleteRow"
-      ref="table"
+        :data="accessPoints"
+        @consultar="consultarRow"
+        @edit="editRow"
+        @delete="deleteRow"
+        ref="table"
     />
   </div>
 </template>
@@ -29,12 +31,13 @@ export default {
     AccessPointTable
   },
 
-  data() {
-    return {
-      accessPoints: [],
-      selected: null,
-      interval: null
-    };
+  data(){
+      return{
+          accessPoints:[],
+          selected:null,
+          consultando:false,
+          interval:null
+      }
   },
 
   methods: {
@@ -45,14 +48,22 @@ export default {
     },
 
     // 🔁 Recargar (después de guardar/eliminar)
-    reload() {
-      this.selected = null;
-      this.load();
+    reload(){
+        this.selected=null;
+        this.consultando=false;
+        this.load();
     },
 
     // ✏️ Editar
-    editRow(row) {
-      this.selected = { ...row };
+    editRow(row){
+        this.selected={...row};
+        this.consultando=false;
+    },
+
+    //Consultar
+    consultarRow(row){
+        this.selected={...row};
+        this.consultando=true;
     },
 
     // ❌ Eliminar
@@ -62,9 +73,10 @@ export default {
     },
 
     // 🚫 Cancelar edición
-    cancelEdit() {
-      this.selected = null;
-    }
+    cancelEdit(){
+        this.selected=null;
+        this.consultando=false;
+    },
   },
 
   mounted() {
