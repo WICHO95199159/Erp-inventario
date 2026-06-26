@@ -36,13 +36,26 @@
             <td>{{ index + 1 }}</td>
 
             <td>
-              <button class="btn-edit" @click="$emit('edit', row)">
-                Editar
-              </button>
-              <button @click="confirmDelete(row)" class="btn-delete">
-                Eliminar
-              </button>
-            </td>
+
+            <button
+              class="btn btn-consult"
+              @click="$emit('consultar', row)">
+              Consultar
+            </button>
+
+            <button
+              class="btn btn-edit"
+              @click="$emit('edit', row)">
+              Editar
+            </button>
+
+            <button
+              class="btn btn-delete"
+              @click="confirmDelete(row)">
+              Eliminar
+            </button>
+
+          </td>
             
             <td>{{ row.ubicacion }}</td>
             <td>{{ row.marca }}</td>
@@ -174,20 +187,4 @@ tr:hover {
   background: #4f7cac;;
 }
 
-.btn-edit {
-  background: #3b82f6;
-  color: white;
-  border-radius: 4px;
-  padding: 4px 8px;
-  margin-right: 5px;
-  border: none;
-}
-
-.btn-delete {
-  background: #ef4444;
-  color: white;
-  border-radius: 4px;
-  padding: 4px 8px;
-  border: none;
-}
 </style>

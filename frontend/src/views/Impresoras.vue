@@ -6,13 +6,16 @@
     <ImpresorasForm
       :key="selected ? selected.id : 'new'"
       :editData="selected"
+      :consultando="consultando"
       @saved="save"
+      @cancel="cancelEdit"
     />
 
     <!-- 🔥 TABLE -->
     <ImpresorasTable
       :data="impresoras"
       @edit="edit"
+      @consultar="consultar"
       @delete="deleteRow"
     />
 
@@ -32,9 +35,10 @@ export default {
 
   data() {
     return {
-      impresoras: [],
-      selected: null,
-      interval: null
+        impresoras: [],
+        selected: null,
+        consultando: false,
+        interval: null
     };
   },
 
@@ -47,6 +51,12 @@ export default {
       } catch (err) {
         console.error("Error cargando impresoras:", err);
       }
+    },
+
+    //Consultar
+    consultar(row) {
+        this.selected = { ...row };
+        this.consultando = true;
     },
 
     // 💾 GUARDAR (CREATE / UPDATE)
@@ -64,6 +74,7 @@ export default {
         }
 
         this.selected = null;
+        this.consultando=false;
         await this.load();
       } catch (err) {
         console.error("Error guardando:", err);
@@ -71,8 +82,9 @@ export default {
     },
 
     // ✏️ EDITAR
-    edit(row) {
-      this.selected = { ...row }; // 🔥 clon
+    edit(row){
+        this.selected={...row};
+        this.consultando=false;
     },
 
     // 🗑️ ELIMINAR
@@ -86,8 +98,9 @@ export default {
     },
 
     // ❌ CANCELAR (NUEVO)
-    cancelEdit() {
-      this.selected = null;
+    cancelEdit(){
+        this.selected=null;
+        this.consultando=false;
     }
   },
 

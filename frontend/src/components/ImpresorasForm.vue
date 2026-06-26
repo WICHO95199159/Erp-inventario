@@ -1,76 +1,86 @@
 <template>
   <div class="form-container">
 
-    <h3 v-if="form.id">✏️ Editando impresora ...</h3>
-    <h3 v-else>➕ Nueva impresora</h3>
+    <div v-if="consultando" class="consult-title">
+        🔍 Consultando impresora...
+    </div>
+
+    <div v-else-if="form.id" class="edit-title">
+        ✏️ Editando impresora...
+    </div>
+
+    <div v-else class="new-title">
+        ➕ Nueva impresora
+    </div>
+
     <hr>
     <div class="form-grid">
 
       <div class="field">
         <label>UBICACIÓN</label>
-        <input v-model="form.ubicacion" />
+        <input v-model="form.ubicacion" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MARCA</label>
-        <input v-model="form.marca" />
+        <input v-model="form.marca" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MODELO</label>
-        <input v-model="form.modelo" />
+        <input v-model="form.modelo" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" />
+        <input v-model="form.no_serie" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MAC</label>
-        <input v-model="form.mac" />
+        <input v-model="form.mac" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>CONEXIÓN</label>
-        <input v-model="form.conexion" />
+        <input v-model="form.conexion" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>TIPO</label>
-        <input v-model="form.tipo" />
+        <input v-model="form.tipo" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>CONSUMIBLE</label>
-        <input v-model="form.consumible" />
+        <input v-model="form.consumible" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MODELO DE CONSUMIBLE</label>
-        <input v-model="form.modelo_consumible" />
+        <input v-model="form.modelo_consumible" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>IP / NOMBRE</label>
-        <input v-model="form.ip_nombre" />
+        <input v-model="form.ip_nombre" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>USUARIO</label>
-        <input v-model="form.usuario" />
+        <input v-model="form.usuario" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>PIN</label>
-        <input v-model="form.pin" />
+        <input v-model="form.pin" :disabled="consultando" />
       </div>
 
     </div>
 
     <div class="buttons">
-      <button class="btn-save" @click="save">Guardar</button>
-      <button class="btn-cancel" @click="cancel">Cancelar</button>
+      <button v-if="!consultando" class="btn btn-save" @click="save"> Guardar </button>
+      <button class="btn btn-cancel" @click="cancel">Cancelar</button>
     </div>
 
   </div>
@@ -79,7 +89,10 @@
 
 <script>
 export default {
-  props: ["editData"],
+  props:[
+      "editData",
+      "consultando"
+  ],
 
   data() {
     return {
@@ -123,9 +136,9 @@ export default {
       this.form = this.getEmptyForm();
     },
 
-    cancel() {
-      this.form = this.getEmptyForm();
-      this.$emit("saved", null);
+    cancel(){
+        this.form=this.getEmptyForm();
+        this.$emit("cancel");
     }
   }
 };
@@ -165,27 +178,35 @@ input {
   border: 1px solid #ccc;
 }
 
-/* 🔥 BOTONES */
-.buttons {
-  margin-top: 15px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+/* INPUTS EN MODO CONSULTA */
+
+.field input:disabled{
+    background:#1e293b;
+    color:#93c5fd;
+    opacity:1;
+    border:1px solid #3b82f6;
+    font-weight:bold;
+    cursor:not-allowed;
 }
 
-.btn-save {
-  background: #3b82f6;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
+/* TÍTULOS */
+
+.consult-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#60a5fa;
 }
 
-.btn-cancel {
-  background: #ef4444;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
+.edit-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#f59e0b;
 }
+
+.new-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#a78bfa;
+}
+
 </style>
