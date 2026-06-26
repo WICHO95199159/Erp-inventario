@@ -32,18 +32,20 @@
             <td>
 
                 <button
+                    class="btn btn-consult"
                     @click="$emit('consultar', row)">
                     Consultar
                 </button>
 
                 <button
+                    class="btn btn-edit"
                     @click="$emit('edit', row)">
                     Editar
                 </button>
 
                 <button
-                    @click="confirmDelete(row)"
-                    class="btn-delete">
+                    class="btn btn-delete"
+                    @click="confirmDelete(row)">
                     Eliminar
                 </button>
 
@@ -199,27 +201,4 @@ tr:hover {
   background-color: #4279af;
 }
 
-button {
-  margin-right: 5px;
-  padding: 5px 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-button:hover {
-  opacity: 0.5;
-}
-
-button:first-child {
-  background-color: #3498db;
-  color: white;
-}
-
-button:last-child {
-  background-color: #e74c3c;
-  color: white;
-}
 </style>

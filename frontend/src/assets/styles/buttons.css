@@ -1,0 +1,59 @@
+/* ===========================
+   BOTÓN BASE
+=========================== */
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:8px 14px;
+
+    border:none;
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:13px;
+    font-weight:600;
+    line-height:1;
+
+    letter-spacing:.3px;
+
+    margin-right:6px;
+
+    transition:all .20s ease;
+}
+
+.btn:hover{
+    opacity:.85;
+}
+
+/* ===========================
+   COLORES
+=========================== */
+
+.btn-save{
+    background:#16a34a;
+    color:#fff;
+}
+
+.btn-cancel{
+    background:#e74c3c;
+    color:#fff;
+}
+
+.btn-consult{
+    background:#3498db;
+    color:#fff;
+}
+
+.btn-edit{
+    background:#ffffff;
+    color:#111827;
+}
+
+.btn-delete{
+    background:#e74c3c;
+    color:#fff;
+}
