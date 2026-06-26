@@ -92,6 +92,12 @@
       </div>
 
       <div class="field">
+        <label>DETALLE DEL PROCESADOR</label>
+        <input v-model="form.detalle_procesador" 
+        :disabled="consultando" />
+      </div>
+
+      <div class="field">
         <label>TIPO DE ALMACENAMIENTO</label>
         <input v-model="form.tipo_almacenamiento" 
         :disabled="consultando" />
@@ -112,6 +118,12 @@
       <div class="field">
         <label>SISTEMA OPERATIVO</label>
         <input v-model="form.sistema_operativo" 
+        :disabled="consultando" />
+      </div>
+
+      <div class="field">
+        <label>DETALLE DEL SO</label>
+        <input v-model="form.detalle_so" 
         :disabled="consultando" />
       </div>
 
@@ -191,10 +203,12 @@ export default {
         no_serie: "",
         mac: "",
         procesador: "",
+        detalle_procesador: "",
         tipo_almacenamiento: "",
         almacenamiento: "",
         ram: "",
         sistema_operativo: "",
+        detalle_so: "",
         ip: "",
         rust_id: "",
         fecha_mtto: "",
