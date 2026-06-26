@@ -63,8 +63,8 @@
 
       <!-- 🔥 BOTONES -->
       <div class="buttons">
-        <button v-if="!consultando" @click="save"> Guardar </button>
-        <button @click="cancel" class="cancel">Cancelar</button>
+        <button v-if="!consultando" class="btn btn-save" @click="save"> Guardar </button>
+        <button @click="cancel" class="btn btn-cancel">Cancelar</button>
       </div>
 
     </div>
@@ -148,33 +148,6 @@ export default {
   border-radius: 6px;
   border: 1px solid #555;
   width: 135px;
-}
-
-/* 🔥 BOTONES */
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-/* Botones base */
-button {
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Guardar */
-button:first-child {
-  background-color: #3498db;
-  color: white;
-}
-
-/* Cancelar */
-.cancel {
-  background-color: #e74c3c;
-  color: white;
 }
 
 .forminput:disabled{

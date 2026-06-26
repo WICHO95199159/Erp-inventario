@@ -41,19 +41,19 @@
             <td>
 
               <button
-                class="btn-consult"
+                class="btn btn-consult"
                 @click="$emit('consultar', row)">
                 Consultar
               </button>
 
               <button
-                class="btn-edit"
+                class="btn btn-edit"
                 @click="$emit('edit', row)">
                 Editar
               </button>
 
               <button
-                class="btn-delete"
+                class="btn btn-delete"
                 @click="deleteRow(row.id)">
                 Eliminar
               </button>
@@ -227,46 +227,6 @@ tr:hover {
 tbody tr.active {
   background: #3b82f6;
   color: white;
-}
-
-/* 🔥 BOTONES */
-/* 🔥 BOTONES */
-
-button{
-    margin-right:5px;
-    padding:5px 8px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:.5px;
-    transition:.2s;
-}
-
-button:hover{
-    opacity:.80;
-}
-
-/* CONSULTAR */
-
-.btn-consult{
-    background:#3498db;
-    color:white;
-}
-
-/* EDITAR */
-
-.btn-edit{
-    background:#ffffff;
-    color:#000;
-}
-
-/* ELIMINAR */
-
-.btn-delete{
-    background:#e74c3c;
-    color:white;
 }
 
 /* 🔥 BUSCADOR */
