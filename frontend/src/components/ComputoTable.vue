@@ -39,15 +39,25 @@
             <td>{{ index + 1 }}</td>
 
             <td>
-              <button @click="$emit('consultar', row)" class="btn-edit">
+
+              <button
+                class="btn-consult"
+                @click="$emit('consultar', row)">
                 Consultar
               </button>
-              <button @click="$emit('edit', row)" class="btn-edit">
+
+              <button
+                class="btn-edit"
+                @click="$emit('edit', row)">
                 Editar
               </button>
-              <button @click="deleteRow(row.id)" class="btn-delete">
+
+              <button
+                class="btn-delete"
+                @click="deleteRow(row.id)">
                 Eliminar
               </button>
+
             </td>
             <td>{{ row.verificado }}</td>
             <td>{{ row.edificio }}</td>
@@ -220,23 +230,43 @@ tbody tr.active {
 }
 
 /* 🔥 BOTONES */
-button {
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
+/* 🔥 BOTONES */
+
+button{
+    margin-right:5px;
+    padding:5px 8px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.5px;
+    transition:.2s;
 }
 
-.btn-edit {
-  background: #3b82f6;
-  color: white;
-  margin-right: 6px;
+button:hover{
+    opacity:.80;
 }
 
-.btn-delete {
-  background: #ef4444;
-  color: white;
+/* CONSULTAR */
+
+.btn-consult{
+    background:#3498db;
+    color:white;
+}
+
+/* EDITAR */
+
+.btn-edit{
+    background:#ffffff;
+    color:#000;
+}
+
+/* ELIMINAR */
+
+.btn-delete{
+    background:#e74c3c;
+    color:white;
 }
 
 /* 🔥 BUSCADOR */

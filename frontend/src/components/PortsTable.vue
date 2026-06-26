@@ -30,10 +30,23 @@
             <td>{{ index + 1 }}</td>
 
             <td>
-              <button @click="$emit('edit', row)">Editar</button>
-              <button @click="confirmDelete(row)" class="btn-delete">
-                Eliminar
-              </button>
+
+                <button
+                    @click="$emit('consultar', row)">
+                    Consultar
+                </button>
+
+                <button
+                    @click="$emit('edit', row)">
+                    Editar
+                </button>
+
+                <button
+                    @click="confirmDelete(row)"
+                    class="btn-delete">
+                    Eliminar
+                </button>
+
             </td>
             <td>{{ row.location }}</td>
             <td>{{ row.rack }}</td>
