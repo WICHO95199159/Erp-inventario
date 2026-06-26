@@ -15,7 +15,7 @@
         <thead>
           <tr>
             <th>CANTIDAD</th>
-            <th>ACCIONES</th>
+            <th class="actions-col">ACCIONES</th>
             
             <th @click="sort('ubicacion')">UBICACIÓN</th>
             <th @click="sort('marca')">MARCA</th>
@@ -37,14 +37,26 @@
 
 
             <!-- 🔘 ACCIONES -->
-            <td>
-              <button @click="$emit('edit', row)" class="btn-edit">
-                Editar
-              </button>
+            <td class="actions-col">
 
-              <button @click="confirmDelete(row)" class="btn-delete">
-                Eliminar
-              </button>
+                <button
+                  class="btn btn-consult"
+                  @click="$emit('consultar', row)">
+                  Consultar
+                </button>
+
+                <button
+                  class="btn btn-edit"
+                  @click="$emit('edit', row)">
+                  Editar
+                </button>
+
+                <button
+                  class="btn btn-delete"
+                  @click="confirmDelete(row)">
+                  Eliminar
+                </button>
+
             </td>
 
             <td>{{ row.ubicacion }}</td>
@@ -179,30 +191,8 @@ td {
   white-space: nowrap;
 }
 
-td, th {
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 🔘 BOTONES */
-.btn-edit {
-  background: #2d7ef7;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  margin-right: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-delete {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 5px;
-  cursor: pointer;
+td, th{
+    white-space:nowrap;
 }
 
 </style>

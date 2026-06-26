@@ -2,65 +2,82 @@
   <div class="form-container">
 
     <!-- 🧠 TÍTULO DINÁMICO -->
-    <div class="form-title">
-      <span v-if="form.id">✏️ Editando access point...</span>
-      <span v-else>➕ Nuevo access point</span>
+    <div v-if="consultando" class="consult-title">
+        🔍 Consultando access point...
     </div>
+
+    <div v-else-if="form.id" class="edit-title">
+        ✏️ Editando access point...
+    </div>
+
+    <div v-else class="new-title">
+        ➕ Nuevo access point
+    </div>
+
     <hr>
     <!-- 📦 GRID -->
     <div class="form-grid">
 
       <div class="field">
         <label>UBICACIÓN</label>
-        <input v-model="form.ubicacion" />
+        <input v-model="form.ubicacion" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MARCA</label>
-        <input v-model="form.marca" />
+        <input v-model="form.marca" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>MODELO</label>
-        <input v-model="form.modelo" />
+        <input v-model="form.modelo" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" />
+        <input v-model="form.no_serie" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>IP</label>
-        <input v-model="form.ip" />
+        <input v-model="form.ip" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>SSID</label>
-        <input v-model="form.ssid" />
+        <input v-model="form.ssid" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>CONTRASEÑA</label>
-        <input v-model="form.contrasena" />
+        <input v-model="form.contrasena" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>USER ADMIN</label>
-        <input v-model="form.user_admin" />
+        <input v-model="form.user_admin" :disabled="consultando" />
       </div>
 
       <div class="field">
         <label>PASSWORD ADMIN</label>
-        <input v-model="form.password_admin" />
+        <input v-model="form.password_admin" :disabled="consultando" />
       </div>
 
     </div>
 
     <!-- 🔘 BOTONES -->
     <div class="actions">
-      <button class="btn-save" @click="save">Guardar</button>
-      <button class="btn-cancel" @click="cancel">Cancelar</button>
+      <button
+          v-if="!consultando"
+          class="btn btn-save"
+          @click="save">
+          Guardar
+      </button>
+      <button
+          class="btn btn-cancel"
+          @click="cancel">
+          Cancelar
+      </button>
     </div>
 
   </div>
@@ -70,7 +87,10 @@
 import api from "../services/api";
 
 export default {
-  props: ["editData"],
+  props:[
+      "editData",
+      "consultando"
+  ],
 
   data() {
     return {
@@ -184,21 +204,30 @@ export default {
   justify-content: flex-end;
 }
 
-.btn-save {
-  background: #2d7ef7;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+.field input:disabled{
+    background:#1e293b;
+    color:#93c5fd;
+    opacity:1;
+    border:1px solid #3b82f6;
+    font-weight:bold;
+    cursor:not-allowed;
 }
 
-.btn-cancel {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+.consult-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#60a5fa;
+}
+
+.edit-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#f59e0b;
+}
+
+.new-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#a78bfa;
 }
 </style>
