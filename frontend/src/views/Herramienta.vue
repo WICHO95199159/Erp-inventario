@@ -1,17 +1,19 @@
 <template>
   <div>
     <HerramientasForm
-      :editData="selected"
-      @saved="reload"
-      @cancelEdit="cancelEdit"
+        :editData="selected"
+        :consultando="consultando"
+        @saved="reload"
+        @cancelEdit="cancelEdit"
     />
 
     <input v-model="search" placeholder="Buscar..." class="search" />
 
     <HerramientasTable
-      ref="table"
-      :search="search"
-      @edit="editRow"
+        ref="table"
+        :search="search"
+        @consultar="consultarRow"
+        @edit="editRow"
     />
   </div>
 </template>
@@ -26,20 +28,29 @@ export default {
   data() {
     return {
       selected: null,
-      search: ""
+      search: "",
+      consultando:false,
     };
   },
 
   methods: {
-    editRow(row) {
-      this.selected = row;
+    editRow(row){
+        this.selected=row;
+        this.consultando=false;
     },
-    reload() {
-      this.selected = null;
-      this.$refs.table.load();
+    reload(){
+        this.selected=null;
+        this.consultando=false;
+        this.$refs.table.load();
     },
-    cancelEdit() {
-      this.selected = null;
+
+    cancelEdit(){
+        this.selected=null;
+        this.consultando=false;
+    },
+    consultarRow(row){
+        this.selected=row;
+        this.consultando=true;
     }
   }
 };

@@ -1,50 +1,67 @@
 <template>
   <div class="form-container">
-    <div class="title">
-      {{ form.id ? "✏️ Editando herramienta..." : "➕ Nueva herramienta" }}
+    <div v-if="consultando" class="consult-title">
+        🔎 Consultando herramienta...
+    </div>
+
+    <div v-else-if="form.id" class="form-title">
+        ✏️ Editando herramienta...
+    </div>
+
+    <div v-else class="new-title">
+        ➕ Nueva herramienta
     </div>
     <hr>
     <div class="grid">
       <div class="field">
         <label>UBICACIÓN 1</label>
-        <input v-model="form.ubicacion1" />
+        <input v-model="form.ubicacion1" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>UBICACIÓN 2</label>
-        <input v-model="form.ubicacion2" />
+        <input v-model="form.ubicacion2" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>TIPO</label>
-        <input v-model="form.tipo" />
+        <input v-model="form.tipo" :disabled="consultando"/>
       </div>
       
       <div class="field">
         <label>NOMBRE</label>
-        <input v-model="form.nombre" />
+        <input v-model="form.nombre" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>DESCRIPCIÓN</label>
-        <textarea v-model="form.descripcion"></textarea>
+        <textarea v-model="form.descripcion" :disabled="consultando"></textarea>
       </div>
 
       <div class="field">
         <label>NOTA</label>
-        <textarea v-model="form.nota"></textarea>
+        <textarea v-model="form.nota" :disabled="consultando"></textarea>
       </div>
 
       <div class="field" v-if="!editData">
         <label>CANTIDAD</label>
-        <input type="number" v-model="form.cantidad" min="1" value="1"/>
+        <input type="number" v-model="form.cantidad" min="1" value="1" :disabled="consultando"/>
       </div>
 
     </div>
 
     <div class="actions">
-      <button @click="save" class="btn-save">Guardar</button>
-      <button @click="cancel" class="btn-cancel">Cancelar</button>
+      <button
+          v-if="!consultando"
+          class="btn btn-save"
+          @click="save">
+          Guardar
+      </button>
+      <button
+          class="btn btn-cancel"
+          @click="cancel">
+          Cancelar
+      </button>
     </div>
   </div>
 </template>
@@ -53,7 +70,10 @@
 import api from "../services/api";
 
 export default {
-  props: ["editData"],
+  props: [
+      "editData",
+      "consultando"
+  ],
 
   data() {
     return {
@@ -107,15 +127,16 @@ export default {
       this.$emit("cancelEdit");
     },
 
-    resetForm() {
-      this.form = {
-        ubicacion1: "",
-        ubicacion2: "",
-        tipo: "",
-        nombre: "",
-        descripcion: "",
-        nota: ""
-      };
+    resetForm(){
+        this.form={
+            ubicacion1:"",
+            ubicacion2:"",
+            tipo:"",
+            nombre:"",
+            descripcion:"",
+            nota:"",
+            cantidad:1
+        }
     }
   }
 };
@@ -184,22 +205,32 @@ export default {
   justify-content: flex-end;
 }
 
-.btn-save {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
+.consult-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#60a5fa;
 }
 
-.btn-cancel {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
+.form-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#f59e0b;
+}
+
+.new-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#a78bfa;
+}
+
+.field input:disabled,
+.field textarea:disabled{
+    background:#1e293b;
+    color:#93c5fd;
+    opacity:1;
+    border:1px solid #3b82f6;
+    font-weight:bold;
+    cursor:not-allowed;
 }
 
 </style>
