@@ -8,14 +8,19 @@
         <span>Dashboard</span>
       </router-link>
 
-      <router-link to="/nodos" class="link">
-        <span class="icon">🔌</span>
-        <span>Nodos</span>
-      </router-link>
-
       <router-link to="/computo" class="link">
         <span class="icon">💻</span>
         <span>Cómputo</span>
+      </router-link>
+
+      <router-link to="/video" class="link">
+        <span class="icon">📺</span>
+        <span>Video</span>
+      </router-link>
+
+      <router-link to="/audio" class="link">
+        <span class="icon">🔊</span>
+        <span>Audio</span>
       </router-link>
 
       <router-link to="/impresora" class="link">
@@ -28,14 +33,9 @@
         <span>Access point</span>
       </router-link>
 
-      <router-link to="/video" class="link">
-        <span class="icon">📺</span>
-        <span>Video</span>
-      </router-link>
-
-      <router-link to="/audio" class="link">
-        <span class="icon">🔊</span>
-        <span>Audio</span>
+      <router-link to="/nodos" class="link">
+        <span class="icon">🔌</span>
+        <span>Nodos</span>
       </router-link>
 
       <router-link to="/herramienta" class="link">

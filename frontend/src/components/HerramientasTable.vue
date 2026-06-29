@@ -22,8 +22,25 @@
 
           <!-- ACCIONES -->
           <td>
-            <button @click="$emit('edit', row)" class="btn-edit">Editar</button>
-            <button @click="confirmDelete(row)" class="btn-delete">Eliminar</button>
+
+              <button
+                  class="btn btn-consult"
+                  @click="$emit('consultar',row)">
+                  Consultar
+              </button>
+
+              <button
+                  class="btn btn-edit"
+                  @click="$emit('edit',row)">
+                  Editar
+              </button>
+
+              <button
+                  class="btn btn-delete"
+                  @click="confirmDelete(row)">
+                  Eliminar
+              </button>
+
           </td>
 
           <!-- DATOS -->
@@ -50,7 +67,7 @@ export default {
     return {
       data: [],
       sortKey: "",
-      sortAsc: true
+      sortAsc: true,
     };
   },
 
