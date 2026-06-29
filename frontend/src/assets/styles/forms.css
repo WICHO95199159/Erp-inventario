@@ -1,0 +1,149 @@
+/* ======================================
+   CONTENEDOR
+====================================== */
+
+.form-container{
+    margin-bottom:20px;
+}
+
+/* ======================================
+   TÍTULOS
+====================================== */
+
+.title,
+.new-title,
+.form-title,
+.consult-title{
+
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.new-title{
+    color:#a78bfa;
+}
+
+.form-title{
+    color:#f59e0b;
+}
+
+.consult-title{
+    color:#60a5fa;
+}
+
+/* ======================================
+   GRID
+====================================== */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:12px;
+
+    align-items:start;
+
+}
+
+/* ======================================
+   CAMPOS
+====================================== */
+
+.field{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.field label{
+
+    font-size:12px;
+
+    margin-bottom:4px;
+
+    font-weight:bold;
+
+    color:white;
+
+}
+
+/* ======================================
+   INPUTS
+====================================== */
+
+.field input,
+.field textarea,
+.field select{
+
+    width:100%;
+
+    padding:8px;
+
+    border:none;
+
+    border-radius:6px;
+
+    outline:none;
+
+    background:#f1f1f1;
+
+    color:#111;
+
+    box-sizing:border-box;
+
+}
+
+/* ======================================
+   TEXTAREA
+====================================== */
+
+.field textarea{
+
+    resize:vertical;
+
+    min-height:70px;
+
+}
+
+/* ======================================
+   CONSULTA
+====================================== */
+
+.field input:disabled,
+.field textarea:disabled,
+.field select:disabled{
+
+    background:#1e293b;
+
+    color:#93c5fd;
+
+    border:1px solid #3b82f6;
+
+    opacity:1;
+
+    font-weight:bold;
+
+    cursor:not-allowed;
+
+}
+
+/* ======================================
+   BOTONES
+====================================== */
+
+.actions{
+
+    margin-top:16px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+}
