@@ -1,91 +1,111 @@
 <template>
   <div class="form-container">
-    <div class="title">
-      {{ form.id ? "✏️ Editando equipo de video..." : "➕ Nuevo equipo de video" }}
+    <div v-if="consultando" class="consult-title">
+        🔎 Consultando equipo de video...
+    </div>
+
+    <div v-else-if="form.id" class="form-title">
+        ✏️ Editando equipo de video...
+    </div>
+
+    <div v-else class="new-title">
+        ➕ Nuevo equipo de video
     </div>
     <hr>
     <div class="grid">
 
       <div class="field">
         <label>VERIFICADO</label>
-        <input v-model="form.verificado" />
+        <input v-model="form.verificado" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>EDIFICIO</label>
-        <input v-model="form.edificio" />
+        <input v-model="form.edificio" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>PLANTA</label>
-        <input v-model="form.planta" />
+        <input v-model="form.planta" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>NO. SALÓN</label>
-        <input type="number" v-model="form.salon" />
+        <input type="number" v-model="form.salon" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>TIPO</label>
-        <input v-model="form.tipo" />
+        <input v-model="form.tipo" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>ESTATUS</label>
-        <input v-model="form.estatus" />
+        <input v-model="form.estatus" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>MARCA</label>
-        <input v-model="form.marca" />
+        <input v-model="form.marca" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>MODELO</label>
-        <input v-model="form.modelo" />
+        <input v-model="form.modelo" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" />
+        <input v-model="form.no_serie" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>PULGADAS</label>
-        <input type="number" v-model="form.pulgadas" />
+        <input type="number" v-model="form.pulgadas" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>EQUIPO DE CÓMPUTO</label>
-        <input v-model="form.equipo_computo" />
+        <input v-model="form.equipo_computo" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>CONTROL</label>
-        <input v-model="form.control" />
+        <input v-model="form.control" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>FUNCIONAL</label>
-        <input v-model="form.funcional" />
+        <input v-model="form.funcional" :disabled="consultando"/>
       </div>
 
       <div class="field">
         <label>NOTAS</label>
-        <textarea v-model="form.notas"></textarea>
+        <textarea v-model="form.notas" :disabled="consultando"></textarea>
       </div>
 
       <div class="field" v-if="!editData">
         <label>CANTIDAD DE REGISTROS</label>
-        <input type="number" v-model="form.cantidad" min="1" value="1"/>
+        <input type="number" v-model="form.cantidad" min="1" value="1" :disabled="consultando"/>
       </div>
       
     </div>
 
     <div class="actions">
-      <button @click="save" class="btn-save">Guardar</button>
-      <button @click="cancel" class="btn-cancel">Cancelar</button>
+
+        <button
+            v-if="!consultando"
+            class="btn btn-save"
+            @click="save">
+            Guardar
+        </button>
+
+        <button
+            class="btn btn-cancel"
+            @click="cancel">
+            Cancelar
+        </button>
+
     </div>
   </div>
 </template>
@@ -94,7 +114,10 @@
 import api from "../services/api";
 
 export default {
-  props: ["editData"],
+  props:[
+      "editData",
+      "consultando"
+  ],
 
   data() {
     return {
@@ -224,21 +247,31 @@ export default {
   justify-content: flex-end;
 }
 
-.btn-save {
-  background: #2d7ef7;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+.consult-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#60a5fa;
 }
 
-.btn-cancel {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+.form-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#f59e0b;
+}
+
+.new-title{
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#a78bfa;
+}
+
+.field input:disabled,
+.field textarea:disabled{
+    background:#1e293b;
+    color:#93c5fd;
+    opacity:1;
+    border:1px solid #3b82f6;
+    font-weight:bold;
+    cursor:not-allowed;
 }
 </style>

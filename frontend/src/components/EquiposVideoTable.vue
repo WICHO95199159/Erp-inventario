@@ -29,8 +29,25 @@
           <td>{{ index + 1 }}</td>
 
           <td>
-            <button @click="$emit('edit', row)" class="btn-edit">Editar</button>
-            <button @click="confirmDelete(row)" class="btn-delete">Eliminar</button>
+
+              <button
+                  class="btn btn-consult"
+                  @click="$emit('consultar', row)">
+                  Consultar
+              </button>
+
+              <button
+                  class="btn btn-edit"
+                  @click="$emit('edit', row)">
+                  Editar
+              </button>
+
+              <button
+                  class="btn btn-delete"
+                  @click="confirmDelete(row)">
+                  Eliminar
+              </button>
+
           </td>
           <td>{{ row.verificado }}</td>
           <td>{{ row.edificio }}</td>
@@ -185,23 +202,4 @@ td {
   white-space: nowrap;
 }
 
-/* 🔘 BOTONES */
-.btn-edit {
-  background: #2d7ef7;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  margin-right: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-delete {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 5px;
-  cursor: pointer;
-}
 </style>
