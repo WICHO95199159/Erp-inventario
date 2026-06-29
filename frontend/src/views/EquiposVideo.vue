@@ -1,18 +1,30 @@
 <template>
   <div>
+
     <EquiposVideoForm
       :editData="selected"
+      :consultando="consultando"
       @saved="reload"
       @cancelEdit="cancelEdit"
     />
 
-    <input v-model="search1" placeholder="Filtrar por edificio..." class="search" />
-    <input v-model="search2" placeholder="Filtrar general..." class="search" />
+    <input
+      v-model="search1"
+      placeholder="Filtrar por edificio..."
+      class="search"
+    />
+
+    <input
+      v-model="search2"
+      placeholder="Filtrar general..."
+      class="search"
+    />
 
     <EquiposVideoTable
       ref="table"
       :search1="search1"
       :search2="search2"
+      @consultar="consultarRow"
       @edit="editRow"
     />
 
@@ -29,6 +41,7 @@ export default {
   data() {
     return {
       selected: null,
+      consultando: false,
       search1: "",
       search2: ""
     };
@@ -36,14 +49,24 @@ export default {
 
   methods: {
     editRow(row) {
-      this.selected = row;
+        this.selected = row;
+        this.consultando = false;
     },
+
+    consultarRow(row) {
+        this.selected = row;
+        this.consultando = true;
+    },
+
     reload() {
-      this.selected = null;
-      this.$refs.table.load();
+        this.selected = null;
+        this.consultando = false;
+        this.$refs.table.load();
     },
+
     cancelEdit() {
-      this.selected = null;
+        this.selected = null;
+        this.consultando = false;
     }
   }
 };
