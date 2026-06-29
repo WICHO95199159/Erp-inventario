@@ -9,16 +9,32 @@ export const getAll = (req, res) => {
 };
 
 // CREATE
-export const create = (req, res) => {
-  const data = { ...req.body };
+export const create = async (req, res) => {
+  try {
+    const cantidad = Number(req.body.cantidad) || 1;
 
-  delete data.created_at;
-  delete data.updated_at;
+    const data = { ...req.body };
 
-  Audio.createEquipoAudio(data, (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json({ id: result.insertId });
-  });
+    delete data.cantidad;
+    delete data.created_at;
+    delete data.updated_at;
+
+    for (let i = 0; i < cantidad; i++) {
+      await new Promise((resolve, reject) => {
+        Audio.createEquipoAudio(data, (err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+    }
+
+    res.json({
+      message: `${cantidad} registro(s) creado(s)`
+    });
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 // UPDATE

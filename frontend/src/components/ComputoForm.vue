@@ -146,7 +146,7 @@
       </div>
 
       <div class="field" v-if="!editData">
-        <label>CANTIDAD</label>
+        <label>CANTIDAD DE REGISTROS</label>
         <input type="number" v-model="form.cantidad" min="1" 
         :disabled="consultando" />
       </div>
