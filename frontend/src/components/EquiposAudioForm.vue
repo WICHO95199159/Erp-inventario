@@ -63,9 +63,8 @@
         <label>NOTAS</label>
         <textarea v-model="form.notas" :disabled="consultando"></textarea>
       </div>
-    </div>
 
-    <div class="field field-small" v-if="!editData">
+      <div class="field field-small" v-if="!editData">
         <label>CANTIDAD DE REGISTROS</label>
         <input
             type="number"
@@ -74,6 +73,10 @@
             :disabled="consultando"
         />
     </div>
+    
+    </div>
+
+    
 
     <div class="actions">
 
