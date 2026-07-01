@@ -35,12 +35,12 @@
 
       <div class="field field-double">
         <label>DESCRIPCIÓN</label>
-        <textarea v-model="form.descripcion" :disabled="consultando"></textarea>
+        <textarea v-model="form.descripcion" :disabled="consultando" class="form-textarea-md"></textarea>
       </div>
 
       <div class="field field-double">
         <label>NOTA</label>
-        <textarea v-model="form.nota" :disabled="consultando"></textarea>
+        <textarea v-model="form.nota" :disabled="consultando" class="form-textarea-md"></textarea>
       </div>
       
       <div class="field" v-if="!editData">

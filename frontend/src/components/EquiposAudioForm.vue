@@ -61,7 +61,7 @@
 
       <div class="field">
         <label>NOTAS</label>
-        <textarea v-model="form.notas" :disabled="consultando"></textarea>
+        <textarea v-model="form.notas" :disabled="consultando" class="form-textarea-sm"></textarea>
       </div>
 
       <div class="field field-small" v-if="!editData">
