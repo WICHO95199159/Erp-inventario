@@ -1,8 +1,9 @@
-/* ===========================
+/* ======================================
    BOTÓN BASE
-=========================== */
+====================================== */
 
 .btn{
+
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -20,22 +21,43 @@
 
     letter-spacing:.3px;
 
-    margin-right:6px;
+    margin-right:6px;   /* ← Déjalo por ahora */
 
-    transition:all .20s ease;
+    transition:
+        background-color .20s ease,
+        color .20s ease,
+        opacity .20s ease,
+        transform .15s ease;
 }
+
+/* ======================================
+   HOVER
+====================================== */
 
 .btn:hover{
-    opacity:.85;
+    opacity:.90;
 }
 
-/* ===========================
+.btn:active{
+    transform:scale(.98);
+}
+
+.btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+/* ======================================
    COLORES
-=========================== */
+====================================== */
 
 .btn-save{
     background:#16a34a;
     color:#fff;
+}
+
+.btn-save:hover{
+    background:#15803d;
 }
 
 .btn-cancel{
@@ -43,9 +65,17 @@
     color:#fff;
 }
 
+.btn-cancel:hover{
+    background:#dc2626;
+}
+
 .btn-consult{
     background:#3498db;
     color:#fff;
+}
+
+.btn-consult:hover{
+    background:#2563eb;
 }
 
 .btn-edit{
@@ -53,7 +83,15 @@
     color:#111827;
 }
 
+.btn-edit:hover{
+    background:#e5e7eb;
+}
+
 .btn-delete{
     background:#e74c3c;
     color:#fff;
+}
+
+.btn-delete:hover{
+    background:#dc2626;
 }

@@ -2,22 +2,22 @@
   <div class="form-container">
 
     <!-- 🔥 TÍTULO DINÁMICO -->
-    <div v-if="consultando" class="edit-title">
-      🔍 Consultando equipo de cómputo...
+    <div v-if="consultando" class="consult-title">
+        🔍 Consultando equipo de cómputo...
     </div>
-    
-    <div v-else-if="form.id" class="edit-title">
-      ✏️ Editando equipo de cómputo ...
+
+    <div v-else-if="form.id" class="form-title">
+        ✏️ Editando equipo de cómputo...
     </div>
 
     <div v-else class="new-title">
-      ➕ Nuevo registro
+        ➕ Nuevo registro
     </div>
 
     <hr>
 
     <!-- 🔥 GRID -->
-    <div class="form-grid">
+    <div class="grid">
 
       <div class="field">
         <label>VERIFICADO</label>
@@ -242,52 +242,6 @@ export default {
 </script>
 
 <style scoped>
-.form-container {
-  margin-bottom: 20px;
-}
-
-.edit-title {
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #60a5fa;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-.field label {
-  font-size: 12px;
-  margin-bottom: 4px;
-  color: #cbd5e1;
-}
-
-.field input {
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-}
-
-.actions {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
-
-.field input:disabled {
-  background: #1e293b;
-  color: #93c5fd;
-  opacity: 1;
-  border: 1px solid #3b82f6;
-  font-weight: bold;
-  cursor: not-allowed;
-}
+@import "../assets/styles/forms.css";
+@import "../assets/styles/buttons.css";
 </style>

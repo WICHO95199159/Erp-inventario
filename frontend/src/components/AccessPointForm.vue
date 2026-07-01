@@ -6,7 +6,7 @@
         🔍 Consultando access point...
     </div>
 
-    <div v-else-if="form.id" class="edit-title">
+    <div v-else-if="form.id" class="form-title">
         ✏️ Editando access point...
     </div>
 
@@ -16,7 +16,7 @@
 
     <hr>
     <!-- 📦 GRID -->
-    <div class="form-grid">
+    <div class="grid">
 
       <div class="field">
         <label>UBICACIÓN</label>
@@ -160,74 +160,6 @@ export default {
 </script>
 
 <style scoped>
-.form-container {
-  padding: 0px 0;
-}
-
-/* 🧠 TÍTULO */
-.form-title {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-/* 📦 GRID */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-
-/* 🔤 CAMPOS */
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-.field label {
-  font-size: 12px;
-  margin-bottom: 4px;
-  color: #ccc;
-}
-
-.field input {
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-  background: #eee;
-}
-
-/* 🔘 BOTONES */
-.actions {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
-
-.field input:disabled{
-    background:#1e293b;
-    color:#93c5fd;
-    opacity:1;
-    border:1px solid #3b82f6;
-    font-weight:bold;
-    cursor:not-allowed;
-}
-
-.consult-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#60a5fa;
-}
-
-.edit-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#f59e0b;
-}
-
-.new-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#a78bfa;
-}
+@import "../assets/styles/forms.css";
+@import "../assets/styles/buttons.css";
 </style>

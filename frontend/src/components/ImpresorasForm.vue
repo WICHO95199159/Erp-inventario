@@ -5,7 +5,7 @@
         🔍 Consultando impresora...
     </div>
 
-    <div v-else-if="form.id" class="edit-title">
+    <div v-else-if="form.id" class="form-title">
         ✏️ Editando impresora...
     </div>
 
@@ -14,7 +14,7 @@
     </div>
 
     <hr>
-    <div class="form-grid">
+    <div class="grid">
 
       <div class="field">
         <label>UBICACIÓN</label>
@@ -78,7 +78,7 @@
 
     </div>
 
-    <div class="buttons">
+    <div class="actions">
       <button v-if="!consultando" class="btn btn-save" @click="save"> Guardar </button>
       <button class="btn btn-cancel" @click="cancel">Cancelar</button>
     </div>
@@ -144,69 +144,7 @@ export default {
 };
 </script>
 
-
 <style scoped>
-.form-container {
-  margin-bottom: 20px;
-}
-
-/* 🔥 GRID RESPONSIVE */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-
-/* 🔥 CAMPO */
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 🔥 LABEL */
-label {
-  font-size: 12px;
-  margin-bottom: 4px;
-  color: #cbd5f5; /* tono claro tipo tu UI */
-  font-weight: 600;
-}
-
-/* 🔥 INPUT */
-input {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* INPUTS EN MODO CONSULTA */
-
-.field input:disabled{
-    background:#1e293b;
-    color:#93c5fd;
-    opacity:1;
-    border:1px solid #3b82f6;
-    font-weight:bold;
-    cursor:not-allowed;
-}
-
-/* TÍTULOS */
-
-.consult-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#60a5fa;
-}
-
-.edit-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#f59e0b;
-}
-
-.new-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#a78bfa;
-}
-
+@import "../assets/styles/forms.css";
+@import "../assets/styles/buttons.css";
 </style>
