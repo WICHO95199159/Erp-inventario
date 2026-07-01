@@ -176,51 +176,6 @@ export default {
 </script>
 
 <style scoped>
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-}
-.actions {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
-
-.consult-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#60a5fa;
-}
-
-.form-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#f59e0b;
-}
-
-.new-title{
-    margin-bottom:10px;
-    font-weight:bold;
-    color:#a78bfa;
-}
-
-.field input:disabled,
-.field textarea:disabled{
-    background:#1e293b;
-    color:#93c5fd;
-    opacity:1;
-    border:1px solid #3b82f6;
-    font-weight:bold;
-    cursor:not-allowed;
-}
-
-.field-small{
-    width:210px;
-}
+@import "../assets/styles/forms.css";
+@import "../assets/styles/buttons.css";
 </style>
