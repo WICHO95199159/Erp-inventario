@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     
-    <input 
-      v-model="search" 
-      placeholder="Buscar..." 
-      class="search"
+    <input
+        v-model="search"
+        placeholder="Buscar..."
+        class="table-search"
     />
 
-    <div class="table-container">
-      <table>
+    <div class="table-container table-height-large">
+      <table class="table table-wide table-hover table-sticky">
         <thead>
           <tr>
             <th>CANTIDAD</th>
@@ -116,7 +116,7 @@ export default {
     },
 
     confirmDelete(row) {
-      const nombre = row.dispositivo || row.ubicacion || "el nodo";
+      const nombre = row.device || row.location || "el puerto";
 
       const ok = confirm(`¿Seguro que quieres eliminar ${nombre}?`);
 
@@ -124,11 +124,6 @@ export default {
         this.$emit("delete", row.id);
       }
     },
-
-    async deleteRow(id) {
-      await api.delete(`/ports/${id}`);
-      this.load();
-    }
   },
 
   mounted() {
@@ -142,63 +137,15 @@ export default {
   },
 
   beforeUnmount() {
-    clearInterval(this.interval);
+      if (this.interval) {
+          clearInterval(this.interval);
+      }
   },
 };
 </script>
 
-<style>
-body {
-  background: #020617; /* más oscuro que antes */
-  color: #e2e8f0;
-}
+<style scoped>
 
-.container {
-  padding: 0px;
-  font-family: Arial, sans-serif;
-}
-
-.search {
-  margin-bottom: 50px;
-  padding: 8px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.table-container {
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-thead {
-  background-color: #2c3e50;
-  color: white;
-  position: sticky;
-  top: 0;
-}
-
-th {
-  padding: 10px;
-  cursor: pointer;
-  text-align: left;
-}
-
-td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-tr:hover {
-  background-color: #4279af;
-}
+/* Ajustes exclusivos de este componente */
 
 </style>

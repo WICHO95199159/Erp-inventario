@@ -9,9 +9,9 @@
     />
 
     <!-- 📦 CONTENEDOR -->
-    <div class="table-container">
+    <div class="table-container table-height-large">
 
-      <table>
+      <table class="table table-wide table-hover table-sticky">
         <thead>
           <tr>
             <th>CANTIDAD</th>
@@ -149,50 +149,6 @@ export default {
 
 <style scoped>
 
-/* 🔎 SEARCH */
-.search {
-  margin-bottom: 10px;
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-  background: #eee;
-  width: 250px;
-}
-
-/* 📦 CONTENEDOR */
-.table-container {
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-/* 📊 TABLA */
-table {
-  width: 100%;
-  min-width: 700px;
-  border-collapse: collapse;
-}
-
-/* 🧠 HEADER */
-thead {
-  background: #3a4a5a;
-}
-
-th {
-  padding: 10px;
-  text-align: left;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-/* 📄 FILAS */
-td {
-  padding: 8px;
-  border-top: 1px solid #444;
-  white-space: nowrap;
-}
-
-td, th{
-    white-space:nowrap;
-}
+/* Ajustes exclusivos de este componente */
 
 </style>

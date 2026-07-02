@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <!-- 📊 CONTENEDOR SOLO PARA TABLA -->
-    <div class="table-container">
+  <div class="table-wrapper">
 
-      <table>
+    <div class="table-container table-height-medium">
+
+        <table class="table table-wide table-hover table-sticky">
         <thead>
           <tr>
             <th>CANTIDAD</th>
@@ -176,85 +176,3 @@ export default {
 };
 </script>
 
-<style scoped>
-
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  display: block;
-}
-
-/* 🔥 TABLA GRANDE (CLAVE DEL SCROLL) */
-table {
-  min-width: 1800px;
-  width: max-content;
-}
-
-/* 🔥 HEADER FIJO */
-thead th {
-  position: sticky;
-  top: 0;
-  background: #334155;
-  z-index: 2;
-}
-
-/* 🔥 CELDAS */
-th, td {
-  padding: 10px 14px;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-/* 🔥 HEADER TEXTO */
-th {
-  color: #e2e8f0;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* 🔥 FILAS */
-tbody tr {
-  border-bottom: 1px solid #1e293b;
-  transition: background 0.2s;
-}
-
-/* 🔥 HOVER */
-tr:hover {
-  background: #4f7cac;;
-}
-
-/* 🔥 FILA SELECCIONADA (opcional si luego la usas) */
-tbody tr.active {
-  background: #3b82f6;
-  color: white;
-}
-
-/* 🔥 BUSCADOR */
-.search {
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  width: 250px;
-}
-
-/* 🔥 SCROLL BONITO (tipo Railway) */
-.table-container::-webkit-scrollbar {
-  height: 8px;
-  width: 8px;
-}
-
-.table-container::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 4px;
-}
-
-.table-container::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
-}
-
-</style>

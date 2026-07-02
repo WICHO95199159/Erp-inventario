@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
 
     <ComputoForm
       :editData="selected"
@@ -8,8 +8,19 @@
       @cancel="cancelForm"
     />
 
-    <input v-model="search1" placeholder="Buscar por edificio..." class="search" />
-    <input v-model="search2" placeholder="Buscar general..." class="search" />
+    <div class="search-group">
+      <input
+        v-model="search1"
+        class="search"
+        placeholder="Buscar por edificio..."
+      />
+
+      <input
+        v-model="search2"
+        class="search"
+        placeholder="Buscar general..."
+      />
+    </div>
 
     <ComputoTable
       ref="table"
