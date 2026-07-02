@@ -1,6 +1,6 @@
 <template>
-  <div class="table-container">
-    <table>
+  <div class="table-container table-height-large">
+    <table class="table table-wide table-hover table-sticky">
       <thead>
         <tr>
           <th>CANTIDAD</th>
@@ -163,10 +163,7 @@ export default {
 </script>
 
 <style scoped>
-.table-container {
-  overflow-x: auto;
-}
-table {
-  width: 100%;
-}
+
+/* Ajustes exclusivos de este componente */
+
 </style>

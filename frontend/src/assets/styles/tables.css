@@ -1,0 +1,314 @@
+/* ======================================
+   VARIABLES
+====================================== */
+
+:root{
+
+    --table-height:55vh;
+
+}
+
+/* ======================================
+   WRAPPER
+====================================== */
+
+.table-wrapper{
+
+    width:100%;
+
+    margin-top:20px;
+
+}
+
+/* ======================================
+   CONTENEDOR
+====================================== */
+
+.table-container{
+
+    width:100%;
+
+    overflow:auto;
+
+    border:1px solid #475569;
+
+    border-radius:8px;
+
+    background:#020617;
+
+}
+
+/*======================================
+ALTURAS
+======================================*/
+
+.table-height-small{
+
+    max-height:320px;
+
+}
+
+.table-height-medium{
+
+    max-height:410px;
+
+}
+
+.table-height-large{
+
+    max-height:510px;
+
+}
+
+/* ======================================
+   TABLA BASE
+====================================== */
+
+.table{
+
+    width:100%;
+
+    min-width:100%;
+
+    border-collapse:collapse;
+
+    font-size:14px;
+
+}
+
+/* ======================================
+   TAMAÑOS
+====================================== */
+
+.table-small{
+
+    min-width:700px;
+
+}
+
+.table-medium{
+
+    min-width:1200px;
+
+}
+
+.table-wide{
+
+    min-width:1800px;
+
+    width:max-content;
+
+}
+
+/* ======================================
+   ENCABEZADO
+====================================== */
+
+.table thead{
+
+    background:#334155;
+
+}
+
+/* ======================================
+   HEADER STICKY
+====================================== */
+
+.table-sticky thead th{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:10;
+
+    background:#334155;
+
+}
+
+/* ======================================
+   ENCABEZADOS
+====================================== */
+
+.table th{
+
+    padding:10px 14px;
+
+    text-align:left;
+
+    white-space:nowrap;
+
+    cursor:pointer;
+
+    color:#e2e8f0;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+    user-select:none;
+
+}
+
+/* ======================================
+   CELDAS
+====================================== */
+
+.table td{
+
+    padding:10px 14px;
+
+    white-space:nowrap;
+
+    color:#f1f5f9;
+
+    vertical-align:middle;
+
+}
+
+/* ======================================
+   FILAS
+====================================== */
+
+.table tbody tr{
+
+    border-bottom:1px solid #1e293b;
+
+    transition:.20s;
+
+}
+
+/* ======================================
+   HOVER
+====================================== */
+
+.table-hover tbody tr:hover{
+
+    background:#1e293b;
+
+}
+
+/* ======================================
+   FILA ACTIVA
+====================================== */
+
+.table tbody tr.active{
+
+    background:#3b82f6;
+
+    color:#ffffff;
+
+}
+
+/* ======================================
+   COLUMNA ACCIONES
+====================================== */
+
+.table-actions{
+
+    width:1%;
+
+    white-space:nowrap;
+
+}
+
+/* ======================================
+   COLUMNA NUMÉRICA
+====================================== */
+
+.table-number{
+
+    width:70px;
+
+    text-align:center;
+
+}
+
+/* ======================================
+   ALINEACIONES
+====================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+/* ======================================
+   TABLA VACÍA
+====================================== */
+
+.table-empty{
+
+    padding:30px;
+
+    text-align:center;
+
+    color:#94a3b8;
+
+}
+
+/* ======================================
+   SCROLL
+====================================== */
+
+.table-container::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+.table-container::-webkit-scrollbar-track{
+
+    background:#0f172a;
+
+}
+
+.table-container::-webkit-scrollbar-thumb{
+
+    background:#475569;
+
+    border-radius:8px;
+
+}
+
+.table-container::-webkit-scrollbar-thumb:hover{
+
+    background:#64748b;
+
+}
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+
+@media (max-width:768px){
+
+    :root{
+
+        --table-height:45vh;
+
+    }
+
+    .table{
+
+        font-size:13px;
+
+    }
+
+    .table th,
+    .table td{
+
+        padding:8px;
+
+    }
+
+}

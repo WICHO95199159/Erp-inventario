@@ -1,6 +1,6 @@
 <template>
-  <div class="table-container">
-    <table>
+  <div class="table-container table-height-large">
+    <table class="table table-wide table-hover table-sticky">
       <thead>
         <tr>
           <th>CANTIDAD</th>
@@ -170,36 +170,7 @@ export default {
 </script>
 
 <style scoped>
-.table-container {
-  overflow-x: auto;
-  border: 1px solid #555;
-  border-radius: 8px;
-}
 
-/* 📊 TABLA */
-table {
-  width: 100%;
-  min-width: 700px;
-  border-collapse: collapse;
-}
-
-/* 🧠 HEADER */
-thead {
-  background: #3a4a5a;
-}
-
-th {
-  padding: 10px;
-  text-align: left;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-/* 📄 FILAS */
-td {
-  padding: 8px;
-  border-top: 1px solid #444;
-  white-space: nowrap;
-}
+/* Ajustes exclusivos de este componente */
 
 </style>

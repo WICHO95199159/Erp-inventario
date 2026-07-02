@@ -241,7 +241,3 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../assets/styles/forms.css";
-@import "../assets/styles/buttons.css";
-</style>

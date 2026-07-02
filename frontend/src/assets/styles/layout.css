@@ -1,0 +1,93 @@
+/* ======================================
+   CONTENEDOR PRINCIPAL
+====================================== */
+
+.page{
+
+    width:100%;
+
+    min-height:100vh;
+
+    padding:24px;
+
+}
+
+/* ======================================
+   CONTENIDO
+====================================== */
+
+.content{
+
+    width:100%;
+
+}
+
+/* ======================================
+   WRAPPERS
+====================================== */
+
+.form-wrapper{
+
+    margin-bottom:24px;
+
+}
+
+.table-wrapper{
+
+    width:100%;
+
+    margin-top:20px;
+
+}
+
+/* ======================================
+   BUSCADORES
+====================================== */
+
+.search-group{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin:18px 0;
+
+}
+
+.search{
+
+    width:300px;
+
+    max-width:100%;
+
+    padding:8px 10px;
+
+    border:none;
+
+    border-radius:6px;
+
+    outline:none;
+
+}
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+
+@media (max-width:900px){
+
+    .page{
+
+        padding:16px;
+
+    }
+
+    .search{
+
+        width:100%;
+
+    }
+
+}

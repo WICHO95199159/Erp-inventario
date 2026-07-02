@@ -8,8 +8,8 @@
       class="search"
     />
 
-    <div class="table-container">
-      <table>
+    <div class="table-container table-height-large">
+      <table class="table table-wide table-hover table-sticky">
         <thead>
           <tr>
             <th>CANTIDAD</th>
@@ -153,38 +153,7 @@ export default {
 
 
 <style scoped>
-.search {
-  margin-bottom: 10px;
-  padding: 8px;
-  width: 250px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
 
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  cursor: pointer;
-  background: #334155;
-  position: sticky;
-  top: 0;
-}
-
-th, td {
-  padding: 10px;
-  white-space: nowrap;
-}
-
-tr:hover {
-  background: #4f7cac;;
-}
+/* Ajustes exclusivos de este componente */
 
 </style>
