@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="page">
+
     <PortsForm
       :editData="selected"
       :consultando="consultando"
@@ -7,12 +8,20 @@
       @cancel="cancelForm"
     />
 
+    <input
+      v-model="search"
+      class="search"
+      placeholder="Buscar..."
+    />
+
     <PortsTable
       ref="table"
+      :search="search"
       @edit="editRow"
       @consultar="consultarRow"
       @delete="deleteRow"
     />
+
   </div>
 </template>
 
@@ -30,7 +39,8 @@ export default {
   data() {
     return {
       selected: null,
-      consultando: false
+      consultando: false,
+      search: ""
     };
   },
 

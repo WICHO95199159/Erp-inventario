@@ -1,12 +1,6 @@
 <template>
   <div>
 
-    <!-- 🔍 SEARCH FUERA -->
-    <input
-      v-model="search"
-      placeholder="Buscar..."
-      class="search"
-    />
 
     <div class="table-container table-height-large">
       <table class="table table-wide table-hover table-sticky">
@@ -81,11 +75,10 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: ["data", "search"],
 
   data() {
     return {
-      search: "",
       sortKey: "",
       sortAsc: true
     };

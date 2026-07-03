@@ -8,9 +8,16 @@
         @cancel="cancelEdit"
     />
 
+    <input
+        v-model="search"
+        class="search"
+        placeholder="Buscar..."
+    />
+
     <!-- 🔎 SEARCH + TABLA -->
     <AccessPointTable
         :data="accessPoints"
+        :search="search"
         @consultar="consultarRow"
         @edit="editRow"
         @delete="deleteRow"
@@ -36,7 +43,8 @@ export default {
           accessPoints:[],
           selected:null,
           consultando:false,
-          interval:null
+          interval:null,
+          search: "",
       }
   },
 
