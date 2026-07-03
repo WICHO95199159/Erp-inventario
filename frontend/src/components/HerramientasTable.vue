@@ -1,6 +1,9 @@
 <template>
-  <div class="table-container">
-    <table>
+  <div class="table-wrapper">
+
+    <div class="table-container table-height-medium">
+
+        <table class="table table-wide table-hover table-sticky">
       <thead>
         <tr>
           <th>Cantidad</th>
@@ -54,6 +57,8 @@
         </tr>
       </tbody>
     </table>
+
+    </div>
   </div>
 </template>
 
