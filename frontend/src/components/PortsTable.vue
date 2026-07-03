@@ -1,11 +1,5 @@
 <template>
   <div class="container">
-    
-    <input
-        v-model="search"
-        placeholder="Buscar..."
-        class="table-search"
-    />
 
     <div class="table-container table-height-large">
       <table class="table table-wide table-hover table-sticky">
@@ -69,35 +63,54 @@
 import api from "../services/api";
 
 export default {
+  props: [
+      "search"
+  ],
+
   data() {
     return {
-      search: "",
       ports: [],
       sortKey: "",
-      sortAsc: true // 🔥 NUEVO
+      sortAsc: true
     };
   },
 
   computed: {
     filteredData() {
+
       return this.ports
-        .filter(p =>
-          Object.values(p).some(v =>
-            String(v).toLowerCase().includes(this.search.toLowerCase())
+
+          .filter(port =>
+
+              Object.values(port).some(value =>
+
+                  String(value)
+                      .toLowerCase()
+                      .includes(this.search.toLowerCase())
+
+              )
+
           )
-        )
-        .sort((a, b) => {
-          if (!this.sortKey) return 0;
 
-          const result = String(a[this.sortKey] ?? "")
-            .localeCompare(String(b[this.sortKey] ?? ""), undefined, {
-              numeric: true,
-              sensitivity: "base"
-            });
+          .sort((a,b)=>{
 
-          return this.sortAsc ? result : -result;
-        });
-    }
+              if(!this.sortKey) return 0;
+
+              const result=String(a[this.sortKey]??"")
+                  .localeCompare(
+                      String(b[this.sortKey]??""),
+                      undefined,
+                      {
+                          numeric:true,
+                          sensitivity:"base"
+                      }
+                  );
+
+              return this.sortAsc ? result : -result;
+
+          });
+
+  }
   },
 
   methods: {

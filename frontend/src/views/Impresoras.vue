@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div class="page">
 
     <!-- 🔥 FORM -->
     <ImpresorasForm
@@ -11,9 +11,16 @@
       @cancel="cancelEdit"
     />
 
+    <input
+        v-model="search"
+        class="search"
+        placeholder="Buscar..."
+    />
+
     <!-- 🔥 TABLE -->
     <ImpresorasTable
       :data="impresoras"
+      :search="search"
       @edit="edit"
       @consultar="consultar"
       @delete="deleteRow"
@@ -38,7 +45,8 @@ export default {
         impresoras: [],
         selected: null,
         consultando: false,
-        interval: null
+        interval: null,
+        search: "",
     };
   },
 

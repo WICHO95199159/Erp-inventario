@@ -1,13 +1,6 @@
 <template>
   <div>
 
-    <!-- 🔎 BUSCADOR (FUERA DE LA TABLA) -->
-    <input
-      v-model="search"
-      placeholder="Buscar..."
-      class="search"
-    />
-
     <!-- 📦 CONTENEDOR -->
     <div class="table-container table-height-large">
 
@@ -79,11 +72,10 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: ["data", "search"],
 
   data() {
     return {
-      search: "",
       sortKey: "",
       sortAsc: true
     };
