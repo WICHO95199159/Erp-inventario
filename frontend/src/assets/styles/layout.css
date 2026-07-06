@@ -1,8 +1,8 @@
 /* ======================================
-   CONTENEDOR PRINCIPAL
+   PÁGINA
 ====================================== */
 
-.page{
+.page {
 
     width:100%;
 
@@ -16,7 +16,7 @@
    CONTENIDO
 ====================================== */
 
-.content{
+.content {
 
     width:100%;
 
@@ -26,15 +26,13 @@
    WRAPPERS
 ====================================== */
 
-.form-wrapper{
+.form-wrapper {
 
     margin-bottom:24px;
 
 }
 
-.table-wrapper{
-
-    width:100%;
+.table-wrapper {
 
     margin-top:20px;
 
@@ -44,7 +42,7 @@
    BUSCADORES
 ====================================== */
 
-.search-group{
+.search-group {
 
     display:flex;
 
@@ -56,7 +54,7 @@
 
 }
 
-.search{
+.search {
 
     width:300px;
 
@@ -69,6 +67,78 @@
     border-radius:6px;
 
     outline:none;
+
+    background:#f3f4f6;
+
+    color:#111827;
+
+    transition:
+        background .20s,
+        box-shadow .20s;
+
+}
+
+.search:focus {
+
+    box-shadow:0 0 0 2px #60a5fa55;
+
+}
+
+/* ======================================
+   ESPACIADORES
+====================================== */
+
+.mt-10{
+
+    margin-top:10px;
+
+}
+
+.mt-20{
+
+    margin-top:20px;
+
+}
+
+.mb-10{
+
+    margin-bottom:10px;
+
+}
+
+.mb-20{
+
+    margin-bottom:20px;
+
+}
+
+/* ======================================
+   FLEX
+====================================== */
+
+.flex{
+
+    display:flex;
+
+}
+
+.flex-between{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.flex-center{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
 }
 
@@ -90,4 +160,4 @@
 
     }
 
-}
+}   

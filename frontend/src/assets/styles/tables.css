@@ -1,14 +1,4 @@
 /* ======================================
-   VARIABLES
-====================================== */
-
-:root{
-
-    --table-height:55vh;
-
-}
-
-/* ======================================
    WRAPPER
 ====================================== */
 
@@ -30,45 +20,49 @@
 
     overflow:auto;
 
+    background:#020617;
+
     border:1px solid #475569;
 
     border-radius:8px;
 
-    background:#020617;
-
 }
 
-/*======================================
-ALTURAS
-======================================*/
+/* ======================================
+   ALTURAS
+====================================== */
 
-.table-height-small{
+.table-height-sm{
 
     max-height:320px;
 
 }
 
-.table-height-medium{
+.table-height-md{
 
     max-height:410px;
 
 }
 
-.table-height-large{
+.table-height-lg{
 
     max-height:510px;
 
 }
 
+.table-height-xl{
+
+    max-height:650px;
+
+}
+
 /* ======================================
-   TABLA BASE
+   TABLA
 ====================================== */
 
 .table{
 
     width:100%;
-
-    min-width:100%;
 
     border-collapse:collapse;
 
@@ -77,24 +71,35 @@ ALTURAS
 }
 
 /* ======================================
-   TAMAÑOS
+   ANCHOS
 ====================================== */
 
-.table-small{
+.table-700{
 
     min-width:700px;
 
 }
 
-.table-medium{
+.table-1200{
 
     min-width:1200px;
 
 }
 
-.table-wide{
+.table-1800{
 
     min-width:1800px;
+
+}
+
+.table-2400{
+
+    min-width:2400px;
+
+}
+
+.table-1800,
+.table-2400{
 
     width:max-content;
 
@@ -111,7 +116,7 @@ ALTURAS
 }
 
 /* ======================================
-   HEADER STICKY
+   STICKY
 ====================================== */
 
 .table-sticky thead th{
@@ -120,14 +125,14 @@ ALTURAS
 
     top:0;
 
-    z-index:10;
+    z-index:5;
 
     background:#334155;
 
 }
 
 /* ======================================
-   ENCABEZADOS
+   CABECERAS
 ====================================== */
 
 .table th{
@@ -138,15 +143,25 @@ ALTURAS
 
     white-space:nowrap;
 
-    cursor:pointer;
-
     color:#e2e8f0;
+
+    font-size:13px;
 
     font-weight:600;
 
-    letter-spacing:.5px;
+    letter-spacing:.3px;
 
     user-select:none;
+
+    cursor:pointer;
+
+    transition:background .20s;
+
+}
+
+.table th:hover{
+
+    background:#475569;
 
 }
 
@@ -160,9 +175,9 @@ ALTURAS
 
     white-space:nowrap;
 
-    color:#f1f5f9;
-
     vertical-align:middle;
+
+    color:#f8fafc;
 
 }
 
@@ -174,17 +189,13 @@ ALTURAS
 
     border-bottom:1px solid #1e293b;
 
-    transition:.20s;
+    transition:background .15s;
 
 }
 
-/* ======================================
-   HOVER
-====================================== */
-
 .table-hover tbody tr:hover{
 
-    background:#1e293b;
+    background:#172554;
 
 }
 
@@ -194,14 +205,14 @@ ALTURAS
 
 .table tbody tr.active{
 
-    background:#3b82f6;
+    background:#2563eb;
 
     color:#ffffff;
 
 }
 
 /* ======================================
-   COLUMNA ACCIONES
+   COLUMNAS
 ====================================== */
 
 .table-actions{
@@ -212,10 +223,6 @@ ALTURAS
 
 }
 
-/* ======================================
-   COLUMNA NUMÉRICA
-====================================== */
-
 .table-number{
 
     width:70px;
@@ -225,8 +232,28 @@ ALTURAS
 }
 
 /* ======================================
+   BOTONES
+====================================== */
+
+.table-actions-group{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+/* ======================================
    ALINEACIONES
 ====================================== */
+
+.text-left{
+
+    text-align:left;
+
+}
 
 .text-center{
 
@@ -291,12 +318,6 @@ ALTURAS
 ====================================== */
 
 @media (max-width:768px){
-
-    :root{
-
-        --table-height:45vh;
-
-    }
 
     .table{
 

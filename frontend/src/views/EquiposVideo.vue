@@ -4,8 +4,8 @@
     <EquiposVideoForm
       :editData="selected"
       :consultando="consultando"
-      @saved="reload"
-      @cancelEdit="cancelEdit"
+      @saved="save"
+      @cancel="cancelEdit"
     />
 
     <input
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import api from "../services/api";
 import EquiposVideoForm from "../components/EquiposVideoForm.vue";
 import EquiposVideoTable from "../components/EquiposVideoTable.vue";
 
@@ -59,15 +60,63 @@ export default {
     },
 
     reload() {
+
         this.selected = null;
+
         this.consultando = false;
+
         this.$refs.table.load();
+
     },
 
     cancelEdit() {
+
         this.selected = null;
+
         this.consultando = false;
-    }
+
+    },
+
+    async save(data) {
+        try {
+          let cleanData = { ...data };
+
+          const cantidad = Math.max(1, parseInt(cleanData.cantidad) || 1);
+          delete cleanData.cantidad;
+
+          if (cleanData.id) {
+
+            const id = cleanData.id;
+            delete cleanData.id;
+
+            await api.put(`/equipos-video/${id}`, cleanData);
+
+          } else {
+
+            const requests = [];
+
+            for (let i = 0; i < cantidad; i++) {
+              requests.push(api.post("/equipos-video", { ...cleanData }));
+            }
+
+            await Promise.all(requests);
+
+          }
+
+          this.reload();
+
+        } catch (error) {
+
+          console.error("ERROR AL GUARDAR:", error);
+
+        }
+      },
+
+      mounted() {
+
+          this.$refs?.table?.load();
+
+      }
   }
 };
 </script>

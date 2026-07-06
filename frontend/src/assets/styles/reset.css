@@ -1,8 +1,16 @@
+/* ======================================
+   RESET
+====================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
+
+/* ======================================
+   DOCUMENTO
+====================================== */
 
 html,
 body,
@@ -11,17 +19,53 @@ body,
     min-height:100vh;
 }
 
+/* ======================================
+   BODY
+====================================== */
+
 body{
-    background:#020617;
-    color:#e2e8f0;
+
+    background:var(--bg);
+
+    color:var(--text);
+
     font-family:
         Inter,
-        Segoe UI,
+        "Segoe UI",
         Arial,
         sans-serif;
+
+    line-height:1.5;
+
+    -webkit-font-smoothing:antialiased;
+
+    -moz-osx-font-smoothing:grayscale;
+
 }
+
+/* ======================================
+   APP
+====================================== */
 
 #app{
     width:100%;
     min-height:100vh;
+}
+
+/* ======================================
+   ELEMENTOS
+====================================== */
+
+img,
+picture,
+svg{
+    display:block;
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
 }

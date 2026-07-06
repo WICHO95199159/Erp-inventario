@@ -1,68 +1,109 @@
 import * as Equipo from "../models/equipos.model.js";
 
-// GET
+/* ======================================
+   GET
+====================================== */
+
 export const getAll = (req, res) => {
-  Equipo.getEquipos((err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json(result);
-  });
-};
 
-// CREATE
-export const create = (req, res) => {
-  let data = { ...req.body };
+    Equipo.getEquipos((err, result) => {
 
-  // 🔥 EXTRAER cantidad
-  const cantidad = parseInt(data.cantidad) || 1;
+        if (err) {
+            return res.status(500).json(err);
+        }
 
-  // ❌ ELIMINAR cantidad antes de insertar
-  delete data.cantidad;
+        res.json(result);
 
-  delete data.created_at;
-  delete data.updated_at;
-
-  console.log("📦 DATA LIMPIA:", data);
-  console.log("🔢 CANTIDAD:", cantidad);
-
-  let inserted = 0;
-
-  for (let i = 0; i < cantidad; i++) {
-    Equipo.createEquipo(data, (err, result) => {
-      if (err) {
-        console.log("🔥 ERROR REAL:", err);
-        return res.status(500).json(err);
-      }
-
-      inserted++;
-
-      if (inserted === cantidad) {
-        res.json({ message: `${cantidad} registros creados` });
-      }
     });
-  }
+
 };
 
-// UPDATE
-export const update = (req, res) => {
-  const data = { ...req.body };
+/* ======================================
+   CREATE
+====================================== */
 
-  delete data.id;
-  delete data.created_at;
-  delete data.updated_at;
+export const create = (req, res) => {
 
-  Equipo.updateEquipo(req.params.id, data, (err) => {
-    if (err) {
-      console.log("ERROR SQL:", err);
-      return res.status(500).json(err);
+    const data = { ...req.body };
+
+    // Cantidad de registros a crear
+    const cantidad = Math.max(1, parseInt(data.cantidad) || 1);
+
+    // Campos exclusivos del frontend
+    delete data.cantidad;
+
+    // Campos automáticos de la BD
+    delete data.created_at;
+    delete data.updated_at;
+
+    let inserted = 0;
+
+    for (let i = 0; i < cantidad; i++) {
+
+        Equipo.createEquipo(data, (err) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            inserted++;
+
+            if (inserted === cantidad) {
+
+                res.json({
+                    message: `${cantidad} registro${cantidad > 1 ? "s" : ""} creado${cantidad > 1 ? "s" : ""}`
+                });
+
+            }
+
+        });
+
     }
-    res.json({ message: "Actualizado" });
-  });
+
 };
 
-// DELETE
+/* ======================================
+   UPDATE
+====================================== */
+
+export const update = (req, res) => {
+
+    const data = { ...req.body };
+
+    delete data.id;
+    delete data.created_at;
+    delete data.updated_at;
+
+    Equipo.updateEquipo(req.params.id, data, (err) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro actualizado"
+        });
+
+    });
+
+};
+
+/* ======================================
+   DELETE
+====================================== */
+
 export const remove = (req, res) => {
-  Equipo.deleteEquipo(req.params.id, (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Eliminado" });
-  });
+
+    Equipo.deleteEquipo(req.params.id, (err) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro eliminado"
+        });
+
+    });
+
 };
