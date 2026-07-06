@@ -19,137 +19,168 @@
     <!-- 🔥 GRID -->
     <div class="grid">
 
-      <div class="field">
-        <label>VERIFICADO</label>
-        <input v-model="form.verificado"
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="VERIFICADO"
+          v-model="form.verificado"
+          :disabled="consultando"
+          :error="errors.verificado"
+      />
 
-      <div class="field">
-        <label>EDIFICIO</label>
-        <input v-model="form.edificio" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="EDIFICIO"
+          v-model="form.edificio"
+          :disabled="consultando"
+          :error="errors.edificio"
+      />
 
-      <div class="field">
-        <label>PLANTA</label>
-        <input v-model="form.planta" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="PLANTA"
+          v-model="form.planta"
+          :disabled="consultando"
+          :error="errors.planta"
+      />
 
-      <div class="field">
-        <label>No. SALÓN</label>
-        <input type="number" v-model="form.salon" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="SALÓN"
+          type="number"
+          v-model="form.salon"
+          :disabled="consultando"
+          :error="errors.salon"
+      />
 
-      <div class="field">
-        <label>TIPO</label>
-        <input v-model="form.tipo" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="TIPO"
+          v-model="form.tipo"
+          :disabled="consultando"
+          :error="errors.tipo"
+      />
 
-      <div class="field">
-        <label>ESTATUS</label>
-        <input v-model="form.estatus" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="ESTATUS"
+          v-model="form.estatus"
+          :disabled="consultando"
+          :error="errors.estatus"
+      />
 
-      <div class="field">
-        <label>NOMBRE</label>
-        <input v-model="form.nombre" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="NOMBRE"
+          v-model="form.nombre"
+          :disabled="consultando"
+          :error="errors.nombre"
+      />
 
-      <div class="field">
-        <label>MARCA</label>
-        <input v-model="form.marca" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="MARCA"
+          v-model="form.marca"
+          :disabled="consultando"
+          :error="errors.marca"
+      />
 
-      <div class="field">
-        <label>MODELO</label>
-        <input v-model="form.modelo" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="MODELO"
+          v-model="form.modelo"
+          :disabled="consultando"
+          :error="errors.modelo"
+      />
 
-      <div class="field">
-        <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="NO_SERIE"
+          v-model="form.no_serie"
+          :disabled="consultando"
+          :error="errors.no_serie"
+      />
 
-      <div class="field">
-        <label>MAC</label>
-        <input v-model="form.mac" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="MAC"
+          v-model="form.mac"
+          :disabled="consultando"
+          :error="errors.mac"
+      />
 
-      <div class="field">
-        <label>PROCESADOR</label>
-        <input v-model="form.procesador" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="PROCESADOR"
+          v-model="form.procesador"
+          :disabled="consultando"
+          :error="errors.procesador"
+      />
 
-      <div class="field">
-        <label>DETALLE DEL PROCESADOR</label>
-        <input v-model="form.detalle_procesador" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="DETALLE DEL PROCESADOR"
+          v-model="form.detalle_procesador"
+          :disabled="consultando"
+          :error="errors.detalle_procesador"
+      />
 
-      <div class="field">
-        <label>TIPO DE ALMACENAMIENTO</label>
-        <input v-model="form.tipo_almacenamiento" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="TIPO DE ALMACENAMIENTO"
+          v-model="form.tipo_almacenamiento"
+          :disabled="consultando"
+          :error="errors.tipo_almacenamiento"
+      />
 
-      <div class="field">
-        <label>ALMACENAMIENTO (GB)</label>
-        <input type="number" v-model="form.almacenamiento" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="ALMACENAMIENTO"
+          v-model="form.almacenamiento"
+          type="number"
+          :disabled="consultando"
+          :error="errors.almacenamiento"
+      />
 
-      <div class="field">
-        <label>RAM</label>
-        <input type="number" v-model="form.ram" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="RAM"
+          v-model="form.ram"
+          type="number"
+          :disabled="consultando"
+          :error="errors.ram"
+      />
 
-      <div class="field">
-        <label>SISTEMA OPERATIVO</label>
-        <input v-model="form.sistema_operativo" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="SISTEMA OPERATIVO"
+          v-model="form.sistema_operativo"
+          type="number"
+          :disabled="consultando"
+          :error="errors.sistema_operativo"
+      />
 
-      <div class="field">
-        <label>DETALLE DEL SO</label>
-        <input v-model="form.detalle_so" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="DETALLE DEL SO"
+          v-model="form.detalle_so"
+          :disabled="consultando"
+          :error="errors.detalle_so"
+      />
 
-      <div class="field">
-        <label>IP</label>
-        <input v-model="form.ip" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="IP"
+          v-model="form.ip"
+          :disabled="consultando"
+          :error="errors.ip"
+      />
 
-      <div class="field">
-        <label>RUST ID</label>
-        <input type="number" v-model="form.rust_id" min="0" max="999999999"
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="RUST ID"
+          v-model="form.rust_id"
+          type="number"
+          :disabled="consultando"
+          :error="errors.rust_id"
+      />
 
-      <div class="field">
-        <label>MANTENIMIENTO</label>
-        <input type="number" v-model="form.fecha_mtto" min="0" max="3000" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          label="MANTENIMIENTO"
+          v-model="form.fecha_mtto"
+          type="number"
+          :disabled="consultando"
+          :error="errors.fecha_mtto"
+      />
 
-      <div class="field" v-if="!editData">
-        <label>CANTIDAD DE REGISTROS</label>
-        <input type="number" v-model="form.cantidad" min="1" 
-        :disabled="consultando" />
-      </div>
+      <BaseInput
+          v-if="!editData"
+          label="CANTIDAD DE REGISTROS"
+          type="number"
+          v-model="form.cantidad"
+          :disabled="consultando"
+          :error="errors.cantidad"
+      />
+
     </div>
 
     <!-- 🔥 BOTONES -->
@@ -162,7 +193,14 @@
 </template>
 
 <script>
+import BaseInput from "./BaseInput.vue";
+
 export default {
+
+  components: {
+    BaseInput
+  },
+
   props: [
     "editData",
     "consultando"
@@ -221,53 +259,50 @@ export default {
 
     validateForm() {
 
-      const requiredFields = {
+          this.errors = {};
 
-        verificado: "VERIFICADO",
-        edificio: "EDIFICIO",
-        planta: "PLANTA",
-        salon: "NO. SALÓN",
-        tipo: "TIPO",
-        estatus: "ESTATUS",
-        nombre: "NOMBRE",
-        marca: "MARCA",
-        modelo: "MODELO",
-        no_serie: "NO. DE SERIE",
-        mac: "MAC",
-        procesador: "PROCESADOR",
-        detalle_procesador: "DETALLE DEL PROCESADOR",
-        tipo_almacenamiento: "TIPO DE ALMACENAMIENTO",
-        almacenamiento: "ALMACENAMIENTO (GB)",
-        ram: "RAM",
-        sistema_operativo: "SISTEMA OPERATIVO",
-        detalle_so: "DETALLE DEL SO",
-        ip: "IP",
-        rust_id: "RUST ID",
-        fecha_mtto: "MANTENIMIENTO"
+          const requiredFields = {
+              verificado: "VERIFICADO",
+              edificio: "EDIFICIO",
+              planta: "PLANTA",
+              salon: "NO. SALÓN",
+              tipo: "TIPO",
+              estatus: "ESTATUS",
+              nombre: "NOMBRE",
+              marca: "MARCA",
+              modelo: "MODELO",
+              no_serie: "NO. DE SERIE",
+              mac: "MAC",
+              procesador: "PROCESADOR",
+              detalle_procesador: "DETALLE DEL PROCESADOR",
+              tipo_almacenamiento: "TIPO DE ALMACENAMIENTO",
+              almacenamiento: "ALMACENAMIENTO (GB)",
+              ram: "RAM",
+              sistema_operativo: "SISTEMA OPERATIVO",
+              detalle_so: "DETALLE DEL SO",
+              ip: "IP",
+              rust_id: "RUST ID",
+              fecha_mtto: "MANTENIMIENTO"
+          };
 
-      };
+          for (const key in requiredFields) {
 
-      for (const key in requiredFields) {
+              const value = this.form[key];
 
-        const value = this.form[key];
+              if (
+                  value === null ||
+                  value === undefined ||
+                  String(value).trim() === ""
+              ) {
 
-        if (
-          value === null ||
-          value === undefined ||
-          String(value).trim() === ""
-        ) {
+                  this.errors[key] = "Campo obligatorio";
 
-          alert(`El campo "${requiredFields[key]}" es obligatorio.`);
+              }
 
-          return false;
+          }
 
-        }
-
-      }
-
-      return true;
-
-    },
+          return Object.keys(this.errors).length === 0;
+      },
 
     // 🔥 NORMALIZAR (MAYÚSCULAS)
     normalizeData(data) {
@@ -281,19 +316,26 @@ export default {
 
     async save() {
 
-      if (!this.validateForm()) return;
+        if (!this.validateForm()) return;
 
-      const data = this.normalizeData({ ...this.form });
+        const data = this.normalizeData({ ...this.form });
 
-      this.$emit("saved", data);
+        this.errors = {};
 
-      this.form = this.getEmptyForm();
+        this.$emit("saved", data);
+
+        this.form = this.getEmptyForm();
 
     },
 
     cancel() {
+
+      this.errors = {};
+
       this.form = this.getEmptyForm();
+
       this.$emit("cancel");
+
     }
   }
 };

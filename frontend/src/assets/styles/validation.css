@@ -1,0 +1,35 @@
+/* ======================================
+   VALIDACIÓN
+====================================== */
+
+.field{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.field input.error{
+
+    border:2px solid #ef4444;
+
+    background:#2b1111;
+
+    color:#ffffff;
+
+    caret-color:#ffffff;
+
+}
+
+.error-message{
+
+    margin-top:6px;
+
+    color:#ef4444;
+
+    font-size:12px;
+
+    font-weight:500;
+
+}
