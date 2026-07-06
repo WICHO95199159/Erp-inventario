@@ -170,7 +170,10 @@ export default {
 
   data() {
     return {
-      form: this.getEmptyForm()
+      form: this.getEmptyForm(),
+
+      errors: {}
+
     };
   },
 
@@ -216,6 +219,56 @@ export default {
       };
     },
 
+    validateForm() {
+
+      const requiredFields = {
+
+        verificado: "VERIFICADO",
+        edificio: "EDIFICIO",
+        planta: "PLANTA",
+        salon: "NO. SALÓN",
+        tipo: "TIPO",
+        estatus: "ESTATUS",
+        nombre: "NOMBRE",
+        marca: "MARCA",
+        modelo: "MODELO",
+        no_serie: "NO. DE SERIE",
+        mac: "MAC",
+        procesador: "PROCESADOR",
+        detalle_procesador: "DETALLE DEL PROCESADOR",
+        tipo_almacenamiento: "TIPO DE ALMACENAMIENTO",
+        almacenamiento: "ALMACENAMIENTO (GB)",
+        ram: "RAM",
+        sistema_operativo: "SISTEMA OPERATIVO",
+        detalle_so: "DETALLE DEL SO",
+        ip: "IP",
+        rust_id: "RUST ID",
+        fecha_mtto: "MANTENIMIENTO"
+
+      };
+
+      for (const key in requiredFields) {
+
+        const value = this.form[key];
+
+        if (
+          value === null ||
+          value === undefined ||
+          String(value).trim() === ""
+        ) {
+
+          alert(`El campo "${requiredFields[key]}" es obligatorio.`);
+
+          return false;
+
+        }
+
+      }
+
+      return true;
+
+    },
+
     // 🔥 NORMALIZAR (MAYÚSCULAS)
     normalizeData(data) {
       Object.keys(data).forEach(key => {
@@ -227,10 +280,15 @@ export default {
     },
 
     async save() {
+
+      if (!this.validateForm()) return;
+
       const data = this.normalizeData({ ...this.form });
 
       this.$emit("saved", data);
+
       this.form = this.getEmptyForm();
+
     },
 
     cancel() {
