@@ -2,13 +2,7 @@
    VALIDACIÓN
 ====================================== */
 
-.field{
-
-    display:flex;
-
-    flex-direction:column;
-
-}
+/* INPUTS */
 
 .field input.error{
 
@@ -21,6 +15,20 @@
     caret-color:#ffffff;
 
 }
+
+/* TEXTAREAS */
+
+.field textarea.error{
+
+    border:2px solid #ef4444;
+
+    background:#ffffff;
+
+    color:#111827;
+
+}
+
+/* MENSAJES */
 
 .error-message{
 

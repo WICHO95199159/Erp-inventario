@@ -3,12 +3,29 @@
 
     <label>{{ label }}</label>
 
-    <input
+    <!-- TEXTAREA -->
+    <textarea
+      v-if="type === 'textarea'"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       :disabled="disabled"
       :class="{ error }"
+      :rows="rows"
+      :placeholder="placeholder"
+    ></textarea>
+
+    <!-- INPUT -->
+    <input
+      v-else
       :type="type"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :disabled="disabled"
+      :class="{ error }"
+      :placeholder="placeholder"
+      :min="min"
+      :max="max"
+      :step="step"
     />
 
     <span
@@ -47,7 +64,32 @@ export default {
     type: {
       type: String,
       default: "text"
+    },
+
+    placeholder: {
+      type: String,
+      default: ""
+    },
+
+    rows: {
+      type: Number,
+      default: 4
+    },
+
+    min: {
+      type: [String, Number],
+      default: null
+    },
+
+    max: {
+      type: [String, Number],
+      default: null
+    },
+
+    step: {
+      type: [String, Number],
+      default: null
     }
   }
-}
+};
 </script>

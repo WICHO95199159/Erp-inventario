@@ -1,30 +1,53 @@
 /* ======================================
-   LAYOUT
+   CONTENEDOR
 ====================================== */
 
 .form-container {
-    width: 100%;
-    margin-bottom: 20px;
+
+    width:100%;
+
+    margin-bottom:20px;
+
 }
+
+/* ======================================
+   GRID
+====================================== */
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    align-items: start;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:12px;
+
+    align-items:start;
+
 }
 
+/* ======================================
+   CAMPOS
+====================================== */
+
 .field {
-    display: flex;
-    flex-direction: column;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
 
 .field-double {
-    grid-column: span 2;
+
+    grid-column:span 2;
+
 }
 
 .field-small {
-    width: 220px;
+
+    width:220px;
+
 }
 
 /* ======================================
@@ -35,21 +58,31 @@
 .new-title,
 .form-title,
 .consult-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
 }
 
 .new-title {
-    color: #a78bfa;
+
+    color:#a78bfa;
+
 }
 
 .form-title {
-    color: #f59e0b;
+
+    color:#f59e0b;
+
 }
 
 .consult-title {
-    color: #60a5fa;
+
+    color:#60a5fa;
+
 }
 
 /* ======================================
@@ -57,17 +90,21 @@
 ====================================== */
 
 .field label {
-    display: flex;
-    align-items: flex-end;
 
-    height: 32px;
+    display:flex;
 
-    margin-bottom: 6px;
+    align-items:flex-end;
 
-    font-size: 12px;
-    font-weight: bold;
+    height:32px;
 
-    color: #ffffff;
+    margin-bottom:6px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    color:#ffffff;
+
 }
 
 /* ======================================
@@ -77,24 +114,30 @@
 .field input,
 .field textarea,
 .field select {
-    width: 100%;
 
-    padding: 8px;
+    width:100%;
 
-    box-sizing: border-box;
+    padding:8px 10px;
 
-    border: none;
-    border-radius: 6px;
+    box-sizing:border-box;
 
-    outline: none;
+    border:none;
 
-    background: #f3f4f6;
-    color: #111827;
+    border-radius:6px;
+
+    outline:none;
+
+    background:#f3f4f6;
+
+    color:#111827;
+
+    font:inherit;
 
     transition:
         background .20s,
         border-color .20s,
         box-shadow .20s;
+
 }
 
 /* ======================================
@@ -102,45 +145,63 @@
 ====================================== */
 
 .field textarea {
-    resize: vertical;
+
+    min-height:110px;
+
+    resize:vertical;
+
 }
 
 .form-textarea-sm {
-    height: 60px;
+
+    min-height:60px;
+
 }
 
 .form-textarea-md {
-    height: 90px;
+
+    min-height:90px;
+
 }
 
 .form-textarea-lg {
-    height: 140px;
+
+    min-height:140px;
+
 }
 
 /* ======================================
-   ESTADOS
+   FOCUS
 ====================================== */
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-    box-shadow: 0 0 0 2px #60a5fa55;
+
+    box-shadow:0 0 0 2px #60a5fa55;
+
 }
+
+/* ======================================
+   DESHABILITADOS
+====================================== */
 
 .field input:disabled,
 .field textarea:disabled,
 .field select:disabled {
-    background: #1e293b;
 
-    color: #93c5fd;
+    background:#1e293b;
 
-    border: 1px solid #3b82f6;
+    color:#93c5fd;
 
-    opacity: 1;
+    border:1px solid #3b82f6;
 
-    font-weight: bold;
+    opacity:1;
 
-    cursor: not-allowed;
+    font-weight:bold;
+
+    cursor:not-allowed;
+
 }
 
 /* ======================================
@@ -148,22 +209,29 @@
 ====================================== */
 
 .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
 
-    margin-top: 14px;
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:14px;
+
 }
 
 /* ======================================
-   SEPARADORES
+   SEPARADOR
 ====================================== */
 
 .form-container hr {
-    margin: 10px 0 16px;
 
-    border: none;
-    border-top: 1px solid #d1d5db;
+    margin:10px 0 16px;
 
-    opacity: .8;
+    border:none;
+
+    border-top:1px solid #d1d5db;
+
+    opacity:.8;
+
 }

@@ -9,6 +9,7 @@
     />
 
     <div class="search-group">
+
       <input
         v-model="search1"
         class="search"
@@ -20,6 +21,7 @@
         class="search"
         placeholder="Buscar general..."
       />
+
     </div>
 
     <ComputoTable
@@ -40,6 +42,7 @@ import ComputoForm from "../components/ComputoForm.vue";
 import ComputoTable from "../components/ComputoTable.vue";
 
 export default {
+
   components: {
     ComputoForm,
     ComputoTable
@@ -55,70 +58,137 @@ export default {
   },
 
   methods: {
-    // 🔄 RECARGAR TABLA
+
+    // ======================================
+    // RECARGAR
+    // ======================================
+
     reload() {
+
       this.selected = null;
       this.consultando = false;
+
       this.$refs.table.load();
+
     },
 
-    // ✏️ EDITAR
+    // ======================================
+    // EDITAR
+    // ======================================
+
     editRow(row) {
+
       this.selected = row;
       this.consultando = false;
+
     },
 
+    // ======================================
     // CONSULTAR
+    // ======================================
+
     consultarRow(row) {
+
       this.selected = row;
       this.consultando = true;
+
     },
 
+    // ======================================
     // CANCELAR
+    // ======================================
+
     cancelForm() {
+
       this.selected = null;
       this.consultando = false;
+
     },
 
-    // 💾 GUARDAR (CREATE / UPDATE)
-    async save(data) {
-      try {
-        let cleanData = { ...data };
+    // ======================================
+    // GUARDAR
+    // ======================================
 
-        const cantidad = Math.max(1, parseInt(cleanData.cantidad) || 1);
+    async save(data) {
+
+      try {
+
+        const cleanData = { ...data };
+
+        const cantidad = Math.max(
+          1,
+          parseInt(cleanData.cantidad) || 1
+        );
+
         delete cleanData.cantidad;
 
         if (cleanData.id) {
+
           const id = cleanData.id;
+
           delete cleanData.id;
 
           await api.put(`/equipos/${id}`, cleanData);
+
         } else {
+
           const requests = [];
 
           for (let i = 0; i < cantidad; i++) {
-            requests.push(api.post("/equipos", { ...cleanData }));
+
+            requests.push(
+              api.post("/equipos", {
+                ...cleanData
+              })
+            );
+
           }
 
           await Promise.all(requests);
+
         }
 
         this.reload();
 
-      } catch (error) {
-        console.error("🔥 ERROR AL GUARDAR:", error);
       }
+
+      catch (error) {
+
+        console.error("Error al guardar:", error);
+
+      }
+
     },
 
-    // 🗑 ELIMINAR
+    // ======================================
+    // ELIMINAR
+    // ======================================
+
     async deleteRow(id) {
-      await api.delete(`/equipos/${id}`);
-      this.reload();
+
+      try {
+
+        await api.delete(`/equipos/${id}`);
+
+        this.reload();
+
+      }
+
+      catch (error) {
+
+        console.error("Error al eliminar:", error);
+
+      }
+
     }
+
   },
 
   mounted() {
-    this.$refs?.table?.load();
+
+    this.reload();
+
   }
+
 };
 </script>
