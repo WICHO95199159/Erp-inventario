@@ -1,65 +1,109 @@
 import * as Video from "../models/equiposVideo.model.js";
 
-// 📥 GET
+/* ======================================
+   GET
+====================================== */
+
 export const getAll = (req, res) => {
-  Video.getEquiposVideo((err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json(result);
-  });
-};
 
-// ➕ CREATE
-export const create = (req, res) => {
-  const data = { ...req.body };
+    Video.getEquiposVideo((err, result) => {
 
-  const cantidad = parseInt(data.cantidad) || 1;
+        if (err) {
+            return res.status(500).json(err);
+        }
 
-  // 🔥 importante: eliminar cantidad para no enviarla a la DB
-  delete data.cantidad;
-  delete data.created_at;
-  delete data.updated_at;
+        res.json(result);
 
-  const queries = [];
-
-  for (let i = 0; i < cantidad; i++) {
-    queries.push(
-      new Promise((resolve, reject) => {
-        Video.createEquipoVideo(data, (err, result) => {
-          if (err) return reject(err);
-          resolve(result);
-        });
-      })
-    );
-  }
-
-  Promise.all(queries)
-    .then(() => {
-      res.json({ message: `${cantidad} registro(s) creados correctamente` });
-    })
-    .catch((err) => {
-      console.log("ERROR REAL:", err);
-      res.status(500).json(err);
     });
+
 };
 
-// ✏️ UPDATE
+/* ======================================
+   CREATE
+====================================== */
+
+export const create = (req, res) => {
+
+    const data = { ...req.body };
+
+    // Cantidad de registros a crear
+    const cantidad = Math.max(1, parseInt(data.cantidad) || 1);
+
+    // Campos exclusivos del frontend
+    delete data.cantidad;
+
+    // Campos automáticos de la BD
+    delete data.created_at;
+    delete data.updated_at;
+
+    let inserted = 0;
+
+    for (let i = 0; i < cantidad; i++) {
+
+        Video.createEquipoVideo(data, (err) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            inserted++;
+
+            if (inserted === cantidad) {
+
+                res.json({
+                    message: `${cantidad} registro${cantidad > 1 ? "s" : ""} creado${cantidad > 1 ? "s" : ""}`
+                });
+
+            }
+
+        });
+
+    }
+
+};
+
+/* ======================================
+   UPDATE
+====================================== */
+
 export const update = (req, res) => {
-  const data = { ...req.body };
 
-  delete data.id;
-  delete data.created_at;
-  delete data.updated_at;
+    const data = { ...req.body };
 
-  Video.updateEquipoVideo(req.params.id, data, (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Actualizado" });
-  });
+    delete data.id;
+    delete data.created_at;
+    delete data.updated_at;
+
+    Video.updateEquipoVideo(req.params.id, data, (err) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro actualizado"
+        });
+
+    });
+
 };
 
-// ❌ DELETE
+/* ======================================
+   DELETE
+====================================== */
+
 export const remove = (req, res) => {
-  Video.deleteEquipoVideo(req.params.id, (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Eliminado" });
-  });
+
+    Video.deleteEquipoVideo(req.params.id, (err) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro eliminado"
+        });
+
+    });
+
 };
