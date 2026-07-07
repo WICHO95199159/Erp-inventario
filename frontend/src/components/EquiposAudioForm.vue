@@ -1,116 +1,224 @@
 <template>
+
   <div class="form-container">
-    <div v-if="consultando" class="consult-title">
-        🔎 Consultando equipo de audio...
+
+    <!-- ======================================
+         TÍTULO
+    ======================================= -->
+
+    <div
+      v-if="consultando"
+      class="consult-title"
+    >
+      🔎 Consultando equipo de audio...
     </div>
 
-    <div v-else-if="form.id" class="form-title">
-        ✏️ Editando equipo de audio...
+    <div
+      v-else-if="form.id"
+      class="form-title"
+    >
+      ✏️ Editando equipo de audio...
     </div>
 
-    <div v-else class="new-title">
-        ➕ Nuevo equipo de audio
+    <div
+      v-else
+      class="new-title"
+    >
+      ➕ Nuevo equipo de audio
     </div>
 
     <hr>
+
+    <!-- ======================================
+         FORMULARIO
+    ======================================= -->
+
     <div class="grid">
-      <div class="field">
-        <label>EDIFICIO</label>
-        <input v-model="form.edificio" :disabled="consultando"/>
-      </div>
 
-      <div class="field">
-        <label>NO. SALÓN</label>
-        <input type="number" v-model="form.salon" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="EDIFICIO"
+        v-model="form.edificio"
+        :disabled="consultando"
+        :error="errors.edificio"
+      />
 
-      <div class="field">
-        <label>TIPO</label>
-        <input v-model="form.tipo" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="SALÓN"
+        type="number"
+        v-model="form.salon"
+        :disabled="consultando"
+        :error="errors.salon"
+      />
 
-      <div class="field">
-        <label>MARCA</label>
-        <input v-model="form.marca" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="TIPO"
+        v-model="form.tipo"
+        :disabled="consultando"
+        :error="errors.tipo"
+      />
 
-      <div class="field">
-        <label>MODELO</label>
-        <input v-model="form.modelo" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="MARCA"
+        v-model="form.marca"
+        :disabled="consultando"
+        :error="errors.marca"
+      />
 
-      <div class="field">
-        <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="MODELO"
+        v-model="form.modelo"
+        :disabled="consultando"
+        :error="errors.modelo"
+      />
 
-      <div class="field">
-        <label>MAC</label>
-        <input v-model="form.mac" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="NO. DE SERIE"
+        v-model="form.no_serie"
+        :disabled="consultando"
+        :error="errors.no_serie"
+      />
 
-      <div class="field">
-        <label>CONTROL</label>
-        <input v-model="form.control" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="MAC"
+        v-model="form.mac"
+        :disabled="consultando"
+        :error="errors.mac"
+      />
 
-      <div class="field">
-        <label>FUNCIONAL</label>
-        <input v-model="form.funcional" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="CONTROL"
+        v-model="form.control"
+        :disabled="consultando"
+        :error="errors.control"
+      />
 
-      <div class="field">
-        <label>NOTAS</label>
-        <textarea v-model="form.notas" :disabled="consultando" class="form-textarea-sm"></textarea>
-      </div>
+      <BaseInput
+        label="FUNCIONAL"
+        v-model="form.funcional"
+        :disabled="consultando"
+        :error="errors.funcional"
+      />
 
-      <div class="field field-small" v-if="!editData">
-        <label>CANTIDAD DE REGISTROS</label>
-        <input
-            type="number"
-            min="1"
-            v-model="form.cantidad"
-            :disabled="consultando"
-        />
+      <BaseInput
+        label="NOTAS"
+        type="textarea"
+        v-model="form.notas"
+        :disabled="consultando"
+      />
+
+      <BaseInput
+        v-if="!editData"
+        label="CANTIDAD DE REGISTROS"
+        type="number"
+        v-model="form.cantidad"
+        :disabled="consultando"
+        :error="errors.cantidad"
+      />
+
     </div>
-    
-    </div>
 
-    
+    <!-- ======================================
+         BOTONES
+    ======================================= -->
 
     <div class="actions">
 
-        <button
-            v-if="!consultando"
-            class="btn btn-save"
-            @click="save">
-            Guardar
-        </button>
+      <button
+        v-if="!consultando"
+        class="btn btn-save"
+        @click="save"
+      >
+        Guardar
+      </button>
 
-        <button
-            class="btn btn-cancel"
-            @click="cancel">
-            Cancelar
-        </button>
+      <button
+        class="btn btn-cancel"
+        @click="cancel"
+      >
+        Cancelar
+      </button>
 
     </div>
 
-    </div> 
+  </div>
 
 </template>
 
 <script>
-import api from "../services/api";
+import BaseInput from "./BaseInput.vue";
 
 export default {
-  props: [
-      "editData",
-      "consultando"
-  ],
+
+  components: {
+    BaseInput
+  },
+
+  props: {
+
+    editData: {
+      type: Object,
+      default: null
+    },
+
+    consultando: {
+      type: Boolean,
+      default: false
+    }
+
+  },
 
   data() {
+
     return {
-      form: {
+
+      form: this.getEmptyForm(),
+
+      errors: {}
+
+    };
+
+  },
+
+  watch: {
+
+    editData: {
+
+      immediate: true,
+
+      handler(value) {
+
+        if (value) {
+
+          this.form = { ...value };
+
+        }
+
+        else {
+
+          this.form = this.getEmptyForm();
+
+        }
+
+        this.errors = {};
+
+      }
+
+    }
+
+  },
+
+  methods: {
+
+    // ======================================
+    // FORMULARIO VACÍO
+    // ======================================
+
+    getEmptyForm() {
+
+      return {
+
+        id: null,
+
         edificio: "",
         salon: "",
         tipo: "",
@@ -121,64 +229,122 @@ export default {
         control: "",
         funcional: "",
         notas: "",
-        cantidad: 1,
+
+        cantidad: 1
+
+      };
+
+    },
+
+    // ======================================
+    // VALIDACIÓN
+    // ======================================
+
+    validateForm() {
+
+      this.errors = {};
+
+      const requiredFields = {
+
+        edificio: "EDIFICIO",
+        salon: "SALÓN",
+        tipo: "TIPO",
+        marca: "MARCA",
+        modelo: "MODELO",
+        no_serie: "NO. DE SERIE",
+        mac: "MAC",
+        control: "CONTROL",
+        funcional: "FUNCIONAL"
+
+      };
+
+      if (!this.editData) {
+
+        requiredFields.cantidad = "CANTIDAD DE REGISTROS";
+
       }
-    };
-  },
 
-  watch: {
-    editData: {
-      immediate: true,
-      handler(val) {
-        if (val) this.form = { ...val };
-      }
-    }
-  },
+      for (const key in requiredFields) {
 
-  methods: {
-    async save() {
-      let data = { ...this.form };
+        const value = this.form[key];
 
-      // 🔥 NORMALIZAR TODO A MAYÚSCULAS
-      Object.keys(data).forEach(key => {
-        if (typeof data[key] === "string") {
-          data[key] = data[key].toUpperCase().trim();
+        if (
+
+          value === null ||
+          value === undefined ||
+          String(value).trim() === ""
+
+        ) {
+
+          this.errors[key] = "Campo obligatorio";
+
         }
+
+      }
+
+      return Object.keys(this.errors).length === 0;
+
+    },
+
+    // ======================================
+    // NORMALIZAR DATOS
+    // ======================================
+
+    normalizeData(data) {
+
+      Object.keys(data).forEach(key => {
+
+        if (typeof data[key] === "string") {
+
+          data[key] = data[key]
+            .trim()
+            .toUpperCase();
+
+        }
+
       });
 
-      if (data.id) {
-        const id = data.id;
-        delete data.id;
+      return data;
 
-        await api.put(`/equipos-audio/${id}`, data);
-      } else {
-        await api.post("/equipos-audio", data);
-      }
-
-      this.$emit("saved");
-      this.resetForm();
     },
+
+    // ======================================
+    // GUARDAR
+    // ======================================
+
+    async save() {
+
+      if (!this.validateForm()) return;
+
+      const data = this.normalizeData({
+
+        ...this.form
+
+      });
+
+      this.errors = {};
+
+      this.$emit("saved", data);
+
+      this.form = this.getEmptyForm();
+
+    },
+
+    // ======================================
+    // CANCELAR
+    // ======================================
 
     cancel() {
-      this.resetForm();
-      this.$emit("cancelEdit");
-    },
 
-    resetForm() {
-      this.form = {
-        ubicacion: "",
-        tipo: "",
-        marca: "",
-        modelo: "",
-        no_serie: "",
-        cantidad: 1,
-      };
+      this.errors = {};
+
+      this.form = this.getEmptyForm();
+
+      this.$emit("cancel");
+
     }
+
   }
+
 };
 </script>
-
-<style scoped>
-@import "../assets/styles/forms.css";
-@import "../assets/styles/buttons.css";
-</style>
