@@ -1,148 +1,306 @@
 <template>
   <div class="form-container">
-    <div v-if="consultando" class="consult-title">
-        🔎 Consultando herramienta...
+
+    <!-- ======================================
+         TÍTULO
+    ======================================= -->
+
+    <div
+      v-if="consultando"
+      class="consult-title"
+    >
+      🔍 Consultando herramienta...
     </div>
 
-    <div v-else-if="form.id" class="form-title">
-        ✏️ Editando herramienta...
+    <div
+      v-else-if="form.id"
+      class="form-title"
+    >
+      ✏️ Editando herramienta...
     </div>
 
-    <div v-else class="new-title">
-        ➕ Nueva herramienta
+    <div
+      v-else
+      class="new-title"
+    >
+      ➕ Nueva herramienta
     </div>
+
     <hr>
+
+    <!-- ======================================
+         FORMULARIO
+    ======================================= -->
+
     <div class="grid">
-      <div class="field">
-        <label>UBICACIÓN 1</label>
-        <input v-model="form.ubicacion1" :disabled="consultando"/>
-      </div>
 
-      <div class="field">
-        <label>UBICACIÓN 2</label>
-        <input v-model="form.ubicacion2" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="UBICACIÓN 1"
+        v-model="form.ubicacion1"
+        :disabled="consultando"
+        :error="errors.ubicacion1"
+      />
 
-      <div class="field">
-        <label>TIPO</label>
-        <input v-model="form.tipo" :disabled="consultando"/>
-      </div>
-      
-      <div class="field">
-        <label>NOMBRE</label>
-        <input v-model="form.nombre" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="UBICACIÓN 2"
+        v-model="form.ubicacion2"
+        :disabled="consultando"
+        :error="errors.ubicacion2"
+      />
 
-      <div class="field field-double">
-        <label>DESCRIPCIÓN</label>
-        <textarea v-model="form.descripcion" :disabled="consultando" class="form-textarea-md"></textarea>
-      </div>
+      <BaseInput
+        label="TIPO"
+        v-model="form.tipo"
+        :disabled="consultando"
+        :error="errors.tipo"
+      />
 
-      <div class="field field-double">
-        <label>NOTA</label>
-        <textarea v-model="form.nota" :disabled="consultando" class="form-textarea-md"></textarea>
-      </div>
-      
-      <div class="field" v-if="!editData">
-        <label>CANTIDAD</label>
-        <input type="number" v-model="form.cantidad" min="1" value="1" :disabled="consultando"/>
-      </div>
+      <BaseInput
+        label="NOMBRE"
+        v-model="form.nombre"
+        :disabled="consultando"
+        :error="errors.nombre"
+      />
+
+      <BaseInput
+        label="DESCRIPCIÓN"
+        type="textarea"
+        v-model="form.descripcion"
+        :disabled="consultando"
+        :error="errors.descripcion"
+      />
+
+      <BaseInput
+        label="NOTA"
+        type="textarea"
+        v-model="form.nota"
+        :disabled="consultando"
+        :error="errors.nota"
+      />
+
+      <BaseInput
+        v-if="!editData"
+        label="CANTIDAD DE REGISTROS"
+        type="number"
+        v-model="form.cantidad"
+        :disabled="consultando"
+        :error="errors.cantidad"
+      />
 
     </div>
+
+    <!-- ======================================
+         BOTONES
+    ======================================= -->
 
     <div class="actions">
+
       <button
-          v-if="!consultando"
-          class="btn btn-save"
-          @click="save">
-          Guardar
+        v-if="!consultando"
+        class="btn btn-save"
+        @click="save"
+      >
+        Guardar
       </button>
+
       <button
-          class="btn btn-cancel"
-          @click="cancel">
-          Cancelar
+        class="btn btn-cancel"
+        @click="cancel"
+      >
+        Cancelar
       </button>
+
     </div>
+
   </div>
 </template>
 
 <script>
-import api from "../services/api";
+import BaseInput from "./BaseInput.vue";
 
 export default {
-  props: [
-      "editData",
-      "consultando"
-  ],
+
+  components: {
+    BaseInput
+  },
+
+  props: {
+    editData: {
+      type: Object,
+      default: null
+    },
+
+    consultando: {
+      type: Boolean,
+      default: false
+    }
+  },
 
   data() {
     return {
-      form: {
+
+      form: this.getEmptyForm(),
+
+      errors: {}
+
+    };
+  },
+
+  watch: {
+
+    editData: {
+
+      immediate: true,
+
+      handler(value) {
+
+        if (value) {
+
+          this.form = { ...value };
+
+        } else {
+
+          this.form = this.getEmptyForm();
+
+        }
+
+        this.errors = {};
+
+      }
+
+    }
+
+  },
+
+  methods: {
+
+    // ======================================
+    // FORMULARIO VACÍO
+    // ======================================
+
+    getEmptyForm() {
+
+      return {
+
+        id: null,
+
         ubicacion1: "",
         ubicacion2: "",
         tipo: "",
         nombre: "",
         descripcion: "",
         nota: "",
+
         cantidad: 1
+
+      };
+
+    },
+
+    // ======================================
+    // VALIDACIÓN
+    // ======================================
+
+    validateForm() {
+
+      this.errors = {};
+
+      const requiredFields = {
+
+        ubicacion1: "UBICACIÓN 1",
+        ubicacion2: "UBICACIÓN 2",
+        tipo: "TIPO",
+        nombre: "NOMBRE"
+
+      };
+
+      if (!this.editData) {
+
+        requiredFields.cantidad = "CANTIDAD DE REGISTROS";
+
       }
-    };
-  },
 
-  watch: {
-    editData: {
-      immediate: true,
-      handler(val) {
-        if (val) this.form = { ...val };
-      }
-    }
-  },
+      for (const key in requiredFields) {
 
-  methods: {
-    async save() {
-      let data = { ...this.form };
+        const value = this.form[key];
 
-      // 🔥 NORMALIZAR TODO A MAYÚSCULAS
-      Object.keys(data).forEach(key => {
-        if (typeof data[key] === "string") {
-          data[key] = data[key].toUpperCase().trim();
+        if (
+
+          value === null ||
+          value === undefined ||
+          String(value).trim() === ""
+
+        ) {
+
+          this.errors[key] = "Campo obligatorio";
+
         }
+
+      }
+
+      return Object.keys(this.errors).length === 0;
+
+    },
+
+    // ======================================
+    // NORMALIZAR DATOS
+    // ======================================
+
+    normalizeData(data) {
+
+      Object.keys(data).forEach(key => {
+
+        if (typeof data[key] === "string") {
+
+          data[key] = data[key]
+            .trim()
+            .toUpperCase();
+
+        }
+
       });
 
-      if (data.id) {
-        const id = data.id;
-        delete data.id;
+      return data;
 
-        await api.put(`/herramientas/${id}`, data);
-      } else {
-        await api.post("/herramientas", data);
-      }
-
-      this.$emit("saved");
-      this.resetForm();
     },
+
+    // ======================================
+    // GUARDAR
+    // ======================================
+
+    async save() {
+
+      if (!this.validateForm()) return;
+
+      const data = this.normalizeData({
+
+        ...this.form
+
+      });
+
+      this.errors = {};
+
+      this.$emit("saved", data);
+
+      this.form = this.getEmptyForm();
+
+    },
+
+    // ======================================
+    // CANCELAR
+    // ======================================
 
     cancel() {
-      this.resetForm();
-      this.$emit("cancelEdit");
-    },
 
-    resetForm(){
-        this.form={
-            ubicacion1:"",
-            ubicacion2:"",
-            tipo:"",
-            nombre:"",
-            descripcion:"",
-            nota:"",
-            cantidad:1
-        }
+      this.errors = {};
+
+      this.form = this.getEmptyForm();
+
+      this.$emit("cancel");
+
     }
+
   }
+
 };
 </script>
-
-<style scoped>
-@import "../assets/styles/forms.css";
-@import "../assets/styles/buttons.css";
-</style>
