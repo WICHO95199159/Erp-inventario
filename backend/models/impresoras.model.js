@@ -1,27 +1,56 @@
 import { db } from "../config/db.js";
 
-// 🔍 GET ALL
+/* ======================================
+   GET
+====================================== */
+
 export const getImpresoras = (callback) => {
-  db.query("SELECT * FROM impresoras", callback);
+
+    db.query(
+        "SELECT * FROM impresoras",
+        callback
+    );
+
 };
 
-// ➕ CREATE
+/* ======================================
+   CREATE
+====================================== */
+
 export const createImpresora = (data, callback) => {
-  db.query("INSERT INTO impresoras SET ?", data, callback);
+
+    db.query(
+        "INSERT INTO impresoras SET ?",
+        data,
+        callback
+    );
+
 };
 
-// ✏️ UPDATE
+/* ======================================
+   UPDATE
+====================================== */
+
 export const updateImpresora = (id, data, callback) => {
-  delete data.id; // 🔥 evitar conflictos
 
-  db.query(
-    "UPDATE impresoras SET ? WHERE id = ?",
-    [data, id],
-    callback
-  );
+    db.query(
+        "UPDATE impresoras SET ? WHERE id = ?",
+        [data, id],
+        callback
+    );
+
 };
 
-// 🗑️ DELETE
+/* ======================================
+   DELETE
+====================================== */
+
 export const deleteImpresora = (id, callback) => {
-  db.query("DELETE FROM impresoras WHERE id = ?", [id], callback);
+
+    db.query(
+        "DELETE FROM impresoras WHERE id = ?",
+        [id],
+        callback
+    );
+
 };

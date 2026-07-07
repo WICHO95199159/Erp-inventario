@@ -1,73 +1,115 @@
 import * as Impresora from "../models/impresoras.model.js";
 
-// 🔍 GET ALL
+/* ======================================
+   GET
+====================================== */
+
 export const getAll = (req, res) => {
-  Impresora.getImpresoras((err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json(result);
-  });
+
+    Impresora.getImpresoras((err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
 };
 
-// ➕ CREATE
+/* ======================================
+   CREATE
+====================================== */
+
 export const create = (req, res) => {
-  const data = { ...req.body };
 
-  // 🔥 NORMALIZAR A MAYÚSCULAS
-  Object.keys(data).forEach(key => {
-    if (typeof data[key] === "string") {
-      data[key] = data[key].toUpperCase().trim();
+    const data = { ...req.body };
+
+    // Cantidad de registros a crear
+
+    const cantidad = Math.max(
+        1,
+        parseInt(data.cantidad) || 1
+    );
+
+    // Campos exclusivos del frontend
+
+    delete data.cantidad;
+
+    // Campos automáticos de la BD
+
+    delete data.created_at;
+    delete data.updated_at;
+
+    let inserted = 0;
+
+    for (let i = 0; i < cantidad; i++) {
+
+        Impresora.createImpresora(data, (err) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            inserted++;
+
+            if (inserted === cantidad) {
+
+                res.json({
+                    message: `${cantidad} registro${cantidad > 1 ? "s" : ""} creado${cantidad > 1 ? "s" : ""}`
+                });
+
+            }
+
+        });
+
     }
-  });
 
-  // ❌ eliminar campos que no deben insertarse
-  delete data.id;
-  delete data.created_at;
-  delete data.updated_at;
-
-  Impresora.createImpresora(data, (err, result) => {
-    if (err) {
-      console.log("🔥 ERROR REAL:", err);
-      return res.status(500).json(err);
-    }
-
-    res.json({ id: result.insertId });
-  });
 };
 
-// ✏️ UPDATE
+/* ======================================
+   UPDATE
+====================================== */
+
 export const update = (req, res) => {
-  const id = req.params.id;
-  const data = { ...req.body };
 
-  // 🔥 NORMALIZAR A MAYÚSCULAS
-  Object.keys(data).forEach(key => {
-    if (typeof data[key] === "string") {
-      data[key] = data[key].toUpperCase().trim();
-    }
-  });
+    const data = { ...req.body };
 
-  // ❌ evitar conflictos en update
-  delete data.id;
-  delete data.created_at;
-  delete data.updated_at;
+    delete data.id;
+    delete data.created_at;
+    delete data.updated_at;
 
-  Impresora.updateImpresora(id, data, (err) => {
-    if (err) {
-      console.log("🔥 ERROR SQL:", err);
-      return res.status(500).json(err);
-    }
+    Impresora.updateImpresora(req.params.id, data, (err) => {
 
-    res.json({ message: "Actualizado" });
-  });
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro actualizado"
+        });
+
+    });
+
 };
 
-// 🗑️ DELETE
+/* ======================================
+   DELETE
+====================================== */
+
 export const remove = (req, res) => {
-  const id = req.params.id;
 
-  Impresora.deleteImpresora(id, (err) => {
-    if (err) return res.status(500).json(err);
+    Impresora.deleteImpresora(req.params.id, (err) => {
 
-    res.json({ message: "Eliminado" });
-  });
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro eliminado"
+        });
+
+    });
+
 };
