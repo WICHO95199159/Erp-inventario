@@ -23,7 +23,7 @@
                     <tr>
 
                         <th class="table-number">
-                            #
+                            Cantidad
                         </th>
 
                         <th class="table-actions">
