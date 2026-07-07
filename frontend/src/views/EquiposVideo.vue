@@ -5,27 +5,32 @@
       :editData="selected"
       :consultando="consultando"
       @saved="save"
-      @cancel="cancelEdit"
+      @cancel="cancelForm"
     />
 
-    <input
-      v-model="search1"
-      placeholder="Filtrar por edificio..."
-      class="search"
-    />
+    <div class="search-group">
 
-    <input
-      v-model="search2"
-      placeholder="Filtrar general..."
-      class="search"
-    />
+      <input
+        v-model="search1"
+        class="search"
+        placeholder="Buscar por edificio..."
+      />
+
+      <input
+        v-model="search2"
+        class="search"
+        placeholder="Buscar general..."
+      />
+
+    </div>
 
     <EquiposVideoTable
       ref="table"
       :search1="search1"
       :search2="search2"
-      @consultar="consultarRow"
       @edit="editRow"
+      @consultar="consultarRow"
+      @delete="deleteRow"
     />
 
   </div>
@@ -37,7 +42,11 @@ import EquiposVideoForm from "../components/EquiposVideoForm.vue";
 import EquiposVideoTable from "../components/EquiposVideoTable.vue";
 
 export default {
-  components: { EquiposVideoForm, EquiposVideoTable },
+
+  components: {
+    EquiposVideoForm,
+    EquiposVideoTable
+  },
 
   data() {
     return {
@@ -49,86 +58,149 @@ export default {
   },
 
   methods: {
-    editRow(row) {
-        this.selected = row;
-        this.consultando = false;
-    },
 
-    consultarRow(row) {
-        this.selected = row;
-        this.consultando = true;
-    },
+    // ======================================
+    // RECARGAR
+    // ======================================
 
     reload() {
 
-        this.selected = null;
+      this.selected = null;
+      this.consultando = false;
 
-        this.consultando = false;
+      this.$refs.table.load();
 
-        this.$refs.table.load();
+    },
+
+    // ======================================
+    // EDITAR
+    // ======================================
+
+    editRow(row) {
+
+      this.selected = row;
+      this.consultando = false;
 
     },
 
-    cancelEdit() {
+    // ======================================
+    // CONSULTAR
+    // ======================================
 
-        this.selected = null;
+    consultarRow(row) {
 
-        this.consultando = false;
+      this.selected = row;
+      this.consultando = true;
 
     },
+
+    // ======================================
+    // CANCELAR
+    // ======================================
+
+    cancelForm() {
+
+      this.selected = null;
+      this.consultando = false;
+
+    },
+
+    // ======================================
+    // GUARDAR
+    // ======================================
 
     async save(data) {
-        try {
-          let cleanData = { ...data };
 
-          const cantidad = Math.max(1, parseInt(cleanData.cantidad) || 1);
-          delete cleanData.cantidad;
+      try {
 
-          if (cleanData.id) {
+        const cleanData = { ...data };
 
-            const id = cleanData.id;
-            delete cleanData.id;
+        const cantidad = Math.max(
+          1,
+          parseInt(cleanData.cantidad) || 1
+        );
 
-            await api.put(`/equipos-video/${id}`, cleanData);
+        delete cleanData.cantidad;
 
-          } else {
+        if (cleanData.id) {
 
-            const requests = [];
+          const id = cleanData.id;
 
-            for (let i = 0; i < cantidad; i++) {
-              requests.push(api.post("/equipos-video", { ...cleanData }));
-            }
+          delete cleanData.id;
 
-            await Promise.all(requests);
+          await api.put(
+            `/equipos-video/${id}`,
+            cleanData
+          );
+
+        } else {
+
+          const requests = [];
+
+          for (let i = 0; i < cantidad; i++) {
+
+            requests.push(
+              api.post(
+                "/equipos-video",
+                { ...cleanData }
+              )
+            );
 
           }
 
-          this.reload();
-
-        } catch (error) {
-
-          console.error("ERROR AL GUARDAR:", error);
+          await Promise.all(requests);
 
         }
-      },
 
-      mounted() {
-
-          this.$refs?.table?.load();
+        this.reload();
 
       }
+
+      catch (error) {
+
+        console.error(
+          "Error al guardar:",
+          error
+        );
+
+      }
+
+    },
+
+    // ======================================
+    // ELIMINAR
+    // ======================================
+
+    async deleteRow(id) {
+
+      try {
+
+        await api.delete(
+          `/equipos-video/${id}`
+        );
+
+        this.reload();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Error al eliminar:",
+          error
+        );
+
+      }
+
+    }
+
+  },
+
+  mounted() {
+
+    this.reload();
+
   }
+
 };
 </script>
-
-<style>
-.search {
-  margin: 15px 0;
-  margin-left: 5px;
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-  background: #eee;
-  width: 300px;
-}
-</style>
