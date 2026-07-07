@@ -1,36 +1,56 @@
 import { db } from "../config/db.js";
 
-// 🔍 GET
+/* ======================================
+   GET
+====================================== */
+
 export const getAccessPoints = (callback) => {
-  db.query(
-    "SELECT * FROM access_points ORDER BY id DESC",
-    callback
-  );
+
+    db.query(
+        "SELECT * FROM access_points",
+        callback
+    );
+
 };
 
-// ➕ CREATE
+/* ======================================
+   CREATE
+====================================== */
+
 export const createAccessPoint = (data, callback) => {
-  db.query(
-    "INSERT INTO access_points SET ?",
-    data,
-    callback
-  );
+
+    db.query(
+        "INSERT INTO access_points SET ?",
+        data,
+        callback
+    );
+
 };
 
-// ✏️ UPDATE
+/* ======================================
+   UPDATE
+====================================== */
+
 export const updateAccessPoint = (id, data, callback) => {
-  db.query(
-    "UPDATE access_points SET ? WHERE id = ?",
-    [data, id],
-    callback
-  );
+
+    db.query(
+        "UPDATE access_points SET ? WHERE id = ?",
+        [data, id],
+        callback
+    );
+
 };
 
-// ❌ DELETE
+/* ======================================
+   DELETE
+====================================== */
+
 export const deleteAccessPoint = (id, callback) => {
-  db.query(
-    "DELETE FROM access_points WHERE id = ?",
-    [id],
-    callback
-  );
+
+    db.query(
+        "DELETE FROM access_points WHERE id = ?",
+        [id],
+        callback
+    );
+
 };

@@ -1,121 +1,203 @@
 <template>
   <div class="form-container">
 
-    <!-- 🧠 TÍTULO DINÁMICO -->
-    <div v-if="consultando" class="consult-title">
-        🔍 Consultando access point...
+    <!-- ======================================
+         TÍTULO
+    ======================================= -->
+
+    <div
+      v-if="consultando"
+      class="consult-title"
+    >
+      🔍 Consultando Access Point...
     </div>
 
-    <div v-else-if="form.id" class="form-title">
-        ✏️ Editando access point...
+    <div
+      v-else-if="form.id"
+      class="form-title"
+    >
+      ✏️ Editando Access Point...
     </div>
 
-    <div v-else class="new-title">
-        ➕ Nuevo access point
+    <div
+      v-else
+      class="new-title"
+    >
+      ➕ Nuevo registro
     </div>
 
     <hr>
-    <!-- 📦 GRID -->
+
+    <!-- ======================================
+         FORMULARIO
+    ======================================= -->
+
     <div class="grid">
 
-      <div class="field">
-        <label>UBICACIÓN</label>
-        <input v-model="form.ubicacion" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="UBICACIÓN"
+        v-model="form.ubicacion"
+        :disabled="consultando"
+        :error="errors.ubicacion"
+      />
 
-      <div class="field">
-        <label>MARCA</label>
-        <input v-model="form.marca" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="MARCA"
+        v-model="form.marca"
+        :disabled="consultando"
+        :error="errors.marca"
+      />
 
-      <div class="field">
-        <label>MODELO</label>
-        <input v-model="form.modelo" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="MODELO"
+        v-model="form.modelo"
+        :disabled="consultando"
+        :error="errors.modelo"
+      />
 
-      <div class="field">
-        <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="NO. DE SERIE"
+        v-model="form.no_serie"
+        :disabled="consultando"
+        :error="errors.no_serie"
+      />
 
-      <div class="field">
-        <label>IP</label>
-        <input v-model="form.ip" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="IP"
+        v-model="form.ip"
+        :disabled="consultando"
+        :error="errors.ip"
+      />
 
-      <div class="field">
-        <label>SSID</label>
-        <input v-model="form.ssid" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="SSID"
+        v-model="form.ssid"
+        :disabled="consultando"
+        :error="errors.ssid"
+      />
 
-      <div class="field">
-        <label>CONTRASEÑA</label>
-        <input v-model="form.contrasena" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="CONTRASEÑA"
+        v-model="form.contrasena"
+        :disabled="consultando"
+        :error="errors.contrasena"
+      />
 
-      <div class="field">
-        <label>USER ADMIN</label>
-        <input v-model="form.user_admin" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="USUARIO ADMIN"
+        v-model="form.user_admin"
+        :disabled="consultando"
+        :error="errors.user_admin"
+      />
 
-      <div class="field">
-        <label>PASSWORD ADMIN</label>
-        <input v-model="form.password_admin" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="PASSWORD ADMIN"
+        v-model="form.password_admin"
+        :disabled="consultando"
+        :error="errors.password_admin"
+      />
 
     </div>
 
-    <!-- 🔘 BOTONES -->
+    <!-- ======================================
+         BOTONES
+    ======================================= -->
+
     <div class="actions">
+
       <button
-          v-if="!consultando"
-          class="btn btn-save"
-          @click="save">
-          Guardar
+        v-if="!consultando"
+        class="btn btn-save"
+        @click="save"
+      >
+        Guardar
       </button>
+
       <button
-          class="btn btn-cancel"
-          @click="cancel">
-          Cancelar
+        class="btn btn-cancel"
+        @click="cancel"
+      >
+        Cancelar
       </button>
+
     </div>
 
   </div>
 </template>
 
 <script>
-import api from "../services/api";
+import BaseInput from "./BaseInput.vue";
 
 export default {
-  props:[
-      "editData",
-      "consultando"
-  ],
+
+  components: {
+    BaseInput
+  },
+
+  props: {
+
+    editData: {
+      type: Object,
+      default: null
+    },
+
+    consultando: {
+      type: Boolean,
+      default: false
+    }
+
+  },
 
   data() {
+
     return {
-      form: this.getEmptyForm()
+
+      form: this.getEmptyForm(),
+
+      errors: {}
+
     };
+
   },
 
   watch: {
+
     editData: {
+
       immediate: true,
-      handler(newVal) {
-        if (newVal) {
-          this.form = { ...newVal };
+
+      handler(value) {
+
+        if (value) {
+
+          this.form = { ...value };
+
         } else {
-          this.resetForm();
+
+          this.form = this.getEmptyForm();
+
         }
+
+        this.errors = {};
+
       }
+
     }
+
   },
 
   methods: {
-    // 🧼 FORM VACÍO
+
+    // ======================================
+    // FORMULARIO VACÍO
+    // ======================================
+
     getEmptyForm() {
+
       return {
+
         id: null,
+
         ubicacion: "",
         marca: "",
         modelo: "",
@@ -125,41 +207,114 @@ export default {
         contrasena: "",
         user_admin: "",
         password_admin: ""
+
       };
+
     },
 
-    // 🧼 RESET
-    resetForm() {
-      this.form = this.getEmptyForm();
+    // ======================================
+    // VALIDACIÓN
+    // ======================================
+
+    validateForm() {
+
+      this.errors = {};
+
+      const requiredFields = {
+
+        ubicacion: "UBICACIÓN",
+        marca: "MARCA",
+        modelo: "MODELO",
+        no_serie: "NO. DE SERIE",
+        ip: "IP",
+        ssid: "SSID",
+        contrasena: "CONTRASEÑA",
+        user_admin: "USUARIO ADMIN",
+        password_admin: "PASSWORD ADMIN"
+
+      };
+
+      for (const key in requiredFields) {
+
+        const value = this.form[key];
+
+        if (
+
+          value === null ||
+          value === undefined ||
+          String(value).trim() === ""
+
+        ) {
+
+          this.errors[key] = "Campo obligatorio";
+
+        }
+
+      }
+
+      return Object.keys(this.errors).length === 0;
+
     },
 
-    // 💾 GUARDAR (CREATE / UPDATE)
+    // ======================================
+    // NORMALIZAR DATOS
+    // ======================================
+
+    normalizeData(data) {
+
+      Object.keys(data).forEach(key => {
+
+        if (typeof data[key] === "string") {
+
+          data[key] = data[key]
+            .trim()
+            .toUpperCase();
+
+        }
+
+      });
+
+      return data;
+
+    },
+
+    // ======================================
+    // GUARDAR
+    // ======================================
+
     async save() {
-    const data = { ...this.form };
 
-    if (data.id) {
-        const id = data.id;
-        delete data.id; // 🔥 ESTA ES LA CLAVE
+      if (!this.validateForm()) return;
 
-        await api.put(`/access-point/${id}`, data);
-    } else {
-        await api.post("/access-point", data);
-    }
+      const data = this.normalizeData({
 
-    this.$emit("saved");
-    this.resetForm();
+        ...this.form
+
+      });
+
+      this.errors = {};
+
+      this.$emit("saved", data);
+
+      this.form = this.getEmptyForm();
+
     },
 
-    // 🚫 CANCELAR
+    // ======================================
+    // CANCELAR
+    // ======================================
+
     cancel() {
-      this.resetForm();
+
+      this.errors = {};
+
+      this.form = this.getEmptyForm();
+
       this.$emit("cancel");
+
     }
+
   }
+
 };
 </script>
-
-<style scoped>
-@import "../assets/styles/forms.css";
-@import "../assets/styles/buttons.css";
-</style>
