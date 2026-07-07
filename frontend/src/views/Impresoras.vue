@@ -1,28 +1,35 @@
-
 <template>
   <div class="page">
 
-    <!-- 🔥 FORM -->
     <ImpresorasForm
-      :key="selected ? selected.id : 'new'"
       :editData="selected"
       :consultando="consultando"
       @saved="save"
-      @cancel="cancelEdit"
+      @cancel="cancelForm"
     />
 
-    <input
-        v-model="search"
+    <div class="search-group">
+
+      <input
+        v-model="search1"
         class="search"
-        placeholder="Buscar..."
-    />
+        placeholder="Buscar por edificio..."
+      />
 
-    <!-- 🔥 TABLE -->
+      <input
+        v-model="search2"
+        class="search"
+        placeholder="Buscar general..."
+      />
+
+    </div>
+
     <ImpresorasTable
-      :data="impresoras"
-      :search="search"
-      @edit="edit"
-      @consultar="consultar"
+      ref="table"
+      :search1="search1"
+      :search2="search2"
+      @edit="editRow"
+      @consultar="consultarRow"
       @delete="deleteRow"
     />
 
@@ -30,100 +37,148 @@
 </template>
 
 <script>
+import api from "../services/api";
 import ImpresorasForm from "../components/ImpresorasForm.vue";
 import ImpresorasTable from "../components/ImpresorasTable.vue";
-import api from "../services/api";
 
 export default {
+
   components: {
     ImpresorasForm,
     ImpresorasTable
   },
 
   data() {
+
     return {
-        impresoras: [],
-        selected: null,
-        consultando: false,
-        interval: null,
-        search: "",
+
+      selected: null,
+
+      consultando: false,
+
+      search1: "",
+
+      search2: ""
+
     };
+
   },
 
   methods: {
-    // 🔄 CARGAR DATOS
-    async load() {
-      try {
-        const res = await api.get("/impresoras");
-        this.impresoras = res.data;
-      } catch (err) {
-        console.error("Error cargando impresoras:", err);
-      }
+
+    // ======================================
+    // RECARGAR
+    // ======================================
+
+    reload() {
+
+      this.selected = null;
+      this.consultando = false;
+
+      this.$refs.table.load();
+
     },
 
-    //Consultar
-    consultar(row) {
-        this.selected = { ...row };
-        this.consultando = true;
+    // ======================================
+    // EDITAR
+    // ======================================
+
+    editRow(row) {
+
+      this.selected = row;
+      this.consultando = false;
+
     },
 
-    // 💾 GUARDAR (CREATE / UPDATE)
-    async save(form) {
-      if (!form) return; // 🔥 evita error al cancelar
+    // ======================================
+    // CONSULTAR
+    // ======================================
+
+    consultarRow(row) {
+
+      this.selected = row;
+      this.consultando = true;
+
+    },
+
+    // ======================================
+    // CANCELAR
+    // ======================================
+
+    cancelForm() {
+
+      this.selected = null;
+      this.consultando = false;
+
+    },
+
+    // ======================================
+    // GUARDAR
+    // ======================================
+
+    async save(data) {
 
       try {
-        if (form.id) {
-          const id = form.id;
-          delete form.id;
 
-          await api.put(`/impresoras/${id}`, form);
-        } else {
-          await api.post("/impresoras", form);
+        const cleanData = { ...data };
+
+        if (cleanData.id) {
+
+          const id = cleanData.id;
+
+          delete cleanData.id;
+
+          await api.put(`/impresoras/${id}`, cleanData);
+
         }
 
-        this.selected = null;
-        this.consultando=false;
-        await this.load();
-      } catch (err) {
-        console.error("Error guardando:", err);
+        else {
+
+          await api.post("/impresoras", cleanData);
+
+        }
+
+        this.reload();
+
       }
+
+      catch (error) {
+
+        console.error("Error al guardar:", error);
+
+      }
+
     },
 
-    // ✏️ EDITAR
-    edit(row){
-        this.selected={...row};
-        this.consultando=false;
-    },
+    // ======================================
+    // ELIMINAR
+    // ======================================
 
-    // 🗑️ ELIMINAR
     async deleteRow(id) {
-      try {
-        await api.delete(`/impresoras/${id}`);
-        await this.load();
-      } catch (err) {
-        console.error("Error eliminando:", err);
-      }
-    },
 
-    // ❌ CANCELAR (NUEVO)
-    cancelEdit(){
-        this.selected=null;
-        this.consultando=false;
+      try {
+
+        await api.delete(`/impresoras/${id}`);
+
+        this.reload();
+
+      }
+
+      catch (error) {
+
+        console.error("Error al eliminar:", error);
+
+      }
+
     }
+
   },
 
   mounted() {
-    this.load();
 
-    // 🔄 auto refresh cada 5s
-    this.interval = setInterval(() => {
-      this.load();
-    }, 5000);
-  },
+    this.reload();
 
-  beforeUnmount() {
-    clearInterval(this.interval);
   }
+
 };
 </script>
-

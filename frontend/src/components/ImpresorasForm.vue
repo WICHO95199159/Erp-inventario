@@ -1,121 +1,226 @@
 <template>
   <div class="form-container">
 
-    <div v-if="consultando" class="consult-title">
-        🔍 Consultando impresora...
+    <!-- ======================================
+         TÍTULO
+    ======================================= -->
+
+    <div
+      v-if="consultando"
+      class="consult-title"
+    >
+      🔍 Consultando impresora...
     </div>
 
-    <div v-else-if="form.id" class="form-title">
-        ✏️ Editando impresora...
+    <div
+      v-else-if="form.id"
+      class="form-title"
+    >
+      ✏️ Editando impresora...
     </div>
 
-    <div v-else class="new-title">
-        ➕ Nueva impresora
+    <div
+      v-else
+      class="new-title"
+    >
+      ➕ Nueva impresora
     </div>
 
     <hr>
+
+    <!-- ======================================
+         FORMULARIO
+    ======================================= -->
+
     <div class="grid">
 
-      <div class="field">
-        <label>UBICACIÓN</label>
-        <input v-model="form.ubicacion" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="UBICACIÓN"
+        v-model="form.ubicacion"
+        :disabled="consultando"
+        :error="errors.ubicacion"
+      />
 
-      <div class="field">
-        <label>MARCA</label>
-        <input v-model="form.marca" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="MARCA"
+        v-model="form.marca"
+        :disabled="consultando"
+        :error="errors.marca"
+      />
 
-      <div class="field">
-        <label>MODELO</label>
-        <input v-model="form.modelo" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="MODELO"
+        v-model="form.modelo"
+        :disabled="consultando"
+        :error="errors.modelo"
+      />
 
-      <div class="field">
-        <label>NO. DE SERIE</label>
-        <input v-model="form.no_serie" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="NO. DE SERIE"
+        v-model="form.no_serie"
+        :disabled="consultando"
+        :error="errors.no_serie"
+      />
 
-      <div class="field">
-        <label>MAC</label>
-        <input v-model="form.mac" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="MAC"
+        v-model="form.mac"
+        :disabled="consultando"
+        :error="errors.mac"
+      />
 
-      <div class="field">
-        <label>CONEXIÓN</label>
-        <input v-model="form.conexion" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="CONEXIÓN"
+        v-model="form.conexion"
+        :disabled="consultando"
+        :error="errors.conexion"
+      />
 
-      <div class="field">
-        <label>TIPO</label>
-        <input v-model="form.tipo" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="TIPO"
+        v-model="form.tipo"
+        :disabled="consultando"
+        :error="errors.tipo"
+      />
 
-      <div class="field">
-        <label>CONSUMIBLE</label>
-        <input v-model="form.consumible" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="CONSUMIBLE"
+        v-model="form.consumible"
+        :disabled="consultando"
+        :error="errors.consumible"
+      />
 
-      <div class="field">
-        <label>MODELO DE CONSUMIBLE</label>
-        <input v-model="form.modelo_consumible" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="MODELO DE CONSUMIBLE"
+        v-model="form.modelo_consumible"
+        :disabled="consultando"
+        :error="errors.modelo_consumible"
+      />
 
-      <div class="field">
-        <label>IP / NOMBRE</label>
-        <input v-model="form.ip_nombre" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="IP / NOMBRE"
+        v-model="form.ip_nombre"
+        :disabled="consultando"
+        :error="errors.ip_nombre"
+      />
 
-      <div class="field">
-        <label>USUARIO</label>
-        <input v-model="form.usuario" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="USUARIO"
+        v-model="form.usuario"
+        :disabled="consultando"
+        :error="errors.usuario"
+      />
 
-      <div class="field">
-        <label>PIN</label>
-        <input v-model="form.pin" :disabled="consultando" />
-      </div>
+      <BaseInput
+        label="PIN"
+        v-model="form.pin"
+        :disabled="consultando"
+        :error="errors.pin"
+      />
 
     </div>
 
+    <!-- ======================================
+         BOTONES
+    ======================================= -->
+
     <div class="actions">
-      <button v-if="!consultando" class="btn btn-save" @click="save"> Guardar </button>
-      <button class="btn btn-cancel" @click="cancel">Cancelar</button>
+
+      <button
+        v-if="!consultando"
+        class="btn btn-save"
+        @click="save"
+      >
+        Guardar
+      </button>
+
+      <button
+        class="btn btn-cancel"
+        @click="cancel"
+      >
+        Cancelar
+      </button>
+
     </div>
 
   </div>
 </template>
 
-
 <script>
+import BaseInput from "./BaseInput.vue";
+
 export default {
-  props:[
-      "editData",
-      "consultando"
-  ],
+
+  components: {
+    BaseInput
+  },
+
+  props: {
+
+    editData: {
+      type: Object,
+      default: null
+    },
+
+    consultando: {
+      type: Boolean,
+      default: false
+    }
+
+  },
 
   data() {
+
     return {
-      form: this.getEmptyForm()
+
+      form: this.getEmptyForm(),
+
+      errors: {}
+
     };
+
   },
 
   watch: {
+
     editData: {
+
       immediate: true,
-      handler(val) {
-        if (val) {
-          this.form = { ...val };
-        } else {
-          this.form = this.getEmptyForm();
+
+      handler(value) {
+
+        if (value) {
+
+          this.form = { ...value };
+
         }
+
+        else {
+
+          this.form = this.getEmptyForm();
+
+        }
+
+        this.errors = {};
+
       }
+
     }
+
   },
 
   methods: {
+
+    // ======================================
+    // FORMULARIO VACÍO
+    // ======================================
+
     getEmptyForm() {
+
       return {
+
+        id: null,
+
         ubicacion: "",
         marca: "",
         modelo: "",
@@ -127,24 +232,118 @@ export default {
         modelo_consumible: "",
         ip_nombre: "",
         usuario: "",
-        pin: "",
+        pin: ""
+
       };
+
     },
 
-    save() {
-      this.$emit("saved", this.form);
+    // ======================================
+    // VALIDACIÓN
+    // ======================================
+
+    validateForm() {
+
+      this.errors = {};
+
+      const requiredFields = {
+
+        ubicacion: "UBICACIÓN",
+        marca: "MARCA",
+        modelo: "MODELO",
+        no_serie: "NO. DE SERIE",
+        mac: "MAC",
+        conexion: "CONEXIÓN",
+        tipo: "TIPO",
+        consumible: "CONSUMIBLE",
+        modelo_consumible: "MODELO DE CONSUMIBLE",
+        ip_nombre: "IP / NOMBRE",
+        usuario: "USUARIO",
+        pin: "PIN"
+
+      };
+
+      for (const key in requiredFields) {
+
+        const value = this.form[key];
+
+        if (
+
+          value === null ||
+          value === undefined ||
+          String(value).trim() === ""
+
+        ) {
+
+          this.errors[key] = "Campo obligatorio";
+
+        }
+
+      }
+
+      return Object.keys(this.errors).length === 0;
+
+    },
+
+    // ======================================
+    // NORMALIZAR DATOS
+    // ======================================
+
+    normalizeData(data) {
+
+      Object.keys(data).forEach(key => {
+
+        if (typeof data[key] === "string") {
+
+          data[key] = data[key]
+            .trim()
+            .toUpperCase();
+
+        }
+
+      });
+
+      return data;
+
+    },
+
+    // ======================================
+    // GUARDAR
+    // ======================================
+
+    async save() {
+
+      if (!this.validateForm()) return;
+
+      const data = this.normalizeData({
+
+        ...this.form
+
+      });
+
+      this.errors = {};
+
+      this.$emit("saved", data);
+
       this.form = this.getEmptyForm();
+
     },
 
-    cancel(){
-        this.form=this.getEmptyForm();
-        this.$emit("cancel");
+    // ======================================
+    // CANCELAR
+    // ======================================
+
+    cancel() {
+
+      this.errors = {};
+
+      this.form = this.getEmptyForm();
+
+      this.$emit("cancel");
+
     }
+
   }
+
 };
 </script>
-
-<style scoped>
-@import "../assets/styles/forms.css";
-@import "../assets/styles/buttons.css";
-</style>

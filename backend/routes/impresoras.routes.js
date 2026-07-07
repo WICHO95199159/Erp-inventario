@@ -3,16 +3,28 @@ import * as controller from "../controllers/impresoras.controller.js";
 
 const router = express.Router();
 
-// 🔍 GET
+/* ======================================
+   GET
+====================================== */
+
 router.get("/", controller.getAll);
 
-// ➕ POST
+/* ======================================
+   CREATE
+====================================== */
+
 router.post("/", controller.create);
 
-// ✏️ PUT
+/* ======================================
+   UPDATE
+====================================== */
+
 router.put("/:id", controller.update);
 
-// 🗑️ DELETE
+/* ======================================
+   DELETE
+====================================== */
+
 router.delete("/:id", controller.remove);
 
 export default router;
