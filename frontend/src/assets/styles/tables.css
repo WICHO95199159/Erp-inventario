@@ -68,6 +68,8 @@
 
     font-size:14px;
 
+    text-align: center;
+
 }
 
 /* ======================================
@@ -139,7 +141,7 @@
 
     padding:10px 14px;
 
-    text-align:left;
+    text-align:center;
 
     white-space:nowrap;
 
