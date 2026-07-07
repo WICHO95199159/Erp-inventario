@@ -1,65 +1,95 @@
 import * as Port from "../models/ports.model.js";
 
+/* ======================================
+   GET
+====================================== */
+
 export const getAll = (req, res) => {
-  Port.getPorts((err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json(result);
-  });
+
+    Port.getPorts((err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
 };
+
+/* ======================================
+   CREATE
+====================================== */
 
 export const create = (req, res) => {
-  const data = { ...req.body };
 
-  // 🔥 NORMALIZAR A MAYÚSCULAS
-  Object.keys(data).forEach(key => {
-    if (typeof data[key] === "string") {
-      data[key] = data[key].toUpperCase().trim();
-    }
-  });
+    const data = { ...req.body };
 
-  // ❌ eliminar campos que no deben insertarse (por seguridad)
-  delete data.id;
-  delete data.created_at;
-  delete data.updated_at;
+    // Campos exclusivos del frontend
+    delete data.cantidad;
 
-  Port.createPort(data, (err, result) => {
-    if (err) {
-      console.log("🔥 ERROR REAL:", err);
-      return res.status(500).json(err);
-    }
+    // Campos automáticos de la BD
+    delete data.id;
+    delete data.created_at;
+    delete data.updated_at;
 
-    res.json({ id: result.insertId });
-  });
+    Port.createPort(data, (err) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro creado"
+        });
+
+    });
+
 };
+
+/* ======================================
+   UPDATE
+====================================== */
 
 export const update = (req, res) => {
-  const data = { ...req.body };
 
-  // 🔥 NORMALIZAR A MAYÚSCULAS
-  Object.keys(data).forEach(key => {
-    if (typeof data[key] === "string") {
-      data[key] = data[key].toUpperCase().trim();
-    }
-  });
+    const data = { ...req.body };
 
-  // ❌ evitar problemas en UPDATE
-  delete data.id;
-  delete data.created_at;
-  delete data.updated_at;
+    delete data.id;
+    delete data.created_at;
+    delete data.updated_at;
 
-  Port.updatePort(req.params.id, data, (err) => {
-    if (err) {
-      console.log("🔥 ERROR SQL:", err);
-      return res.status(500).json(err);
-    }
+    Port.updatePort(req.params.id, data, (err) => {
 
-    res.json({ message: "Actualizado" });
-  });
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro actualizado"
+        });
+
+    });
+
 };
 
+/* ======================================
+   DELETE
+====================================== */
+
 export const remove = (req, res) => {
-  Port.deletePort(req.params.id, (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Eliminado" });
-  });
+
+    Port.deletePort(req.params.id, (err) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json({
+            message: "Registro eliminado"
+        });
+
+    });
+
 };
