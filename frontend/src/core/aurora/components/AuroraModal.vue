@@ -16,62 +16,113 @@
         <div class="aurora-modal">
 
             <!-- ======================================
-                 HEADER
+                 LOGIN
             ======================================= -->
 
-            <h2 class="title">
+            <template v-if="currentState === AURORA_STATES.LOGIN">
 
-                Aurora Core
+                <!-- HEADER -->
 
-            </h2>
+                <h2 class="title">
 
-            <p class="subtitle">
+                    Aurora Core
 
-                ¿Quién eres?
+                </h2>
 
-            </p>
+                <p class="subtitle">
 
-            <!-- ======================================
-                 INPUT
-            ======================================= -->
+                    ¿Quién eres?
 
-            <input
+                </p>
 
-                v-model="answer"
+                <!-- INPUT -->
 
-                class="aurora-input"
+                <input
 
-                type="password"
+                    v-model="answer"
 
-                placeholder="Respuesta..."
+                    class="aurora-input"
 
-            >
+                    type="password"
 
-            <!-- ======================================
-                 BUTTONS
-            ======================================= -->
+                    placeholder="Respuesta..."
 
-            <div class="buttons">
-
-                <button
-                    class="btn-cancel"
-                    @click="cancel"
                 >
 
-                    Cancelar
+                <!-- BUTTONS -->
 
-                </button>
+                <div class="buttons">
 
-                <button
-                    class="btn-send"
-                    @click="send"
-                >
+                    <button
+                        class="btn-cancel"
+                        @click="cancel"
+                    >
 
-                    Enviar
+                        Cancelar
 
-                </button>
+                    </button>
 
-            </div>
+                    <button
+                        class="btn-send"
+                        @click="send"
+                    >
+
+                        Enviar
+
+                    </button>
+
+                </div>
+
+            </template>
+
+            <!-- ======================================
+                 BOOT
+            ======================================= -->
+
+            <template v-else-if="currentState === AURORA_STATES.BOOT">
+
+                <h2 class="title">
+
+                    Aurora Core
+
+                </h2>
+
+                <p class="subtitle">
+
+                    Initializing...
+
+                </p>
+
+                <div class="boot-list">
+
+                    <p
+                        v-for="message in bootMessages"
+                        :key="message"
+                    >
+
+                        ✔ {{ message }}
+
+                    </p>
+
+                </div>
+
+            </template>
+
+            <template v-else-if="currentState === AURORA_STATES.TERMINAL">
+
+                <h2 class="title">
+
+                    Aurora Core
+
+                </h2>
+
+                <div class="terminal">
+
+                    >
+
+                </div>
+
+            </template>
 
         </div>
 
@@ -83,12 +134,31 @@
 
 import { ref } from "vue";
 import { useAuroraCore } from "../composables/useAuroraCore";
+import { AURORA_STATES } from "../states/auroraStates";
 
 export default {
 
     setup() {
 
         const answer = ref("");
+
+        const currentState = ref(AURORA_STATES.LOGIN);
+
+        const bootMessages = ref([]);
+
+        const bootSequence = [
+
+            "Loading Inventory Module",
+
+            "Loading Network Module",
+
+            "Loading Workspace Module",
+
+            "Loading Security Module",
+
+            "Starting Aurora Kernel..."
+
+        ];
 
         const AURORA_KEY = "Aurora";
 
@@ -114,7 +184,9 @@ export default {
 
                 answer.value = "";
 
-                closeModal();
+                currentState.value = AURORA_STATES.BOOT;
+
+                startBoot();
 
                 return;
 
@@ -134,6 +206,24 @@ export default {
 
         }
 
+        async function startBoot() {
+
+            bootMessages.value = [];
+
+            for (const message of bootSequence) {
+
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                bootMessages.value.push(message);
+
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            currentState.value = AURORA_STATES.TERMINAL;
+
+        }
+
         return {
 
             answer,
@@ -144,7 +234,13 @@ export default {
 
             send,
 
-            cancel
+            cancel,
+
+            currentState,
+
+            AURORA_STATES,
+
+            bootMessages,
 
         };
 
@@ -281,6 +377,48 @@ export default {
     padding:10px 18px;
 
     cursor:pointer;
+
+}
+
+/* ======================================
+   BOOT
+====================================== */
+
+.boot-list{
+
+    margin-top:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    font-family:Consolas, monospace;
+
+    color:#22c55e;
+
+}
+
+/* ======================================
+   TERMINAL
+====================================== */
+
+.terminal{
+
+    margin-top:30px;
+
+    background:#000;
+
+    border-radius:6px;
+
+    padding:18px;
+
+    min-height:180px;
+
+    color:#22c55e;
+
+    font-family:Consolas, monospace;
 
 }
 
