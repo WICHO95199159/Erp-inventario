@@ -118,7 +118,32 @@
 
                 <div class="terminal">
 
+                    <div
+                        v-for="(line, index) in terminalHistory"
+                        :key="index"
                     >
+
+                        {{ line }}
+
+                    </div>
+
+                    <div class="terminal-input">
+
+                        <span>></span>
+
+                        <input
+
+                            v-model="terminalInput"
+
+                            class="command-input"
+
+                            @keyup.enter="executeCommand"
+
+                            autofocus
+
+                        >
+
+                    </div>
 
                 </div>
 
@@ -135,12 +160,16 @@
 import { ref } from "vue";
 import { useAuroraCore } from "../composables/useAuroraCore";
 import { AURORA_STATES } from "../states/auroraStates";
+import { terminalHistory } from "../terminal/history";
+import { dispatchCommand } from "../services/commandDispatcher";
 
 export default {
 
     setup() {
 
         const answer = ref("");
+
+        const terminalInput = ref("");
 
         const currentState = ref(AURORA_STATES.LOGIN);
 
@@ -224,6 +253,30 @@ export default {
 
         }
 
+        function executeCommand() {
+
+            const command = terminalInput.value.trim();
+
+            if (!command) {
+
+                return;
+
+            }
+
+            terminalHistory.value.push("> " + command);
+
+            const response = dispatchCommand(command);
+
+            response.forEach(line => {
+
+                terminalHistory.value.push(line);
+
+            });
+
+            terminalInput.value = "";
+
+        }
+
         return {
 
             answer,
@@ -241,6 +294,12 @@ export default {
             AURORA_STATES,
 
             bootMessages,
+
+            terminalHistory,
+
+            terminalInput,
+
+            executeCommand,
 
         };
 
@@ -419,6 +478,38 @@ export default {
     color:#22c55e;
 
     font-family:Consolas, monospace;
+
+}
+
+.terminal-input{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:12px;
+
+    color:#22c55e;
+
+}
+
+.command-input{
+
+    flex:1;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:#22c55e;
+
+    font-family:Consolas, monospace;
+
+    font-size:16px;
 
 }
 
