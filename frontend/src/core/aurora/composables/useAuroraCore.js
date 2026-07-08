@@ -6,6 +6,9 @@ import { ref } from "vue";
 
 const clickCount = ref(0);
 
+// Estado del modal Aurora
+const showModal = ref(false);
+
 let timer = null;
 
 /* ======================================
@@ -28,6 +31,19 @@ export function useAuroraCore() {
         console.log("==================================");
         console.log(`Clicks: ${clickCount.value}`);
 
+        // Si llega a 5 clicks...
+        if (clickCount.value >= 5) {
+
+            showModal.value = true;
+
+            clickCount.value = 0;
+
+            console.log("Aurora Core desbloqueado");
+
+            return;
+
+        }
+
         timer = setTimeout(() => {
 
             clickCount.value = 0;
@@ -48,7 +64,9 @@ export function useAuroraCore() {
 
         registerClick,
 
-        clickCount
+        clickCount,
+
+        showModal
 
     };
 
