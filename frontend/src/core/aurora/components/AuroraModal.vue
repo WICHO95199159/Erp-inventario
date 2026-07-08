@@ -90,6 +90,8 @@ export default {
 
         const answer = ref("");
 
+        const AURORA_KEY = "Aurora";
+
         const {
 
             showModal,
@@ -105,11 +107,22 @@ export default {
             console.log("==================================");
             console.log("        AURORA CORE");
             console.log("==================================");
-            console.log("Respuesta:", answer.value);
 
-            answer.value = "";
+            if (answer.value.trim() === AURORA_KEY) {
 
-            closeModal();
+                console.log("Aurora Core autorizado");
+
+                answer.value = "";
+
+                closeModal();
+
+                return;
+
+            }
+
+            console.log("Respuesta incorrecta");
+
+            cancel();
 
         }
 
