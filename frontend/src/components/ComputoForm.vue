@@ -151,6 +151,7 @@
 
       <BaseInput
         label="SISTEMA OPERATIVO"
+        type="number"
         v-model="form.sistema_operativo"
         :disabled="consultando"
         :error="errors.sistema_operativo"
