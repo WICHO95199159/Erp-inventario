@@ -60,9 +60,17 @@ export function useAuroraCore() {
 
     }
 
+    function closeModal() {
+
+        showModal.value = false;
+
+    }
+
     return {
 
         registerClick,
+
+        closeModal,
 
         clickCount,
 
