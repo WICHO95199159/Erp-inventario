@@ -1,51 +1,13 @@
 <template>
 
-    <!-- ======================================
-         OVERLAY
-    ======================================= -->
-
     <div
         v-if="showModal"
         class="aurora-overlay"
     >
 
-        <!-- ======================================
-             MODAL
-        ======================================= -->
+        <div class="aurora-box">
 
-        <div class="aurora-modal">
-
-            <h2>
-
-                ¿Quién eres?
-
-            </h2>
-
-            <input
-                v-model="answer"
-                placeholder="Respuesta..."
-            >
-
-            <div class="buttons">
-
-                <button
-                    class="btn-send"
-                >
-
-                    Enviar
-
-                </button>
-
-                <button
-                    class="btn-cancel"
-                    @click="closeModal"
-                >
-
-                    Cancelar
-
-                </button>
-
-            </div>
+            AURORA CORE ACTIVADO
 
         </div>
 
@@ -53,23 +15,35 @@
 
 </template>
 
-<script setup>
+<script>
 
-import { ref } from "vue";
+import { useAuroraCore } from "../composables/useAuroraCore";
 
-const answer = ref("");
+export default {
 
-const showModal = false;
+    setup() {
 
-function closeModal() {}
+    const {
+
+        showModal
+
+    } = useAuroraCore();
+
+    console.log("AuroraModal montado");
+
+    return {
+
+        showModal
+
+    };
+
+}
+
+};
 
 </script>
 
 <style scoped>
-
-/* ======================================
-   OVERLAY
-====================================== */
 
 .aurora-overlay{
 
@@ -77,85 +51,31 @@ function closeModal() {}
 
     inset:0;
 
-    background:rgba(0,0,0,.75);
-
     display:flex;
 
     justify-content:center;
 
     align-items:center;
 
+    background:rgba(0,0,0,.70);
+
     z-index:99999;
 
 }
 
-/* ======================================
-   MODAL
-====================================== */
+.aurora-box{
 
-.aurora-modal{
+    background:#991b1b;
 
-    width:380px;
+    color:white;
 
-    background:#0f172a;
+    font-size:36px;
 
-    border:1px solid #334155;
+    font-weight:bold;
+
+    padding:40px;
 
     border-radius:12px;
-
-    padding:30px;
-
-    color:white;
-
-}
-
-/* ======================================
-   INPUT
-====================================== */
-
-input{
-
-    width:100%;
-
-    margin-top:20px;
-
-    padding:12px;
-
-    background:#020617;
-
-    color:white;
-
-    border:1px solid #475569;
-
-    border-radius:6px;
-
-}
-
-/* ======================================
-   BOTONES
-====================================== */
-
-.buttons{
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:10px;
-
-    margin-top:20px;
-
-}
-
-.btn-send{
-
-    padding:10px 20px;
-
-}
-
-.btn-cancel{
-
-    padding:10px 20px;
 
 }
 
