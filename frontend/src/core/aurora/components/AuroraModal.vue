@@ -25,7 +25,7 @@
 
                 <h2 class="title">
 
-                    Aurora Core
+                    Secret Core
 
                 </h2>
 
