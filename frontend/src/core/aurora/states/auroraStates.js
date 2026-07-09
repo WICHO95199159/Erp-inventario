@@ -8,8 +8,8 @@ export const AURORA_STATES = {
 
     BOOT: "boot",
 
-    TERMINAL: "terminal",
+    MATRIX: "matrix",
 
-    MATRIX: "matrix"
+    TERMINAL: "terminal",
 
 };

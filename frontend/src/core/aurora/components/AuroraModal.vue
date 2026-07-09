@@ -23,7 +23,7 @@
 
                 <!-- HEADER -->
 
-                <h2 class="title">
+                <h2 class="title-login">
 
                     Secret Core
 
@@ -100,11 +100,17 @@
                         :key="message"
                     >
 
-                        ✔ {{ message }}
+                        {{ message }}
 
                     </p>
 
                 </div>
+
+            </template>
+
+            <template v-else-if="currentState === AURORA_STATES.MATRIX">
+
+                <MatrixScreen />
 
             </template>
 
@@ -163,7 +169,15 @@ import { AURORA_STATES } from "../states/auroraStates";
 import { terminalHistory } from "../terminal/history";
 import { dispatchCommand } from "../services/commandDispatcher";
 
+import MatrixScreen from "./MatrixScreen.vue";
+
 export default {
+
+    components: {
+
+        MatrixScreen
+
+    },
 
     setup() {
 
@@ -185,7 +199,21 @@ export default {
 
             "Loading Security Module",
 
-            "Starting Aurora Kernel..."
+            "Loading Aurora Kernel...",
+
+            ".........................",
+
+            "Please wait..............",
+
+            "Load completed..........",
+
+            "Login Success............",
+
+            "Starting Aurora Kernel...",
+
+            "Welcome..................",
+
+            "Again....................."
 
         ];
 
@@ -241,18 +269,21 @@ export default {
 
             for (const message of bootSequence) {
 
-                await new Promise(resolve => setTimeout(resolve, 500));
+                await new Promise(resolve => setTimeout(resolve, 800));
 
                 bootMessages.value.push(message);
 
             }
 
+            // Espera un momento para que se lean los últimos mensajes
             await new Promise(resolve => setTimeout(resolve, 800));
 
-            currentState.value = AURORA_STATES.TERMINAL;
+            // Ahora sí pasa a Matrix
+            currentState.value = AURORA_STATES.MATRIX;
+
+            startMatrix();
 
         }
-
         function executeCommand() {
 
             const command = terminalInput.value.trim();
@@ -274,6 +305,14 @@ export default {
             });
 
             terminalInput.value = "";
+
+        }
+
+        async function startMatrix() {
+
+            await new Promise(resolve => setTimeout(resolve, 3500));
+
+            currentState.value = AURORA_STATES.TERMINAL;
 
         }
 
@@ -339,9 +378,13 @@ export default {
 
 .aurora-modal{
 
-    width:420px;
+    width:80%;
 
-    background:#020617;
+    height: 80%;
+
+    /* background:#020617; */
+
+    background-image: url("../utils/img/login.jpg");
 
     border:1px solid #334155;
 
@@ -359,6 +402,20 @@ export default {
    HEADER
 ====================================== */
 
+.title-login{
+
+    margin:0;
+
+    margin-top: 50px;
+
+    font-size:26px;
+
+    text-align:center;
+
+    color:#a855f7;
+
+}
+
 .title{
 
     margin:0;
@@ -366,6 +423,8 @@ export default {
     font-size:26px;
 
     text-align:center;
+
+    color:#a855f7;
 
 }
 
@@ -385,7 +444,7 @@ export default {
 
 .aurora-input{
 
-    width:100%;
+    width:50%;
 
     padding:12px;
 
@@ -398,6 +457,8 @@ export default {
     color:white;
 
     outline:none;
+
+    margin-left: 25%;
 
 }
 
@@ -421,6 +482,8 @@ export default {
 
     margin-top:24px;
 
+    margin-right: 620px;
+
 }
 
 .btn-send{
@@ -429,6 +492,12 @@ export default {
 
     cursor:pointer;
 
+    height: 49px;
+
+    width: 105px;
+
+    border-radius: 10px;
+
 }
 
 .btn-cancel{
@@ -436,6 +505,12 @@ export default {
     padding:10px 18px;
 
     cursor:pointer;
+
+    height: 50px;
+
+    width: 100px;
+
+    border-radius: 10px;
 
 }
 
@@ -447,6 +522,14 @@ export default {
 
     margin-top:25px;
 
+    padding:25px;
+
+    background:#0b1120;
+
+    border:1px solid #1e293b;
+
+    border-radius:8px;
+
     display:flex;
 
     flex-direction:column;
@@ -455,7 +538,9 @@ export default {
 
     font-family:Consolas, monospace;
 
-    color:#22c55e;
+    color:#a855f7;
+
+    text-align:left;
 
 }
 
@@ -469,29 +554,19 @@ export default {
 
     background:#000;
 
-    border-radius:6px;
+    border:1px solid #312e81;
+
+    border-radius:8px;
 
     padding:18px;
 
-    min-height:180px;
+    height:60%;
 
-    color:#22c55e;
+    color:#c084fc;
 
     font-family:Consolas, monospace;
 
-}
-
-.terminal-input{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-top:12px;
-
-    color:#22c55e;
+    text-align:left;
 
 }
 
@@ -505,7 +580,25 @@ export default {
 
     outline:none;
 
-    color:#22c55e;
+    color:#c084fc;
+
+    font-family:Consolas, monospace;
+
+    font-size:16px;
+
+}
+
+.command-input{
+
+    flex:1;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:#c084fc;
 
     font-family:Consolas, monospace;
 
