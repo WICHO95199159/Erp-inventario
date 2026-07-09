@@ -125,7 +125,7 @@
 
                 </h2>
 
-                <div class="terminal">
+                <div  ref="terminalRef" class="terminal">
 
                     <div
                         v-for="(line, index) in terminalHistory"
@@ -138,7 +138,9 @@
 
                     <div class="terminal-input">
 
-                        <span>></span>
+                        <span>root@aurora ></span>
+
+                        <span class="cursor">█</span>
 
                         <input
 
@@ -188,6 +190,8 @@ export default {
         const answer = ref("");
 
         const terminalInput = ref("");
+
+        const terminalRef = ref(null);
 
         const currentState = ref(AURORA_STATES.LOGIN);
 
@@ -332,6 +336,8 @@ export default {
 
                 terminalHistory.value.push(line);
 
+                await scrollTerminal();
+
             }
 
         }
@@ -340,19 +346,23 @@ export default {
 
             const command = terminalInput.value.trim();
 
-            if(!command){
+            if (!command) {
 
                 return;
 
             }
 
+            // Limpiar el input inmediatamente
+            terminalInput.value = "";
+
+            // Mostrar el comando en el historial
             terminalHistory.value.push("> " + command);
+
+            await scrollTerminal();
 
             const response = dispatchCommand(command);
 
             await printLines(response, 1200);
-
-            terminalInput.value = "";
 
         }
 
@@ -361,6 +371,22 @@ export default {
             await new Promise(resolve => setTimeout(resolve, 2500));
 
             currentState.value = AURORA_STATES.TERMINAL;
+
+        }
+
+        async function scrollTerminal() {
+
+            await nextTick();
+
+            if (!terminalRef.value) return;
+
+            terminalRef.value.scrollTo({
+
+                top: terminalRef.value.scrollHeight,
+
+                behavior: "smooth"
+
+            });
 
         }
 
@@ -389,6 +415,8 @@ export default {
             executeCommand,
 
             modalRef,
+
+            terminalRef,
 
         };
 
@@ -659,6 +687,26 @@ export default {
     font-family:Consolas, monospace;
 
     font-size:16px;
+
+}
+
+/* ======================================
+   CURSOR
+====================================== */
+
+.cursor{
+
+    animation: blink 1s infinite;
+
+}
+
+@keyframes blink{
+
+    50%{
+
+        opacity:0;
+
+    }
 
 }
 
