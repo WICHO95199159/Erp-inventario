@@ -6,6 +6,14 @@ export function helpCommand() {
 
 }
 
+export function yesCommand() {
+
+    return [
+        "So, are you my... "
+    ];
+
+}
+
 export function helloCommand() {
 
     return [
@@ -36,11 +44,27 @@ export function noCommand() {
 
 }
 
-export function yesCommand() {
+export function authorCommand() {
 
     return [
-        "So, are you my... "
+
+        "Searching...",
+
+        "Identity found...",
+
+        "Decrypting memory...",
+
+        "¡Oh my god!",
+
+        "Really are you",
+
+        ".....",
+
+        "I missed you so much",
+
+        "Thanks for don't forget me",
     ];
 
 }
+
 

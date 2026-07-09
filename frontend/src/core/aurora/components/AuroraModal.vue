@@ -612,6 +612,12 @@ export default {
 
     height:60%;
 
+    overflow-y:auto;
+
+    overflow:auto;
+
+    scroll-behavior:smooth;
+
     color:#c084fc;
 
     font-family:Consolas, monospace;
