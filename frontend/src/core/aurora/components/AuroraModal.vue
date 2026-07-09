@@ -13,7 +13,10 @@
              MODAL
         ======================================= -->
 
-        <div class="aurora-modal">
+        <div
+            ref="modalRef"
+            class="aurora-modal"
+        >
 
             <!-- ======================================
                  LOGIN
@@ -163,13 +166,14 @@
 
 <script>
 
-import { ref } from "vue";
+import { ref, watch, nextTick } from "vue";
 import { useAuroraCore } from "../composables/useAuroraCore";
 import { AURORA_STATES } from "../states/auroraStates";
 import { terminalHistory } from "../terminal/history";
 import { dispatchCommand } from "../services/commandDispatcher";
-
 import MatrixScreen from "./MatrixScreen.vue";
+
+import { shake, fadeOut, wait, fadeIn } from "../utils/animations";
 
 export default {
 
@@ -188,6 +192,8 @@ export default {
         const currentState = ref(AURORA_STATES.LOGIN);
 
         const bootMessages = ref([]);
+
+        const modalRef = ref(null);
 
         const bootSequence = [
 
@@ -226,8 +232,28 @@ export default {
             closeModal
 
         } = useAuroraCore();
+        
+        watch(
 
-        function send() {
+    showModal,
+
+        async (visible) => {
+
+                if (!visible) return;
+
+                await nextTick();
+
+                await fadeIn(
+
+                    modalRef.value
+
+                );
+
+            }
+
+        );
+
+        async function send() {
 
             console.clear();
 
@@ -247,17 +273,26 @@ export default {
 
                 return;
 
-            }
+            }else{
 
-            console.log("Respuesta incorrecta");
+                    await shake(modalRef.value);
+                    await cancel();
 
-            cancel();
+                }
 
         }
 
-        function cancel() {
+        async function cancel(animated = false){
 
             answer.value = "";
+
+            if(animated){
+
+                await wait(900);
+
+            }
+
+            await fadeOut(modalRef.value);
 
             closeModal();
 
@@ -284,11 +319,28 @@ export default {
             startMatrix();
 
         }
-        function executeCommand() {
+
+        async function printLines(lines, delay = 1200) {
+
+            for(const line of lines){
+
+                await new Promise(resolve =>
+
+                    setTimeout(resolve, delay)
+
+                );
+
+                terminalHistory.value.push(line);
+
+            }
+
+        }
+        
+        async function executeCommand() {
 
             const command = terminalInput.value.trim();
 
-            if (!command) {
+            if(!command){
 
                 return;
 
@@ -298,11 +350,7 @@ export default {
 
             const response = dispatchCommand(command);
 
-            response.forEach(line => {
-
-                terminalHistory.value.push(line);
-
-            });
+            await printLines(response, 1200);
 
             terminalInput.value = "";
 
@@ -310,7 +358,7 @@ export default {
 
         async function startMatrix() {
 
-            await new Promise(resolve => setTimeout(resolve, 3500));
+            await new Promise(resolve => setTimeout(resolve, 2500));
 
             currentState.value = AURORA_STATES.TERMINAL;
 
@@ -339,6 +387,8 @@ export default {
             terminalInput,
 
             executeCommand,
+
+            modalRef,
 
         };
 

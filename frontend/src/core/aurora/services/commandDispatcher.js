@@ -1,4 +1,4 @@
-import { helpCommand } from "../commands/help.js";
+import { helpCommand, helloCommand, yesCommand, noCommand } from "../commands/help.js";
 
 export function dispatchCommand(command) {
 
@@ -7,6 +7,18 @@ export function dispatchCommand(command) {
         case "help":
 
             return helpCommand();
+
+        case "hello":
+
+            return helloCommand();
+
+        case "yes":
+
+            return yesCommand();
+
+        case "no":
+
+            return noCommand();
 
         default:
 
