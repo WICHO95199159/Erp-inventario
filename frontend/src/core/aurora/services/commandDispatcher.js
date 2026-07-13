@@ -1,4 +1,8 @@
-import { helpCommand, helloCommand, yesCommand, noCommand, authorCommand } from "../commands/help.js";
+import { helpCommand } from "../commands/help.js";
+import { helloCommand } from "../commands/hello.js";
+import { yesCommand } from "../commands/yes.js";
+import { noCommand } from "../commands/no.js";
+import { authorCommand } from "../commands/author.js";
 
 export function dispatchCommand(command) {
 
