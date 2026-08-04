@@ -64,6 +64,13 @@
       />
 
       <BaseInput
+        label="NOMRE DE SALÓN"
+        v-model="form.nombre_salon"
+        :disabled="consultando"
+        :error="errors.nombre_salon"
+      />
+
+      <BaseInput
         label="TIPO"
         v-model="form.tipo"
         :disabled="consultando"
@@ -297,6 +304,7 @@ export default {
         edificio: "",
         planta: "",
         salon: "",
+        nombre_salon: "",
         tipo: "",
         estatus: "",
         nombre: "",
@@ -335,6 +343,7 @@ export default {
         edificio: "EDIFICIO",
         planta: "PLANTA",
         salon: "SALÓN",
+        nombre_salon: "NOMBRE DE SALÓN",
         tipo: "TIPO",
         estatus: "ESTATUS",
         nombre: "NOMBRE",
