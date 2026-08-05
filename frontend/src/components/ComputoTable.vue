@@ -46,8 +46,8 @@
                             SALÓN
                         </th>
 
-                        <th @click="sort('nombre_salon')">
-                            NOMBRE DE SALÓN
+                        <th @click="sort('nombre_lugar')">
+                            NOMBRE DE LUGAR
                         </th>
 
                         <th @click="sort('tipo')">
@@ -188,7 +188,7 @@
 
                         <td>{{ row.salon }}</td>
 
-                        <td>{{ row.nombre_salon }}</td>
+                        <td>{{ row.nombre_lugar }}</td>
 
                         <td>{{ row.tipo }}</td>
 
