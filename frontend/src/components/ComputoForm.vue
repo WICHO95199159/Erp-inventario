@@ -92,6 +92,20 @@
       />
 
       <BaseInput
+        label="CONGELADO"
+        v-model="form.congelado"
+        :disabled="consultando"
+        :error="errors.congelado"
+      />
+
+      <BaseInput
+        label="DIRECTIVA"
+        v-model="form.directiva"
+        :disabled="consultando"
+        :error="errors.directiva"
+      />
+
+      <BaseInput
         label="MARCA"
         v-model="form.marca"
         :disabled="consultando"
@@ -308,6 +322,8 @@ export default {
         tipo: "",
         estatus: "",
         nombre: "",
+        congelado: "",
+        directiva: "",
         marca: "",
         modelo: "",
         no_serie: "",
@@ -347,6 +363,8 @@ export default {
         tipo: "TIPO",
         estatus: "ESTATUS",
         nombre: "NOMBRE",
+        congelado: "CONGELADO",
+        directiva: "DIRECTIVA",
         marca: "MARCA",
         modelo: "MODELO",
         no_serie: "NO. DE SERIE",
