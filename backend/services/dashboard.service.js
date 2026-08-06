@@ -41,7 +41,11 @@ export const getComputo = async () => {
     "SELECT congelado AS label, COUNT(*) AS total FROM equipos_computo GROUP BY congelado"
   );
 
-  return { edificio, estatus, almacenamiento, so, procesador, congelado };
+  const [marca] = await db.promise().query(
+    "SELECT marca AS label, COUNT(*) AS total FROM equipos_computo GROUP BY marca"
+  );
+
+  return { edificio, estatus, almacenamiento, so, procesador, congelado, marca };
 };
 
 // ===================== IMPRESORAS =====================
