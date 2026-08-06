@@ -6,7 +6,7 @@
 
     <div class="table-wrapper">
 
-        <div class="table-container table-height-md">
+        <div class="table-container table-height-sm">
 
             <!-- ======================================
                  TABLA
@@ -60,6 +60,14 @@
 
                         <th @click="sort('nombre')">
                             NOMBRE
+                        </th>
+
+                        <th @click="sort('congelado')">
+                            CONGELADO
+                        </th>
+
+                        <th @click="sort('directiva')">
+                            DIRECTIVA
                         </th>
 
                         <th @click="sort('marca')">
@@ -195,6 +203,10 @@
                         <td>{{ row.estatus }}</td>
 
                         <td>{{ row.nombre }}</td>
+
+                        <td>{{ row.congelado }}</td>
+
+                        <td>{{ row.directiva }}</td>
 
                         <td>{{ row.marca }}</td>
 
