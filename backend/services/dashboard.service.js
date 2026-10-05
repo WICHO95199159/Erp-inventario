@@ -33,6 +33,10 @@ export const getComputo = async () => {
     "SELECT sistema_operativo AS label, COUNT(*) AS total FROM equipos_computo GROUP BY sistema_operativo"
   );
 
+  const [licencia_so] = await db.promise().query(
+    "SELECT licencia_so AS label, COUNT(*) AS total FROM equipos_computo GROUP BY licencia_so"
+  );
+
   const [procesador] = await db.promise().query(
     "SELECT procesador AS label, COUNT(*) AS total FROM equipos_computo GROUP BY procesador"
   );
@@ -45,7 +49,7 @@ export const getComputo = async () => {
     "SELECT marca AS label, COUNT(*) AS total FROM equipos_computo GROUP BY marca"
   );
 
-  return { edificio, estatus, almacenamiento, so, procesador, congelado, marca };
+  return { edificio, estatus, almacenamiento, so, licencia_so, procesador, congelado, marca };
 };
 
 // ===================== IMPRESORAS =====================

@@ -85,6 +85,13 @@
       />
 
       <BaseInput
+        label="DETALLE DE ESTATUS"
+        v-model="form.detalle_estatus"
+        :disabled="consultando"
+        :error="errors.detalle_estatus"
+      />
+
+      <BaseInput
         label="NOMBRE"
         v-model="form.nombre"
         :disabled="consultando"
@@ -187,9 +194,9 @@
 
       <BaseInput
         label="LICENCIA DEL SO"
-        v-model="form.detalle_so"
+        v-model="form.licencia_so"
         :disabled="consultando"
-        :error="errors.detalle_so"
+        :error="errors.licencia_so"
       />
 
       <BaseInput
@@ -328,6 +335,7 @@ export default {
         nombre_lugar: "",
         tipo: "",
         estatus: "",
+        detalle_estatus: "",
         nombre: "",
         congelado: "",
         directiva: "",
@@ -342,6 +350,7 @@ export default {
         ram: "",
         sistema_operativo: "",
         detalle_so: "",
+        licencia_so: "",
         ip: "",
         rust_id: "",
         fecha_mtto: "",
@@ -369,6 +378,7 @@ export default {
         nombre_lugar: "NOMBRE DE LUGAR",
         tipo: "TIPO",
         estatus: "ESTATUS",
+        detalle_estatus: "DETALLE DE ESTATUS",
         nombre: "NOMBRE",
         congelado: "CONGELADO",
         directiva: "DIRECTIVA",
@@ -383,6 +393,7 @@ export default {
         ram: "RAM",
         sistema_operativo: "SISTEMA OPERATIVO",
         detalle_so: "DETALLE DEL SO",
+        licencia_so: "LICENCIA DEL SO",
         ip: "IP",
         rust_id: "RUST ID",
         fecha_mtto: "MANTENIMIENTO"
