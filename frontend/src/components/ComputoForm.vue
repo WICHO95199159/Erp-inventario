@@ -186,6 +186,13 @@
       />
 
       <BaseInput
+        label="LICENCIA DEL SO"
+        v-model="form.detalle_so"
+        :disabled="consultando"
+        :error="errors.detalle_so"
+      />
+
+      <BaseInput
         label="IP"
         v-model="form.ip"
         :disabled="consultando"
