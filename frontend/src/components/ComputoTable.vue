@@ -58,6 +58,10 @@
                             ESTATUS
                         </th>
 
+                        <th @click="sort('detalle_estatus')">
+                            DETALLE DE ESTATUS
+                        </th>
+
                         <th @click="sort('nombre')">
                             NOMBRE
                         </th>
@@ -112,6 +116,10 @@
 
                         <th @click="sort('detalle_so')">
                             DETALLE DEL SO
+                        </th>
+
+                        <th @click="sort('licencia_so')">
+                            LICENCIA DEL SO
                         </th>
 
                         <th @click="sort('ip')">
@@ -202,6 +210,8 @@
 
                         <td>{{ row.estatus }}</td>
 
+                        <td>{{ row.detalle_estatus }}</td>
+
                         <td>{{ row.nombre }}</td>
 
                         <td>{{ row.congelado }}</td>
@@ -229,6 +239,8 @@
                         <td>{{ row.sistema_operativo }}</td>
 
                         <td>{{ row.detalle_so }}</td>
+
+                        <td>{{ row.licencia_so }}</td>
 
                         <td>{{ row.ip }}</td>
 
